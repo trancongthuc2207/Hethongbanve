@@ -1,0 +1,29 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : Dec 20, 2021, 2:23:12 PM
+    Author     : Admin
+*/
+GridPane{
+    -fx-background-color: lightblue;
+    -fx-padding: 10;
+}
+Label{
+    -fx-font-size: 25px;
+    -fx-text-fill: darkblue;
+}
+Text.title{
+    -fx-font-size: 40px;
+    -fx-font-weight: bold;
+    -fx-fill: red;
+    -fx-stroke-width: 2;
+    -fx-stroke: gold;
+}
+Button.DangNhap{
+    -fx-background-color: darkblue;
+    -fx-text-fill: yellow;
+    -fx-min-width: 200;
+}
