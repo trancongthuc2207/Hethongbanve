@@ -5,4 +5,5 @@ module com.mycompany.hethongbanve {
     
     opens com.mycompany.hethongbanve to javafx.fxml;
     exports com.mycompany.hethongbanve;
+    exports pojo;
 }
