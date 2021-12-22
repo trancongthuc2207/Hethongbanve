@@ -16,14 +16,30 @@ Label{
     -fx-text-fill: darkblue;
 }
 Text.title{
-    -fx-font-size: 40px;
+    -fx-font-size: 50px;
     -fx-font-weight: bold;
     -fx-fill: red;
     -fx-stroke-width: 2;
     -fx-stroke: gold;
+    -fx-text-valignment: top;
+    -fx-text-halignment: center;
 }
 Button.DangNhap{
     -fx-background-color: darkblue;
     -fx-text-fill: yellow;
     -fx-min-width: 200;
+}
+
+Label.lblChucnang{
+    -fx-font-size: 21px;
+    -fx-text-fill: black;
+    -fx-content-display: center;
+    -fx-max-width: 190;
+    -fx-padding: 15;
+}
+
+TextField.keyKH{
+    -fx-max-width: 360;
+    -fx-padding: 10;
+    -fx-margin: 10,10,10,10;
 }

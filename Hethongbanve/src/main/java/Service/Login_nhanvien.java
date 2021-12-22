@@ -12,6 +12,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+import pojo.nhanvien;
 import pojo.nhanvien_taikhoan;
 
 /**
@@ -19,21 +20,15 @@ import pojo.nhanvien_taikhoan;
  * @author Admin
  */
 public class Login_nhanvien {
-    public List<String> getAccountString() throws SQLException {
-        
+    
+    public List<nhanvien> getNhanvien() throws SQLException {
         Connection conn = jdbcUtils.getConn();
-        
         Statement stm = conn.createStatement();
-        ResultSet rs = stm.executeQuery("Select * from nhanvien_taikhoan");
-        List<String> result = new ArrayList<>();
+        ResultSet rs = stm.executeQuery("Select * from nhanvien");
+        List<nhanvien> result = new ArrayList<>();
         while(rs.next()){
-            String tk_mk = rs.getString("Taikhoan") + rs.getString("Matkhau");
-            result.add(tk_mk);
-        }
-        List<nhanvien_taikhoan> NV = new ArrayList<>();
-        while(rs.next()){
-            nhanvien_taikhoan acc = new nhanvien_taikhoan(rs.getInt("MaNV"),rs.getString("Taikhoan"),rs.getString("Taikhoan"),rs.getInt("Chucvu"));
-            NV.add(acc);
+            nhanvien nv = new nhanvien(rs.getInt("MaNV"), rs.getString("TenNV"),rs.getString("CMND"),rs.getString("SDT"));
+            result.add(nv);
         }
         return result;
     }
