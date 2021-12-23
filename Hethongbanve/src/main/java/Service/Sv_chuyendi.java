@@ -1,0 +1,38 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package Service;
+
+import config.jdbcUtils;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
+import pojo.chuyendi;
+
+/**
+ *
+ * @author Admin
+ */
+public class Sv_chuyendi {
+    
+    public List<chuyendi> getChuyendi() throws SQLException{
+        List<chuyendi> dscd = new ArrayList<>();
+        Connection conn = jdbcUtils.getConn();
+        
+        Statement stm = conn.createStatement();
+        String sql = "Select * from chuyendi";
+        ResultSet rs = stm.executeQuery(sql);
+        
+        while(rs.next()){
+            chuyendi cd = new chuyendi(rs.getInt("MaChuyen"), rs.getString("TenChuyen"), rs.getDouble("Gia"), rs.getTimestamp("ThoiGianBatDau"), rs.getTimestamp("ThoiGianKetThuc"));
+            dscd.add(cd);
+        }
+        return dscd;
+    }
+    
+}

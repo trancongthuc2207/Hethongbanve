@@ -24,22 +24,22 @@ DROP TABLE IF EXISTS `xe_ghe`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `xe_ghe` (
   `MaXE` int NOT NULL,
-  `1` int DEFAULT NULL,
-  `2` int DEFAULT NULL,
-  `3` int DEFAULT NULL,
-  `4` int DEFAULT NULL,
-  `5` int DEFAULT NULL,
-  `6` int DEFAULT NULL,
-  `7` int DEFAULT NULL,
-  `8` int DEFAULT NULL,
-  `9` int DEFAULT NULL,
-  `10` int DEFAULT NULL,
-  `11` int DEFAULT NULL,
-  `12` int DEFAULT NULL,
-  `13` int DEFAULT NULL,
-  `14` int DEFAULT NULL,
-  `15` int DEFAULT NULL,
-  `16` int DEFAULT NULL,
+  `g1` int DEFAULT NULL,
+  `g2` int DEFAULT NULL,
+  `g3` int DEFAULT NULL,
+  `g4` int DEFAULT NULL,
+  `g5` int DEFAULT NULL,
+  `g6` int DEFAULT NULL,
+  `g7` int DEFAULT NULL,
+  `g8` int DEFAULT NULL,
+  `g9` int DEFAULT NULL,
+  `g10` int DEFAULT NULL,
+  `g11` int DEFAULT NULL,
+  `g12` int DEFAULT NULL,
+  `g13` int DEFAULT NULL,
+  `g14` int DEFAULT NULL,
+  `g15` int DEFAULT NULL,
+  `g16` int DEFAULT NULL,
   KEY `MaXE_idx` (`MaXE`),
   CONSTRAINT `MaXE_Ghe` FOREIGN KEY (`MaXE`) REFERENCES `xe` (`MaXE`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
@@ -64,4 +64,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-12-21 18:11:33
+-- Dump completed on 2021-12-23 19:14:22

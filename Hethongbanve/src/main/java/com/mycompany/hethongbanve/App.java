@@ -19,6 +19,7 @@ public class App extends Application {
     public void start(Stage stage) throws IOException {
         scene = new Scene(loadFXML("Login"), 1251, 742);
         stage.setScene(scene);
+        stage.setTitle("GIAO DIỆN ĐĂNG NHẬP");
         stage.show();
     }
     

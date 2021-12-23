@@ -26,6 +26,8 @@ CREATE TABLE `chuyendi` (
   `MaChuyen` int NOT NULL,
   `TenChuyen` varchar(45) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
   `Gia` double DEFAULT NULL,
+  `ThoiGianBatDau` timestamp NULL DEFAULT NULL,
+  `ThoiGianKetThuc` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`MaChuyen`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -36,7 +38,7 @@ CREATE TABLE `chuyendi` (
 
 LOCK TABLES `chuyendi` WRITE;
 /*!40000 ALTER TABLE `chuyendi` DISABLE KEYS */;
-INSERT INTO `chuyendi` VALUES (1,'Tây Ninh - Thành Ph? HCM',120000),(2,'An Giang - Thành Ph? HCM',150000),(3,'Thành Ph? HCM - Cà Mau',200000);
+INSERT INTO `chuyendi` VALUES (1,'Tây Ninh - Thành Ph? HCM',120000,NULL,NULL),(2,'An Giang - Thành Ph? HCM',150000,NULL,NULL),(3,'Thành Ph? HCM - Cà Mau',200000,NULL,NULL),(4,'qưeqưe',200000,'2021-12-22 06:40:00',NULL);
 /*!40000 ALTER TABLE `chuyendi` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -49,4 +51,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-12-21 18:11:32
+-- Dump completed on 2021-12-23 19:14:22

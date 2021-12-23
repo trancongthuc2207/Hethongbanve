@@ -34,8 +34,8 @@
       <Label styleClass="lblChucnang" text="SĐT:" GridPane.rowIndex="2" />
       <Label styleClass="lblChucnang" text="CMND:" GridPane.columnIndex="2" GridPane.rowIndex="1" />
       <Label styleClass="lblChucnang" text="Chức vụ:" GridPane.columnIndex="2" GridPane.rowIndex="2" />
-      <Label text="Tên nhân viên:" GridPane.valignment="TOP" />
-      <TextField fx:id="txtNhanVienTruc" GridPane.valignment="CENTER" />
+      <Label text="Tên nhân viên trực:" GridPane.columnSpan="2" GridPane.valignment="TOP" />
+      <TextField fx:id="txtNhanVienTruc" editable="false" GridPane.valignment="CENTER" />
       <TextField fx:id="txtTenKH" styleClass="keyKH" GridPane.columnIndex="1" GridPane.rowIndex="1">
          <GridPane.margin>
             <Insets bottom="10.0" left="20.0" right="10.0" top="10.0" />
@@ -68,7 +68,7 @@
           <RowConstraints minHeight="30.0" prefHeight="30.0" valignment="CENTER" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <Button maxWidth="125.0" minHeight="30.0" mnemonicParsing="false" text="Thêm nhân viên" GridPane.halignment="CENTER" GridPane.rowIndex="1">
+            <Button maxWidth="125.0" minHeight="30.0" mnemonicParsing="false" onAction="#ChucNangQuanTriButton" text="Chức năng quản trị" GridPane.halignment="CENTER" GridPane.rowIndex="1">
                <GridPane.margin>
                   <Insets bottom="10.0" left="20.0" right="10.0" top="10.0" />
                </GridPane.margin>
@@ -102,7 +102,7 @@
             </Button>
          </children>
       </GridPane>
-      <TextField GridPane.valignment="BOTTOM" />
+      <TextField fx:id="txtChucVuNhanVienTruc" editable="false" GridPane.valignment="BOTTOM" />
       <Label text="Vé xe:" GridPane.columnIndex="1" GridPane.rowIndex="3" GridPane.valignment="BOTTOM">
          <padding>
             <Insets bottom="10.0" />

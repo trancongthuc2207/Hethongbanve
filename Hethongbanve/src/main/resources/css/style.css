@@ -43,3 +43,33 @@ TextField.keyKH{
     -fx-padding: 10;
     -fx-margin: 10,10,10,10;
 }
+
+GridPane.EditTravel{
+    -fx-background-color: lightsalmon;
+    -fx-padding: 10;
+}
+Label.CNEdit{
+    -fx-font-size: 15px;
+    -fx-margin: 10,10,10,500;
+}
+/*LOGIN*/
+GridPane.GPLogin{
+    -fx-background-image: url("Login_background.jpg");
+}
+Label.LblLogin{
+    -fx-font-size: 40px;
+    -fx-text-fill: #ff3333;
+    -fx-font-weight: 900;
+}
+Text.TextLogin{
+    -fx-font-size: 100px;
+    -fx-font-weight: bold;
+    -fx-fill: red;
+    -fx-stroke-width: 2;
+    -fx-stroke: gold;
+    -fx-text-valignment: top;
+    -fx-text-halignment: center;
+}
+
+
+
