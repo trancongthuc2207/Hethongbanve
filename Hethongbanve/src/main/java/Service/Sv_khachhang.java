@@ -56,4 +56,16 @@ public class Sv_khachhang {
             conn.commit();
         }
     }
+    
+    public khachhang getMaToKH(int maKH) throws SQLException{
+        
+        Connection conn = jdbcUtils.getConn();
+        Statement stm = conn.createStatement();
+        ResultSet rs = stm.executeQuery("Select * from khachhang where MaKH = " + maKH);
+        khachhang kh = new khachhang();
+        while(rs.next()){
+            kh = new khachhang(rs.getInt("MaKH"), rs.getString("TenKH"), rs.getString("CMND"), rs.getString("SDT"));
+        }
+        return kh;
+    }
 }

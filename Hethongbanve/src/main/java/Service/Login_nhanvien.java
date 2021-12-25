@@ -62,6 +62,22 @@ public class Login_nhanvien {
         return tenNV;
     }
     
+    public int MaNhanVienCurrent(String s) throws SQLException{ //s la ten tai khoan
+        int maNV = 0;
+        Connection conn = jdbcUtils.getConn();
+        Statement stm = conn.createStatement();
+        ResultSet rs = stm.executeQuery("Select nv.* from nhanvien_taikhoan tk_nv, nhanvien nv where tk_nv.Taikhoan = "+ "\"" + s + "\" and tk_nv.MaNV = nv.MaNV");
+        List<nhanvien> result = new ArrayList<>();
+        while(rs.next()){
+            nhanvien nvt = new nhanvien(rs.getInt("MaNV"), rs.getString("TenNV"), rs.getString("CMND"), rs.getString("SDT"));
+            result.add(nvt);
+        }
+        if(result.size() == 1){
+            maNV = result.get(0).getMaNV();
+        }
+        return maNV;
+    }
+    
     public int ChucVuNhanVienCurrent(String s) throws SQLException{
         int maCV = 0;
         Connection conn = jdbcUtils.getConn();

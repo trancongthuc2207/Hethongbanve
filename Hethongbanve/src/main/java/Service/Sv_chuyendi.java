@@ -35,4 +35,16 @@ public class Sv_chuyendi {
         return dscd;
     }
     
+    public chuyendi getMaToChuyen(int maCD) throws SQLException{
+        
+        Connection conn = jdbcUtils.getConn();
+        Statement stm = conn.createStatement();
+        ResultSet rs = stm.executeQuery("Select * from chuyendi where MaChuyen = " + maCD);
+        chuyendi cd = new chuyendi();
+        while(rs.next()){
+            cd = new chuyendi(rs.getInt("MaChuyen"), rs.getString("TenChuyen"), rs.getDouble("Gia"), rs.getTimestamp("ThoiGianBatDau"), rs.getTimestamp("ThoiGianKetThuc"));
+        }
+        return cd;
+    }
+    
 }

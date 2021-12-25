@@ -76,7 +76,7 @@
                   <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                </padding>
             </Button>
-            <Button maxWidth="125.0" minHeight="30.0" mnemonicParsing="false" text="Đặt vé" GridPane.columnIndex="1" GridPane.halignment="CENTER">
+            <Button maxWidth="125.0" minHeight="30.0" mnemonicParsing="false" onAction="#ChucNangDatVe" text="Đặt vé" GridPane.columnIndex="1" GridPane.halignment="CENTER">
                <GridPane.margin>
                   <Insets bottom="10.0" left="20.0" right="10.0" top="10.0" />
                </GridPane.margin>

@@ -133,4 +133,19 @@ public class MenuChucNangController implements Initializable {
        else
            Utils.getBox("Bạn không đủ quyền để sử dụng!", Alert.AlertType.WARNING).show();
     }
+    
+    public void ChucNangDatVe(ActionEvent event) throws IOException, SQLException{
+       Login_nhanvien dsnv = new Login_nhanvien();
+
+       if(dsnv.ChucVuNhanVienCurrent(LoginController.tenNVCurrent) == 2 || dsnv.ChucVuNhanVienCurrent(LoginController.tenNVCurrent) == 1){
+            FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("Menu_Datve.fxml"));
+            Scene scene = new Scene(fxmlLoader.load());
+            Stage stage = new Stage();
+            stage.setScene(scene);
+            stage.setTitle("MENU ĐẶT VÉ");
+            stage.show();   
+       }
+       else
+           Utils.getBox("Bạn không đủ quyền để sử dụng!", Alert.AlertType.WARNING).show();
+    }
 }
