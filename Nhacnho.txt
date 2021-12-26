@@ -1,1 +1,1 @@
-Thay đổi acc + password kết nối MySQL trong Project thành acc + password của mình!! 
+Thay đổi acc + password kết nối MySQL (jdbcUtil ) trong Project thành acc + password của mình!! 

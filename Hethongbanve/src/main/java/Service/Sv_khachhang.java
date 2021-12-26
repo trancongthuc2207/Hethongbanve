@@ -58,7 +58,6 @@ public class Sv_khachhang {
     }
     
     public khachhang getMaToKH(int maKH) throws SQLException{
-        
         Connection conn = jdbcUtils.getConn();
         Statement stm = conn.createStatement();
         ResultSet rs = stm.executeQuery("Select * from khachhang where MaKH = " + maKH);

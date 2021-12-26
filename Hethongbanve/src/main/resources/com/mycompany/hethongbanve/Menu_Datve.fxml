@@ -13,7 +13,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="885.0" prefWidth="1244.0" stylesheets="@../../../css/style.css" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8.0.171" fx:controller="com.mycompany.hethongbanve.Menu_DatveController">
+<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="885.0" prefWidth="1244.0" stylesheets="@../../../css/style.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.hethongbanve.Menu_DatveController">
   <columnConstraints>
       <ColumnConstraints hgrow="SOMETIMES" maxWidth="296.0" minWidth="10.0" prefWidth="287.0" />
       <ColumnConstraints hgrow="SOMETIMES" maxWidth="422.0" minWidth="10.0" prefWidth="386.0" />
@@ -124,7 +124,7 @@
             <Insets right="5.0" />
          </GridPane.margin>
       </TextField>
-      <TextField maxWidth="150.0" prefHeight="25.0" prefWidth="152.0" GridPane.halignment="RIGHT" GridPane.rowIndex="4" GridPane.valignment="TOP">
+      <TextField fx:id="txtMaXE" maxWidth="150.0" prefHeight="25.0" prefWidth="152.0" GridPane.halignment="RIGHT" GridPane.rowIndex="4" GridPane.valignment="TOP">
          <GridPane.margin>
             <Insets right="5.0" top="7.0" />
          </GridPane.margin>
@@ -134,17 +134,17 @@
             <Insets left="2.0" top="25.0" />
          </GridPane.margin>
       </Label>
-      <Button mnemonicParsing="false" text="LOAD XE" GridPane.halignment="RIGHT" GridPane.rowIndex="4" GridPane.valignment="TOP">
+      <Button mnemonicParsing="false" onAction="#loadMaToXE" text="LOAD XE" GridPane.halignment="RIGHT" GridPane.rowIndex="4" GridPane.valignment="TOP">
          <GridPane.margin>
             <Insets top="32.0" />
          </GridPane.margin>
       </Button>
-      <TextField maxWidth="200.0" promptText="Ten" GridPane.halignment="LEFT" GridPane.rowIndex="4" GridPane.valignment="TOP">
+      <TextField fx:id="txtTenXe" maxWidth="200.0" promptText="Ten" GridPane.halignment="LEFT" GridPane.rowIndex="4" GridPane.valignment="TOP">
          <GridPane.margin>
             <Insets top="60.0" />
          </GridPane.margin>
       </TextField>
-      <TextField maxWidth="200.0" promptText="Trang thai" GridPane.rowIndex="4">
+      <TextField fx:id="txtTrangthai" maxWidth="200.0" promptText="Trang thai" GridPane.rowIndex="4">
          <GridPane.margin>
             <Insets top="7.0" />
          </GridPane.margin>
@@ -160,7 +160,7 @@
          </GridPane.margin>
       </ComboBox>
       <Label text="Ngày in:" GridPane.rowIndex="5" GridPane.valignment="TOP" />
-      <TextField maxWidth="200.0" GridPane.halignment="RIGHT" GridPane.rowIndex="5" GridPane.valignment="TOP">
+      <TextField fx:id="txtGioIn" maxWidth="200.0" GridPane.halignment="RIGHT" GridPane.rowIndex="5" GridPane.valignment="TOP">
          <GridPane.margin>
             <Insets right="5.0" top="7.0" />
          </GridPane.margin>
@@ -200,7 +200,7 @@
             <Insets left="10.0" />
          </GridPane.margin>
       </TableView>
-      <Button maxWidth="100.0" mnemonicParsing="false" text="ĐẶT VÉ" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="5" />
+      <Button maxWidth="100.0" mnemonicParsing="false" onAction="#datVeButton" text="ĐẶT VÉ" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="5" />
       <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="title" text="MENU ĐẶT VÉ" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.halignment="CENTER" />
    </children>
 </GridPane>

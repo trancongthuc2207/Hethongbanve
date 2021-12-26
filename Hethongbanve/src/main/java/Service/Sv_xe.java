@@ -31,7 +31,7 @@ public class Sv_xe {
         ResultSet rs = stm.executeQuery(sql);
         
         while(rs.next()){
-            xe xe = new xe(rs.getInt("MaXE"), rs.getString("TenXe"), rs.getString("Bienso"), rs.getInt("Trangthai"));
+            xe xe = new xe(rs.getInt("MaXE"), rs.getString("TenXe"), rs.getString("Bienso"), rs.getInt("Trangthai"),rs.getInt("MaChuyen"));
             dsxe.add(xe);
         }
         return dsxe;
@@ -66,5 +66,30 @@ public class Sv_xe {
             }
         }
         return lstGT;
+    }
+    
+    public xe getMaToXE(int maXE,int maCD) throws SQLException{
+        Connection conn = jdbcUtils.getConn();
+        Statement stm = conn.createStatement();
+        ResultSet rs = stm.executeQuery("Select * from xe where MaXE = " + maXE + " and MaChuyen = " + maCD);
+        xe xe = new xe();
+        while(rs.next()){
+           xe = new xe(rs.getInt("MaXE"), rs.getString("TenXe"), rs.getString("Bienso"), rs.getInt("Trangthai"),rs.getInt("MaChuyen"));
+        }
+        return xe;
+    }
+    
+    public List<xe> getXeFromMaCD(int maCD) throws SQLException{
+        List<xe> dsxe = new ArrayList<>();
+        Connection conn = jdbcUtils.getConn();
+        
+        Statement stm = conn.createStatement();
+        ResultSet rs = stm.executeQuery("Select * from xe where MaChuyen = " + maCD);
+        
+        while(rs.next()){
+            xe xe = new xe(rs.getInt("MaXE"), rs.getString("TenXe"), rs.getString("Bienso"), rs.getInt("Trangthai"),rs.getInt("MaChuyen"));
+            dsxe.add(xe);
+        }
+        return dsxe;
     }
 }

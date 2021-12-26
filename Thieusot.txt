@@ -1,2 +1,2 @@
 Cơ sở dữ liệu: thiếu phần kết nối giữa xe và chuyến. -> không thể truy suất được trực tiếp từ 
-chuyến nào có xe nào đi, mà phải thông qua vé là nơi tổng hợp các thông tin.
+chuyến nào có xe nào đi, mà phải thông qua vé là nơi tổng hợp các thông tin. - Đã được giải quyết

@@ -39,7 +39,6 @@ import pojo.nhanvien;
  * @author Admin
  */
 public class MenuChucNangController implements Initializable {
-//    private String tenNV = LoginController.tenNVCurrent;
     private static int SLM = 0;
     @FXML private TableView<chuyendi> tbChuyendi;
     @FXML private TableView<khachhang> tbKhachhang;
@@ -147,5 +146,7 @@ public class MenuChucNangController implements Initializable {
        }
        else
            Utils.getBox("Bạn không đủ quyền để sử dụng!", Alert.AlertType.WARNING).show();
+       
     }
+    
 }

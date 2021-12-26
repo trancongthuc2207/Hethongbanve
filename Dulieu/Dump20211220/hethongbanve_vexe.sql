@@ -24,8 +24,8 @@ DROP TABLE IF EXISTS `vexe`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `vexe` (
   `MaVE` int NOT NULL,
-  `Thoigianbatdau` time NOT NULL,
-  `Soghe` int NOT NULL,
+  `Thoigianbatdau` timestamp NOT NULL,
+  `Soghe` varchar(45) NOT NULL,
   `MaChuyen` int NOT NULL,
   `MaKH` int NOT NULL,
   `MaNV` int NOT NULL,
@@ -61,4 +61,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-12-23 19:14:22
+-- Dump completed on 2021-12-27  1:01:01

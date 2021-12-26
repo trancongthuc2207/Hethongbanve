@@ -14,16 +14,33 @@ public class xe {
     private String TenXe;
     private String Bienso;
     private int Trangthai;          // 1 xa da chay, 0 xe chua chay
+    private int MaChuyen;
+    /**
+     * @return the MaChuyen
+     */
+    public int getMaChuyen() {
+        return MaChuyen;
+    }
+
+    /**
+     * @param MaChuyen the MaChuyen to set
+     */
+    public void setMaChuyen(int MaChuyen) {
+        this.MaChuyen = MaChuyen;
+    }
 
     public xe() {
     }
 
-    public xe(int MaXE, String TenXe, String Bienso, int Trangthai) {
+    public xe(int MaXE, String TenXe, String Bienso, int Trangthai, int MaChuyen) {
         this.MaXE = MaXE;
         this.TenXe = TenXe;
         this.Bienso = Bienso;
         this.Trangthai = Trangthai;
+        this.MaChuyen = MaChuyen;
     }
+
+    
     
     /**
      * @return the MaXE
