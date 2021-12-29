@@ -30,19 +30,36 @@ public class Sv_chuyendi {
     public List<chuyendi> getChuyendi() throws SQLException{
         List<chuyendi> dscd = new ArrayList<>();
         Connection conn = jdbcUtils.getConn();
-        
+
         Statement stm = conn.createStatement();
-        String sql = "Select * from chuyendi";
+        String sql = "SELECT * FROM chuyendi";
         ResultSet rs = stm.executeQuery(sql);
-        
+      
         while(rs.next()){
             chuyendi cd = new chuyendi(rs.getInt("MaChuyen"), rs.getString("TenChuyen"), rs.getDouble("Gia"), rs.getTimestamp("ThoiGianBatDau"), rs.getTimestamp("ThoiGianKetThuc"));
-            MaCDCurrent = rs.getInt("MaChuyen");
             dscd.add(cd);
+            MaCDCurrent = rs.getInt("MaChuyen");
         }
         return dscd;
     }
-    
+
+    public List<chuyendi> getChuyendi(String kw) throws SQLException {
+        List<chuyendi> dscd = new ArrayList<>();
+        Connection conn = jdbcUtils.getConn();
+        String sql = "Select * from chuyendi";
+        if (kw != null && !kw.isEmpty()) {
+            sql += " Where TenChuyen like \'%" + kw +"%\'";
+        }
+        Statement stm = conn.createStatement();
+        ResultSet rs = stm.executeQuery(sql);
+        while (rs.next()) {
+            chuyendi cd = new chuyendi(rs.getInt("MaChuyen"), rs.getString("TenChuyen"), rs.getDouble("Gia"), rs.getTimestamp("ThoiGianBatDau"), rs.getTimestamp("ThoiGianKetThuc"));
+            dscd.add(cd);
+        }            
+        return dscd;
+    }
+
+
     public void themChuyenDi(chuyendi cd) throws SQLException{
         try(Connection conn = jdbcUtils.getConn()){
             conn.setAutoCommit(false);
@@ -58,7 +75,6 @@ public class Sv_chuyendi {
     }
 
     public chuyendi getMaToChuyen(int maCD) throws SQLException{
-        
         Connection conn = jdbcUtils.getConn();
         Statement stm = conn.createStatement();
         ResultSet rs = stm.executeQuery("Select * from chuyendi where MaChuyen = " + maCD);
@@ -69,5 +85,5 @@ public class Sv_chuyendi {
         return cd;
     }
 
-    
+
 }

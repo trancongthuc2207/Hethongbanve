@@ -37,43 +37,53 @@ import pojo.nhanvien;
  * @author Admin
  */
 public class Menu_QuantrivienController implements Initializable {
-    @FXML private TableView<chuyendi> tbChuyendi;
-    @FXML private TableView<nhanvien> tbNhanvien;
+    @FXML private TableView<chuyendi> tbChuyenDi;
+    @FXML private TableView<nhanvien> tbNhanVien;
+    @FXML private TextField txtTimKiem;
     @FXML private TextField txtMaChuyen;
     @FXML private TextField txtTenChuyen;
     @FXML private TextField txtGia;
     @FXML private TextField txtTGBD;
     @FXML private TextField txtTGKT;
-    Sv_chuyendi maTam = new Sv_chuyendi();
+    Sv_chuyendi maCapNhatCD = new Sv_chuyendi();
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        this.initTextField();
+        this.initTextFieldCD();
         this.loadTableViewCD();
         try {
             this.loadTableDataCD();
         } catch (SQLException ex) {
             Logger.getLogger(MenuChucNangController.class.getName()).log(Level.SEVERE, null, ex);
         }
-        //SET VALUE TEXTFIELD MA CHUYEN
-        txtMaChuyen.setText(String.valueOf(maTam.getMaCDCurrent() + 1));
         this.loadTableViewNV();
         try {
             this.loadTableDataNV();
         } catch (SQLException ex) {
             Logger.getLogger(Menu_QuantrivienController.class.getName()).log(Level.SEVERE, null, ex);
         }
+        //TIM KIEM - DANG LAM
+        this.txtTimKiem.textProperty().addListener((evt)-> {
+            try {
+                this.loadTableDataCDKw(this.txtTimKiem.getText());
+            } catch (SQLException ex) {
+                Logger.getLogger(Menu_QuantrivienController.class.getName()).log(Level.SEVERE, null, ex);
+            } 
+        });
+        //SET VALUE TEXTFIELD MA CHUYEN
+        txtMaChuyen.setText(String.valueOf(maCapNhatCD.getMaCDCurrent() + 1));
     }   
 
-    // INIT TEXT FIELD
-    public void initTextField(){
+    // KHOI TAO TEXT FIELD
+    public void initTextFieldCD(){
         txtMaChuyen.setText(null);
         txtTenChuyen.setText(null);
         txtGia.setText(null);
         txtTGBD.setText(null);
         txtTGKT.setText(null);
+        System.
     }
 
     ////////CHUYEN DI
@@ -98,13 +108,55 @@ public class Menu_QuantrivienController implements Initializable {
         colThoiGianKetThuc.setCellValueFactory(new PropertyValueFactory("ThoiGianKetThuc"));
         colThoiGianKetThuc.setPrefWidth(160);
         
-        this.tbChuyendi.getColumns().addAll(colMaCD,colTenCD,colGia,colThoiGianBatDau,colThoiGianKetThuc);
+        this.tbChuyenDi.getColumns().addAll(colMaCD,colTenCD,colGia,colThoiGianBatDau,colThoiGianKetThuc);
     }
     public void loadTableDataCD() throws SQLException{
         Sv_chuyendi listCD = new Sv_chuyendi();
-        this.tbChuyendi.setItems(FXCollections.observableList(listCD.getChuyendi()));
+        this.tbChuyenDi.setItems(FXCollections.observableList(listCD.getChuyendi()));
     }
+    public void loadTableDataCDKw(String kw) throws SQLException{
+        Sv_chuyendi listCD = new Sv_chuyendi();
+        this.tbChuyenDi.setItems(FXCollections.observableList(listCD.getChuyendi(kw)));
+    }
+
+    //THEM CHUYEN DI
+    public void themChuyenDi(ActionEvent Event) throws SQLException{
+        if(this.txtTenChuyen.getText() != null && this.txtGia.getText() != null && this.txtTGBD.getText() != null && this.txtTGKT.getText() != null)
+        {
+            chuyendi cd = new chuyendi(Integer.valueOf(this.txtMaChuyen.getText()), this.txtTenChuyen.getText(), Double.valueOf(this.txtGia.getText()), Timestamp.valueOf(this.txtTGBD.getText()), Timestamp.valueOf(this.txtTGKT.getText()));
+            //System.out.println(cd.getMaChuyen());
+            Sv_chuyendi tcd = new Sv_chuyendi();
+            try {
+                tcd.themChuyenDi(cd);
+                this.loadTableDataCD();
+                //SET VALUE TEXTFIELD MA CHUYEN
+                txtMaChuyen.setText(String.valueOf(maCapNhatCD.getMaCDCurrent() + 1));
+                Utils.getBox("THEM THANH CONG", Alert.AlertType.INFORMATION).show();
+            } catch (SQLException sQLException) {
+                Utils.getBox("THEM THAT BAI", Alert.AlertType.WARNING).show();
+            }
+        }
+        else
+            Utils.getBox("HAY NHAP DAY DU THONG TIN!!!", Alert.AlertType.WARNING).show();
+    }
+
+    //LAM MOI CHUYEN DI
+    public void refreshTextFieldCD(){
+        //SET VALUE TEXTFIELD MA CHUYEN
+        txtMaChuyen.setText(String.valueOf(maCapNhatCD.getMaCDCurrent() + 1));
+        txtTenChuyen.setText(null);
+        txtGia.setText(null);
+        txtTGBD.setText(null);
+        txtTGKT.setText(null);
+        //this.loadTableDataCD();
+    }
+
+    //SUA CHUYEN DI
     
+
+    //XOA CHUYEN DI
+
+
     ///////NHANVIEN
     public void loadTableViewNV(){
         TableColumn colMaNV = new TableColumn("MaNV");
@@ -123,40 +175,10 @@ public class Menu_QuantrivienController implements Initializable {
         colSDT.setCellValueFactory(new PropertyValueFactory("SDT"));
         colSDT.setPrefWidth(160);
         
-        this.tbNhanvien.getColumns().addAll(colMaNV,colTenNV,colCMND,colSDT);
+        this.tbNhanVien.getColumns().addAll(colMaNV,colTenNV,colCMND,colSDT);
     }
     public void loadTableDataNV() throws SQLException{
         Login_nhanvien lnv = new Login_nhanvien();
-        this.tbNhanvien.setItems(FXCollections.observableList(lnv.getNhanvien()));
-    }
-
-    ///////THEM CHUYEN DI
-    public void themChuyenDi(ActionEvent Event) throws SQLException{
-        if(this.txtTenChuyen.getText() != null && this.txtGia.getText() != null && this.txtTGBD.getText() != null && this.txtTGKT.getText() != null)
-        {
-            chuyendi cd = new chuyendi(Integer.valueOf(this.txtMaChuyen.getText()), this.txtTenChuyen.getText(), Double.valueOf(this.txtGia.getText()), Timestamp.valueOf(this.txtTGBD.getText()), Timestamp.valueOf(this.txtTGKT.getText()));
-            System.out.println(cd.getMaChuyen());
-            Sv_chuyendi tcd = new Sv_chuyendi();
-            try {
-                tcd.themChuyenDi(cd);
-                Utils.getBox("THEM THANH CONG", Alert.AlertType.INFORMATION).show();
-                this.loadTableDataCD();
-            } catch (SQLException sQLException) {
-                Utils.getBox("THEM THAT BAI", Alert.AlertType.WARNING).show();
-            }
-        }
-        else
-            Utils.getBox("HAY NHAP DAY DU THONG TIN!!!", Alert.AlertType.WARNING).show();
-    }
-
-    //REFRESH TEXTFIELD
-    public void refreshTextField(){
-        this.loadTableDataCD();
-        //SET VALUE TEXTFIELD MA CHUYEN
-        txtMaChuyen.setText(String.valueOf(maTam.getMaCDCurrent() + 1));
-        txtTenChuyen.setText(null);
-        txtGia.setText(null);
-        txtTGBD.setText(null);
-        txtTGKT.setText(null);
+        this.tbNhanVien.setItems(FXCollections.observableList(lnv.getNhanvien()));
     }
 }

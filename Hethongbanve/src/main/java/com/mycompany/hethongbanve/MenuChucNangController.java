@@ -103,7 +103,6 @@ public class MenuChucNangController implements Initializable {
         {
             System.out.println(SLM+1);
             khachhang kh = new khachhang(SLM+1,this.txtTenKH.getText(), this.txtCMND.getText(), this.txtSDT.getText());
-            
             System.out.println(kh.getMaKH());
             Sv_khachhang nKH = new Sv_khachhang();
             try {
