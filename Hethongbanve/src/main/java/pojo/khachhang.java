@@ -49,8 +49,8 @@ public class khachhang {
     /**
      * @param TenNV the TenNV to set
      */
-    public void setTenKH(String TenNV) {
-        this.TenKH = TenNV;
+    public void setTenKH(String TenKH) {
+        this.TenKH = TenKH;
     }
 
     /**

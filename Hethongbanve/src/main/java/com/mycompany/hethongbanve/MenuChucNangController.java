@@ -146,7 +146,6 @@ public class MenuChucNangController implements Initializable {
        }
        else
            Utils.getBox("Bạn không đủ quyền để sử dụng!", Alert.AlertType.WARNING).show();
-       
     }
     
 }

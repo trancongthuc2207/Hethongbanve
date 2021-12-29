@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Text?>
 
-<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="619.0" prefWidth="1133.0" stylesheets="@../../../css/style.css" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8.0.171" fx:controller="com.mycompany.hethongbanve.Menu_QuantrivienController">
+<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="619.0" prefWidth="1133.0" stylesheets="@../../../css/style.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.hethongbanve.Menu_QuantrivienController">
   <columnConstraints>
       <ColumnConstraints hgrow="SOMETIMES" maxWidth="344.0" minWidth="10.0" prefWidth="225.0" />
     <ColumnConstraints hgrow="SOMETIMES" maxWidth="661.0" minWidth="10.0" prefWidth="630.0" />
@@ -65,11 +65,11 @@
             <RowConstraints maxHeight="52.16" minHeight="10.0" prefHeight="194.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <TextField maxWidth="165.0" GridPane.columnSpan="2" GridPane.halignment="RIGHT" GridPane.rowIndex="4" />
-            <TextField maxWidth="165.0" GridPane.columnSpan="2" GridPane.halignment="RIGHT" GridPane.rowIndex="3" />
-            <TextField maxWidth="165.0" GridPane.columnSpan="2" GridPane.halignment="RIGHT" GridPane.rowIndex="2" />
-            <TextField maxWidth="165.0" GridPane.columnSpan="2" GridPane.halignment="RIGHT" GridPane.rowIndex="1" />
-            <TextField maxWidth="165.0" GridPane.columnSpan="2" GridPane.halignment="RIGHT" />
+            <TextField fx:id="txtTGKT" maxWidth="165.0" GridPane.columnSpan="2" GridPane.halignment="RIGHT" GridPane.rowIndex="4" />
+            <TextField fx:id="txtTGBD" maxWidth="165.0" GridPane.columnSpan="2" GridPane.halignment="RIGHT" GridPane.rowIndex="3" />
+            <TextField fx:id="txtGia" maxWidth="165.0" GridPane.columnSpan="2" GridPane.halignment="RIGHT" GridPane.rowIndex="2" />
+            <TextField fx:id="txtTenChuyen" maxWidth="165.0" GridPane.columnSpan="2" GridPane.halignment="RIGHT" GridPane.rowIndex="1" />
+            <TextField fx:id="txtMaChuyen" maxWidth="165.0" GridPane.columnSpan="2" GridPane.halignment="RIGHT" />
             <Label styleClass="CNEdit" text="Tên chuyến:" GridPane.halignment="LEFT" GridPane.rowIndex="1">
                <GridPane.margin>
                   <Insets left="15.0" />
@@ -95,13 +95,13 @@
                   <Insets left="15.0" />
                </GridPane.margin>
             </Label>
-            <Button maxWidth="70.0" mnemonicParsing="false" text="Làm mới" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="5">
+            <Button maxWidth="70.0" mnemonicParsing="false" onAction="#refreshTextField" text="Làm mới" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="5">
                <GridPane.margin>
                   <Insets />
                </GridPane.margin>
             </Button>
             <Button maxWidth="70.0" mnemonicParsing="false" text="Sửa" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="5" />
-            <Button maxWidth="70.0" mnemonicParsing="false" text="Thêm" GridPane.rowIndex="5" />
+            <Button maxWidth="70.0" mnemonicParsing="false" onAction="#themChuyenDi" text="Thêm" GridPane.rowIndex="5" />
          </children>
       </GridPane>
       <Label text="Thêm &amp; Sửa" GridPane.halignment="CENTER" GridPane.valignment="BOTTOM" />
