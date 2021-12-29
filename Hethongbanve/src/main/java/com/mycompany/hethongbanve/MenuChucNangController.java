@@ -149,4 +149,19 @@ public class MenuChucNangController implements Initializable {
        
     }
     
+    public void ChucNangXuLyVe(ActionEvent event) throws IOException, SQLException{
+       Login_nhanvien dsnv = new Login_nhanvien();
+
+       if(dsnv.ChucVuNhanVienCurrent(LoginController.tenNVCurrent) == 2 || dsnv.ChucVuNhanVienCurrent(LoginController.tenNVCurrent) == 1){
+            FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("Menu_XuLyVe.fxml"));
+            Scene scene = new Scene(fxmlLoader.load());
+            Stage stage = new Stage();
+            stage.setScene(scene);
+            stage.setTitle("MENU XỬ LÝ VÉ");
+            stage.show();   
+       }
+       else
+           Utils.getBox("Bạn không đủ quyền để sử dụng!", Alert.AlertType.WARNING).show();
+    }
+    
 }

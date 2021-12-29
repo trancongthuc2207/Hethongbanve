@@ -7,13 +7,14 @@ package com.mycompany.hethongbanve;
  */
 
 import Service.Login_nhanvien;
+import Service.Sv_CheckOption;
+import Service.Sv_Update_CD_XeGhe;
 import Service.Sv_chuyendi;
 import Service.Sv_khachhang;
 import Service.Sv_vexe;
 import Service.Sv_xe;
 import config.Utils;
 import java.net.URL;
-
 import java.util.Date;
 import java.sql.SQLException;
 import java.sql.Timestamp;
@@ -23,12 +24,14 @@ import java.text.SimpleDateFormat;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.beans.Observable;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
@@ -38,6 +41,7 @@ import pojo.khachhang;
 import pojo.vexe;
 import pojo.xe;
 import pojo.xe_ghe;
+
 
 /**
  * FXML Controller class
@@ -55,6 +59,7 @@ public class Menu_DatveController implements Initializable {
     @FXML private TableView<chuyendi> tbChuyendi;
     @FXML private TableView<khachhang> tbKhachhang;
     @FXML private TableView<xe> tbXe;
+    @FXML private TableView<vexe> tbVeXE;
     ////BANG THONG TIN CHUYEN DI
     @FXML private TextField txtMaCD; 
     @FXML private TextField txtTenCD;
@@ -66,32 +71,54 @@ public class Menu_DatveController implements Initializable {
     ////BANG THONG TIN NHAN VIEN TRUC
     @FXML private TextField txtMaNV;
     @FXML private TextField txtTenNV;
+    @FXML private TextField txtTrangthaiUser;
     ////BANG THONG TIN XE
     @FXML private TextField txtMaXE;
     @FXML private TextField txtTenXe;
     @FXML private TextField txtTrangthai;
     ////BANG THONG TIN NGAY GIO HE THONG
     @FXML private TextField txtGioIn;
-
+    
+    ////// THONG TIN CHI TIET VE HIEN TAI
+    @FXML private Label lblMaVe;
+    @FXML private Label lblTgbt;
+    @FXML private Label lblSoghe;
+    @FXML private Label lblMaChuyen;
+    @FXML private Label lblMaKH;
+    @FXML private Label lblMaNV;
+    @FXML private Label lblMaXE;
+    
+    
+    /////CHECK NHAP
+   private boolean ClickloadCD = false;
+   private boolean ClickloadKH = false;
+   private boolean ClickloadXE = false;
+   private boolean ClickloadGHE = false;
+   
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        /////////Init txtField
-        this.refeshCD();
-        this.refreshKH();
-        this.refreshXE();
-        
+        ////////init Ma~
+        this.txtMaCD.setText(null);
+        this.txtMaKH.setText(null);
+        this.txtMaXE.setText(null);
+        ////////Init Thong tin ve label
+        this.initThongTinLabel();
+        ///Gio in hien tai
         Date dateCur = new Date();
         SimpleDateFormat sdf = new SimpleDateFormat(DATE_FORMAT_NOW);
-        
+        ///DEFAULT
         this.txtGioIn.setText(sdf.format(dateCur));
+        
+        
         /////////TABLE VIEW
         ///CHUYEN DI
         this.loadTableViewCD();
         try {
-            this.loadTableDataCD();
+//            this.loadTableDataCD();
+            this.loadTableDataCDKeyword(null);
         } catch (SQLException ex) {
             Logger.getLogger(MenuChucNangController.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -109,14 +136,18 @@ public class Menu_DatveController implements Initializable {
         } catch (SQLException ex) {
             Logger.getLogger(Menu_DatveController.class.getName()).log(Level.SEVERE, null, ex);
         }
-//        /////////COMBO BOX GHE
-//        Sv_xe gt = new Sv_xe();
-//        try {
-//            // TODO
-//            this.cbXe_ghetrong.setItems(FXCollections.observableList(gt.getGheTrong(Integer.parseInt(txtMaCD.getText()))));
-//        } catch (SQLException ex) {
-//            Logger.getLogger(Menu_DatveController.class.getName()).log(Level.SEVERE, null, ex);
-//        }
+        //VE
+        this.loadTableViewVeXE();
+        try {
+            this.loadTableDataVeXE();
+        } catch (SQLException ex) {
+            Logger.getLogger(Menu_DatveController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        Sv_vexe vx = new Sv_vexe();
+        this.SLMV = vx.getMaVeCurrent() + 1;
+        this.lblMaVe.setText(String.valueOf(SLMV));
+        
+        
         /////////NHAN VIEN TRUC
         Login_nhanvien lg = new Login_nhanvien();
         try {
@@ -129,8 +160,41 @@ public class Menu_DatveController implements Initializable {
         } catch (SQLException ex) {
             Logger.getLogger(Menu_DatveController.class.getName()).log(Level.SEVERE, null, ex);
         }
+        this.lblMaNV.setText(txtMaNV.getText());
+        try {
+            if(lg.ChucVuNhanVienCurrent(LoginController.tenNVCurrent) == 1 || lg.ChucVuNhanVienCurrent(LoginController.tenNVCurrent) == 2)
+                this.txtTrangthaiUser.setText("Bình thường");
+            else
+                this.txtTrangthaiUser.setText("Bị cấm");
+        } catch (SQLException ex) {
+            Logger.getLogger(Menu_DatveController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        ////
+        this.txtTenCD.textProperty().addListener((evt) -> {
+            try {
+                this.loadTableDataCDKeyword(txtTenCD.getText());
+            } catch (SQLException ex) {
+                Logger.getLogger(Menu_DatveController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        });
+        this.txtTenKH.textProperty().addListener((evt) -> {
+            try {
+                this.loadTableDataKHKeyword(this.txtTenKH.getText());
+            } catch (SQLException ex) {
+                Logger.getLogger(Menu_DatveController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        });
+        this.txtTenXe.textProperty().addListener((evt) -> {
+            try {
+                this.loadTableDataXEKeyword(this.txtTenXe.getText());
+            } catch (SQLException ex) {
+                Logger.getLogger(Menu_DatveController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        });
+        
     }  
-    
+    ///////////////LOAD CAC TABLE
     /////////CHUYEN DI
     public void loadTableViewCD(){
         TableColumn colMaCD = new TableColumn("MaChuyen");
@@ -159,6 +223,10 @@ public class Menu_DatveController implements Initializable {
         Sv_chuyendi listCD = new Sv_chuyendi();
         this.tbChuyendi.setItems(FXCollections.observableList(listCD.getChuyendi()));
     }
+    public void loadTableDataCDKeyword(String kw) throws SQLException{
+        Sv_chuyendi listCD = new Sv_chuyendi();
+        this.tbChuyendi.setItems(FXCollections.observableList(listCD.getChuyendi(kw)));
+    }
     ////////KHACH HANG
     public void loadTableViewKH(){
         TableColumn colMaKH = new TableColumn("MaKH");
@@ -182,6 +250,10 @@ public class Menu_DatveController implements Initializable {
     public void loadTableDataKH() throws SQLException{
         Sv_khachhang listkh = new Sv_khachhang();
         this.tbKhachhang.setItems(FXCollections.observableList(listkh.getKhachHang()));
+    }
+    public void loadTableDataKHKeyword(String kw) throws SQLException{
+        Sv_khachhang listkh = new Sv_khachhang();
+        this.tbKhachhang.setItems(FXCollections.observableList(listkh.getKhachhang(kw)));
     }
     ////////XE
     public void loadTableViewXE(){
@@ -211,13 +283,62 @@ public class Menu_DatveController implements Initializable {
         Sv_xe listXe = new Sv_xe();
         this.tbXe.setItems(FXCollections.observableList(listXe.getXe()));
     }
+    public void loadTableDataXEKeyword(String kw) throws SQLException{
+        Sv_xe listXe = new Sv_xe();
+        this.tbXe.setItems(FXCollections.observableList(listXe.getXe(kw)));
+    }
+    ////////VE
+    public void loadTableViewVeXE(){
+        TableColumn colMaVE = new TableColumn("MaVE");
+        colMaVE.setCellValueFactory(new PropertyValueFactory("MaVE"));
+        colMaVE.setPrefWidth(100);
+        
+        TableColumn colThoigianbatdau = new TableColumn("Thoigianbatdau");
+        colThoigianbatdau.setCellValueFactory(new PropertyValueFactory("Thoigianbatdau"));
+        colThoigianbatdau.setPrefWidth(250);
+        
+        TableColumn colSoghe = new TableColumn("Soghe");
+        colSoghe.setCellValueFactory(new PropertyValueFactory("Soghe"));
+        colSoghe.setPrefWidth(160);
+        
+        TableColumn colMaChuyen = new TableColumn("MaChuyen");
+        colMaChuyen.setCellValueFactory(new PropertyValueFactory("MaChuyen"));
+        colMaChuyen.setPrefWidth(160);
+        
+        TableColumn colMaKH = new TableColumn("MaKH");
+        colMaKH.setCellValueFactory(new PropertyValueFactory("MaKH"));
+        colMaKH.setPrefWidth(160);
+        
+        TableColumn colMaNV = new TableColumn("MaNV");
+        colMaNV.setCellValueFactory(new PropertyValueFactory("MaNV"));
+        colMaNV.setPrefWidth(160);
+        
+        TableColumn colMaXE = new TableColumn("MaXE");
+        colMaXE.setCellValueFactory(new PropertyValueFactory("MaXE"));
+        colMaXE.setPrefWidth(160);
+        
+        TableColumn colNgayin = new TableColumn("Ngayin");
+        colNgayin.setCellValueFactory(new PropertyValueFactory("Ngayin"));
+        colNgayin.setPrefWidth(160);
+        
+        TableColumn colTrangthai = new TableColumn("Trangthai");
+        colTrangthai.setCellValueFactory(new PropertyValueFactory("Trangthai"));
+        colTrangthai.setPrefWidth(160);
+        
+        this.tbVeXE.getColumns().addAll(colMaVE,colThoigianbatdau,colSoghe,colMaChuyen,colMaKH,colMaNV,colMaXE,colNgayin,colTrangthai);
+    }
+    public void loadTableDataVeXE() throws SQLException{
+        Sv_vexe listVe = new Sv_vexe();
+        this.tbVeXE.setItems(FXCollections.observableList(listVe.getVeXe()));
+    }
     
-    ////// CAC BUTTON LOAD DU LIEU THONG TIN
+    ////// CAC BUTTON LOAD DU LIEU THONG TIN THEO YEU CAU
     //LOAD BUTTON CHUYEN DI
     public void loadMaToCD(ActionEvent event) throws SQLException{
+        this.ClickloadCD = true;
         Sv_chuyendi loadcd = new Sv_chuyendi();
         chuyendi cd = new chuyendi();
-        if(txtMaCD.getText() != null){
+        if(txtMaCD.getText() != null && txtMaCD.getText() != ""){
             if(Integer.parseInt(txtMaCD.getText()) > 0 && Integer.parseInt(txtMaCD.getText()) <= loadcd.getChuyendi().size()){
                 cd = loadcd.getMaToChuyen(Integer.parseInt(txtMaCD.getText()));
                 if(cd != null){
@@ -227,11 +348,14 @@ public class Menu_DatveController implements Initializable {
                     
                     Sv_xe listXe = new Sv_xe();
                     this.tbXe.setItems(FXCollections.observableList(listXe.getXeFromMaCD(Integer.parseInt(txtMaCD.getText()))));
+                    this.lblMaChuyen.setText(txtMaCD.getText());
+                    this.lblTgbt.setText(txtThoiGianBatDau.getText());
                 }
             }
             else{
                 this.refeshCD();
                 Utils.getBox("SỐ MÃ CHUYẾN KHÔNG HỢP LỆ", Alert.AlertType.WARNING).show();
+                this.ClickloadCD = false;
             }
         }
         else
@@ -239,32 +363,44 @@ public class Menu_DatveController implements Initializable {
     }
     //LOAD BUTTON KHACH HANG
     public void loadMaToKH(ActionEvent event) throws SQLException{
+        this.ClickloadKH = true;
         Sv_khachhang loadKH = new Sv_khachhang();
         khachhang kh = new khachhang();
-        if(txtMaKH.getText() != null){
+        if(txtMaKH.getText() != null && txtMaKH.getText() != ""){
             if(Integer.parseInt(txtMaKH.getText()) > 0 && Integer.parseInt(txtMaKH.getText()) <= loadKH.getKhachHang().size()){
                 kh = loadKH.getMaToKH(Integer.parseInt(txtMaKH.getText()));
                 if(kh != null){
                     txtTenKH.setText(kh.getTenKH());
+                    this.lblMaKH.setText(txtMaKH.getText());
                 }
             }
-            else
+            else{
                 Utils.getBox("SỐ MÃ KHÁCH HÀNG KHÔNG HỢP LỆ", Alert.AlertType.WARNING).show();
+                this.ClickloadKH = false;
+            }
         }
         else
             Utils.getBox("MỜI BẠN NHẬP MÃ KHÁCH HÀNG", Alert.AlertType.WARNING).show();
     }
     //LOAD BUTTON XE
     public void loadMaToXE(ActionEvent event) throws SQLException{
+        this.ClickloadXE = true;
         Sv_xe loadXe = new Sv_xe();
         xe xe = new xe();
-        if(txtMaXE.getText() != null){
+        if(txtMaXE.getText() != null && txtMaXE.getText() != ""){
             if(Integer.parseInt(txtMaXE.getText()) > 0 && Integer.parseInt(txtMaXE.getText()) <= loadXe.getXe().size()){
                 if(txtMaCD.getText() != null){
-                    xe = loadXe.getMaToXE(Integer.parseInt(txtMaXE.getText()),Integer.parseInt(txtMaCD.getText()));
-                    this.cbXe_ghetrong.setItems(FXCollections.observableList(loadXe.getGheTrong(Integer.parseInt(txtMaXE.getText())))); 
+                    xe = loadXe.getMaToXE(Integer.parseInt(txtMaXE.getText()), Integer.parseInt(txtMaCD.getText()));
+                    this.cbXe_ghetrong.setItems(FXCollections.observableList(loadXe.getGheTrong(Integer.parseInt(txtMaXE.getText()))));
+                    try {
+                        this.lblSoghe.setText(cbXe_ghetrong.getValue());
+                        this.ClickloadGHE = true;
+                    } catch (Exception e) {
+                        this.ClickloadGHE = false;
+                    }
                     if(xe.getMaXE() != 0){
                         txtTenXe.setText(xe.getTenXe());
+                        this.lblMaXE.setText(txtMaXE.getText());
                         if(xe.getTrangthai() == 0)
                             txtTrangthai.setText("Xe chưa di chuyển.");
                         else
@@ -275,7 +411,10 @@ public class Menu_DatveController implements Initializable {
                     }
                     else{
                         this.refreshXE();
+                        this.lblSoghe.setText(null);
+                        this.lblMaXE.setText(null);
                         Utils.getBox("KHÔNG CÓ XE PHÙ HỢP VỚI CHUYẾN ĐÃ CHỌN", Alert.AlertType.WARNING).show();
+                        this.ClickloadXE = false;
                     }
                 }
                 else{
@@ -291,49 +430,145 @@ public class Menu_DatveController implements Initializable {
     }
     
     ///////REFRESH
-    public void refeshCD(){
+    public void refeshCD() throws SQLException{
         this.txtMaCD.setText(null);
         this.txtTenCD.setText(null);
         this.txtGia.setText(null);
         this.txtThoiGianBatDau.setText(null);
+        this.lblMaChuyen.setText(null);
+        this.lblTgbt.setText(null);
+        this.loadTableDataCD();
+        this.loadTableDataXE();
     }
-    public void refreshKH(){
+    public void refreshKH() throws SQLException{
         this.txtMaKH.setText(null);
         this.txtTenKH.setText(null);
+        this.lblMaKH.setText(null);
+        this.loadTableDataKH();
     }
-    public void refreshXE(){
+    public void refreshXE() throws SQLException{
         this.txtMaXE.setText(null);
         this.txtTenXe.setText(null);
         this.txtTrangthai.setText(null);
+        this.cbXe_ghetrong.setItems(null);
+        this.lblMaXE.setText(null);
+        this.lblSoghe.setText(null);
+        if(txtMaCD.getText() != null){
+            Sv_xe listXe = new Sv_xe();
+            this.tbXe.setItems(FXCollections.observableList(listXe.getXeFromMaCD(Integer.parseInt(txtMaCD.getText()))));
+        }
+        else
+            this.loadTableDataXE();
     }
-    /////GET VE CURRENT FOR CHECK IN ANOTHER FORM
+    
+    /////XU LY VE CURRENT FOR UPDATE TO DATABASE
     public vexe veCurrent() throws ParseException{
         Sv_vexe vx = new Sv_vexe();
         this.SLMV = vx.getMaVeCurrent();
         if(txtMaCD.getText() != null && txtMaKH.getText() != null && txtMaXE.getText() != null){
-            this.veCur.setMave(SLMV+1);
-            this.veCur.setThoiGianBatDau(Timestamp.valueOf(txtThoiGianBatDau.getText()));
-            this.veCur.setSoghe(this.cbXe_ghetrong.getValue());
+            this.veCur.setMaVE(SLMV+1);
+            this.veCur.setThoigianbatdau(Timestamp.valueOf(txtThoiGianBatDau.getText()));
+            this.veCur.setSoghe(this.cbXe_ghetrong.getValue().substring(0, 3));
             this.veCur.setMaChuyen(Integer.parseInt(txtMaCD.getText()));
             this.veCur.setMaKH(Integer.parseInt(txtMaKH.getText()));
             this.veCur.setMaNV(Integer.parseInt(txtMaNV.getText()));
             this.veCur.setMaXE(Integer.parseInt(txtMaXE.getText()));
-            this.veCur.setNgayin(DateFormat.parse(txtGioIn.getText())); 
-            Utils.getBox("ĐẶT VÉ THÀNH CÔNG", Alert.AlertType.INFORMATION).show();
+            this.veCur.setNgayin(Timestamp.valueOf(txtGioIn.getText()));
+            this.veCur.setTrangthai(1);
         }
         else
             Utils.getBox("CÓ THỂ BẠN CHƯA NHẬP ĐỦ THÔNG TIN CỦA VÉ", Alert.AlertType.WARNING).show();
         return this.veCur;
     }
-    public void datVeButton(ActionEvent event) throws ParseException{
+    public void datVeButton(ActionEvent event) throws ParseException, SQLException{
         vexe vx = this.veCurrent();
-        System.out.println(vx.getMave());
-        System.out.println(vx.getThoiGianBatDau().toString());
-        System.out.println(vx.getSoghe());
-        System.out.println(vx.getMaChuyen());
-        System.out.println(vx.getMaKH());
-        System.out.println(vx.getMaNV());
-        System.out.println(vx.getMaXE());
-        System.out.println(vx.getNgayin().toString());
+        Sv_vexe service = new Sv_vexe();
+        Sv_CheckOption CkOP = new Sv_CheckOption();
+        if(isInputFullOp()){
+            if(CkOP.checkTimeDatVe(vx) == true){
+                System.out.println("ĐÚNG");
+                if(CkOP.checkGheTrung(vx) != true){
+                    System.out.println("ĐÚNG");
+                    service.addVeXe(vx);
+                    Utils.getBox("THÊM VÉ THÀNH CÔNG", Alert.AlertType.INFORMATION).show();
+                    initInputFullOp();
+                    this.loadTableDataVeXE();
+                    this.initThongTinTextField();
+                }
+                else
+                    Utils.getBox("GHẾ ĐÃ TRÙNG", Alert.AlertType.WARNING).show();
+            }
+            else{
+                Utils.getBox("VÉ ĐẶT PHẢI TRƯỚC 1 TIẾNG!!", Alert.AlertType.WARNING).show();
+            }
+        }
+        else
+            Utils.getBox("YÊU CẦU BẠN NHẬP ĐẦY ĐỦ (LOAD ĐỦ THÔNG TIN TRƯỚC KHI NHẤN NÚT ĐẶT VÉ)", Alert.AlertType.WARNING).show();
+    }
+    
+    public void muaVeButton(ActionEvent event) throws ParseException, SQLException{
+        vexe vx = this.veCurrent();
+        vx.setTrangthai(2);
+        Sv_vexe service = new Sv_vexe();
+        Sv_CheckOption CkOP = new Sv_CheckOption();
+        if(isInputFullOp()){
+            if(CkOP.checkTimeMuaVe(vx) == true){
+                System.out.println("ĐÚNG");
+                if(CkOP.checkGheTrung(vx) != true){
+                    System.out.println("ĐÚNG");
+                    service.addMuaVeXe(vx);
+                    Utils.getBox("THÊM VÉ THÀNH CÔNG", Alert.AlertType.INFORMATION).show();
+                    initInputFullOp();
+                    this.loadTableDataVeXE();
+                    this.initThongTinTextField();
+                }
+                else
+                    Utils.getBox("GHẾ ĐÃ TRÙNG", Alert.AlertType.WARNING).show();
+            }
+            else{
+                Utils.getBox("HẾT HẠN MUA VÉ", Alert.AlertType.WARNING).show();
+            }
+        }
+        else
+            Utils.getBox("YÊU CẦU BẠN NHẬP ĐẦY ĐỦ (LOAD ĐỦ THÔNG TIN TRƯỚC KHI NHẤN NÚT ĐẶT VÉ)", Alert.AlertType.WARNING).show();
+    }
+    //////PHAN KHOI TAO FORM
+    public void initThongTinTextField() throws SQLException{
+        this.refeshCD();
+        this.refreshKH();
+        this.refreshXE();
+        //khoi tao lai gio in moi
+        Date dateCur = new Date();
+        SimpleDateFormat sdf = new SimpleDateFormat(DATE_FORMAT_NOW);
+        ///DEFAULT
+        this.txtGioIn.setText(sdf.format(dateCur));
+        //khoi tao lai ve moi
+        this.loadTableDataVeXE();
+        Sv_vexe vx = new Sv_vexe();
+        this.SLMV = vx.getMaVeCurrent() + 1;
+        this.lblMaVe.setText(String.valueOf(SLMV));
+    }
+    public void initThongTinLabel(){
+        this.lblMaVe.setText(null);
+        this.lblTgbt.setText(null);
+        this.lblSoghe.setText(null);
+        this.lblMaChuyen.setText(null);
+        this.lblMaKH.setText(null);
+        this.lblMaNV.setText(null);
+        this.lblMaXE.setText(null);
+    }
+    public boolean isInputFullOp(){
+        if(this.ClickloadCD && this.ClickloadGHE && this.ClickloadKH && this.ClickloadXE)
+            return true;
+        return false;
+    }
+    public void initInputFullOp(){
+        this.ClickloadCD = false;    
+        this.ClickloadGHE = false; 
+        this.ClickloadKH  = false;
+        this.ClickloadXE = false;
+    }
+    public void CbBoxToLabel(ActionEvent evt){
+        this.lblSoghe.setText(this.cbXe_ghetrong.getValue());
     }
 }

@@ -13,45 +13,73 @@ import java.util.Date;
  * @author Admin
  */
 public class vexe {
-    private int Mave;
-    private Timestamp ThoiGianBatDau;
+    private int MaVE;
+    private Timestamp Thoigianbatdau;
     private String Soghe;
     private int MaChuyen;
     private int MaKH;
     private int MaNV;
     private int MaXE;
-    private Date Ngayin;
-    
-    
+    private Timestamp Ngayin;
+    private int Trangthai;
+
     public vexe() {
     }
 
-    public vexe(int Mave, Timestamp ThoiGianBatDau, String Soghe, int MaChuyen, int MaKH, int MaNV, int MaXE, Date Ngayin) {
-        this.Mave = Mave;
-        this.ThoiGianBatDau = ThoiGianBatDau;
+    public vexe(int MaVE, Timestamp Thoigianbatdau, String Soghe, int MaChuyen, int MaKH, int MaNV, int MaXE, Timestamp Ngayin, int Trangthai) {
+        this.MaVE = MaVE;
+        this.Thoigianbatdau = Thoigianbatdau;
         this.Soghe = Soghe;
         this.MaChuyen = MaChuyen;
         this.MaKH = MaKH;
         this.MaNV = MaNV;
         this.MaXE = MaXE;
         this.Ngayin = Ngayin;
+        this.Trangthai = Trangthai;
     }
-
     
     
     
     /**
-     * @return the Mave
+     * @return the MaVE
      */
-    public int getMave() {
-        return Mave;
+    public int getMaVE() {
+        return MaVE;
     }
 
     /**
-     * @param Mave the Mave to set
+     * @param MaVE the MaVE to set
      */
-    public void setMave(int Mave) {
-        this.Mave = Mave;
+    public void setMaVE(int MaVE) {
+        this.MaVE = MaVE;
+    }
+
+    /**
+     * @return the Thoigianbatdau
+     */
+    public Timestamp getThoigianbatdau() {
+        return Thoigianbatdau;
+    }
+
+    /**
+     * @param Thoigianbatdau the Thoigianbatdau to set
+     */
+    public void setThoigianbatdau(Timestamp Thoigianbatdau) {
+        this.Thoigianbatdau = Thoigianbatdau;
+    }
+
+    /**
+     * @return the Soghe
+     */
+    public String getSoghe() {
+        return Soghe;
+    }
+
+    /**
+     * @param Soghe the Soghe to set
+     */
+    public void setSoghe(String Soghe) {
+        this.Soghe = Soghe;
     }
 
     /**
@@ -66,20 +94,6 @@ public class vexe {
      */
     public void setMaChuyen(int MaChuyen) {
         this.MaChuyen = MaChuyen;
-    }
-
-    /**
-     * @return the ThoiGianBatDau
-     */
-    public Timestamp getThoiGianBatDau() {
-        return ThoiGianBatDau;
-    }
-
-    /**
-     * @param ThoiGianBatDau the ThoiGianBatDau to set
-     */
-    public void setThoiGianBatDau(Timestamp ThoiGianBatDau) {
-        this.ThoiGianBatDau = ThoiGianBatDau;
     }
 
     /**
@@ -127,29 +141,30 @@ public class vexe {
     /**
      * @return the Ngayin
      */
-    public Date getNgayin() {
+    public Timestamp getNgayin() {
         return Ngayin;
     }
 
     /**
      * @param Ngayin the Ngayin to set
      */
-    public void setNgayin(Date Ngayin) {
+    public void setNgayin(Timestamp Ngayin) {
         this.Ngayin = Ngayin;
     }
+
+    /**
+     * @return the Trangthai
+     */
+    public int getTrangthai() {
+        return Trangthai;
+    }
+
+    /**
+     * @param Trangthai the Trangthai to set
+     */
+    public void setTrangthai(int Trangthai) {
+        this.Trangthai = Trangthai;
+    }
     
-    /**
-     * @return the Soghe
-     */
-    public String getSoghe() {
-        return Soghe;
-    }
-
-    /**
-     * @param Soghe the Soghe to set
-     */
-    public void setSoghe(String Soghe) {
-        this.Soghe = Soghe;
-    }
-
+    
 }

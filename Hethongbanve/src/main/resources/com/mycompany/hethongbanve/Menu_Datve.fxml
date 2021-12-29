@@ -2,9 +2,9 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ButtonBar?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.ColumnConstraints?>
@@ -154,7 +154,7 @@
             <Insets top="60.0" />
          </GridPane.margin>
       </Label>
-      <ComboBox fx:id="cbXe_ghetrong" prefWidth="150.0" GridPane.halignment="RIGHT" GridPane.rowIndex="4">
+      <ComboBox fx:id="cbXe_ghetrong" onAction="#CbBoxToLabel" prefWidth="150.0" GridPane.halignment="RIGHT" GridPane.rowIndex="4">
          <GridPane.margin>
             <Insets right="5.0" top="60.0" />
          </GridPane.margin>
@@ -167,15 +167,18 @@
       </TextField>
       <Button mnemonicParsing="false" text="Search CD" GridPane.halignment="RIGHT" GridPane.rowIndex="1" />
       <Label text="Trạng thái cho phép:" GridPane.rowIndex="6" />
-      <TextField maxWidth="70.0" GridPane.halignment="RIGHT" GridPane.rowIndex="6" />
+      <TextField fx:id="txtTrangthaiUser" maxWidth="120.0" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="6">
+         <GridPane.margin>
+            <Insets right="80.0" />
+         </GridPane.margin></TextField>
       <Button mnemonicParsing="false" text="Search KH" GridPane.halignment="RIGHT" GridPane.rowIndex="2">
          <GridPane.margin>
             <Insets top="10.0" />
          </GridPane.margin>
       </Button>
-      <Button mnemonicParsing="false" text="Refresh CD" GridPane.halignment="RIGHT" GridPane.rowIndex="1" GridPane.valignment="BOTTOM" />
-      <Button mnemonicParsing="false" text="Refresh CD" GridPane.halignment="RIGHT" GridPane.rowIndex="2" GridPane.valignment="BOTTOM" />
-      <Button mnemonicParsing="false" text="Refresh Xe" GridPane.halignment="RIGHT" GridPane.rowIndex="4" GridPane.valignment="BOTTOM" />
+      <Button mnemonicParsing="false" onAction="#refeshCD" text="Refresh CD" GridPane.halignment="RIGHT" GridPane.rowIndex="1" GridPane.valignment="BOTTOM" />
+      <Button mnemonicParsing="false" onAction="#refreshKH" text="Refresh KH" GridPane.halignment="RIGHT" GridPane.rowIndex="2" GridPane.valignment="BOTTOM" />
+      <Button mnemonicParsing="false" onAction="#refreshXE" text="Refresh Xe" GridPane.halignment="RIGHT" GridPane.rowIndex="4" GridPane.valignment="BOTTOM" />
       <TableView fx:id="tbChuyendi" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
          <GridPane.margin>
             <Insets left="5.0" />
@@ -191,16 +194,107 @@
             <Insets left="5.0" />
          </GridPane.margin>
       </TableView>
-      <TableView prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.columnSpan="2" GridPane.rowIndex="1" GridPane.rowSpan="5">
-        <columns>
-          <TableColumn prefWidth="75.0" text="C1" />
-          <TableColumn prefWidth="75.0" text="C2" />
-        </columns>
+      <TableView fx:id="tbVeXE" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.columnSpan="2" GridPane.rowIndex="1" GridPane.rowSpan="4">
          <GridPane.margin>
             <Insets left="10.0" />
          </GridPane.margin>
       </TableView>
-      <Button maxWidth="100.0" mnemonicParsing="false" onAction="#datVeButton" text="ĐẶT VÉ" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="5" />
+      <Button maxWidth="100.0" mnemonicParsing="false" onAction="#datVeButton" text="ĐẶT VÉ" GridPane.halignment="RIGHT" GridPane.rowIndex="5" />
       <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="title" text="MENU ĐẶT VÉ" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.halignment="CENTER" />
+      <Label text="Thông tin vé đang đặt:" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="5" GridPane.rowSpan="2" />
+      <GridPane GridPane.columnIndex="2" GridPane.columnSpan="2" GridPane.rowIndex="5" GridPane.rowSpan="2">
+        <columnConstraints>
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+        </columnConstraints>
+        <rowConstraints>
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+        </rowConstraints>
+         <children>
+            <Label text="Mã vé:">
+               <GridPane.margin>
+                  <Insets left="40.0" />
+               </GridPane.margin>
+            </Label>
+            <Label text="Thời gian bắt đầu:" GridPane.rowIndex="1">
+               <GridPane.margin>
+                  <Insets left="40.0" />
+               </GridPane.margin>
+            </Label>
+            <Label text="Số ghế" GridPane.rowIndex="2">
+               <GridPane.margin>
+                  <Insets left="40.0" />
+               </GridPane.margin>
+            </Label>
+            <Label text="Mã chuyến" GridPane.rowIndex="3">
+               <GridPane.margin>
+                  <Insets left="40.0" />
+               </GridPane.margin>
+            </Label>
+            <Label text="Mã khách hàng:" GridPane.rowIndex="4">
+               <GridPane.margin>
+                  <Insets left="40.0" />
+               </GridPane.margin>
+            </Label>
+            <Label text="Mã nhân viên" GridPane.rowIndex="5">
+               <GridPane.margin>
+                  <Insets left="40.0" />
+               </GridPane.margin>
+            </Label>
+            <Label fx:id="lblMaVe" text="..." GridPane.columnIndex="1">
+               <GridPane.margin>
+                  <Insets left="20.0" />
+               </GridPane.margin>
+            </Label>
+            <Label fx:id="lblTgbt" text="..." GridPane.columnIndex="1" GridPane.rowIndex="1">
+               <GridPane.margin>
+                  <Insets left="20.0" />
+               </GridPane.margin>
+            </Label>
+            <Label fx:id="lblSoghe" text="..." GridPane.columnIndex="1" GridPane.rowIndex="2">
+               <GridPane.margin>
+                  <Insets left="20.0" />
+               </GridPane.margin>
+            </Label>
+            <Label fx:id="lblMaChuyen" text="..." GridPane.columnIndex="1" GridPane.rowIndex="3">
+               <GridPane.margin>
+                  <Insets left="20.0" />
+               </GridPane.margin>
+            </Label>
+            <Label fx:id="lblMaKH" text="..." GridPane.columnIndex="1" GridPane.rowIndex="4">
+               <GridPane.margin>
+                  <Insets left="20.0" />
+               </GridPane.margin>
+            </Label>
+            <Label fx:id="lblMaNV" text="..." GridPane.columnIndex="1" GridPane.rowIndex="5">
+               <GridPane.margin>
+                  <Insets left="20.0" />
+               </GridPane.margin>
+            </Label>
+            <Label text="Mã xe:" GridPane.rowIndex="6">
+               <GridPane.margin>
+                  <Insets left="40.0" />
+               </GridPane.margin>
+            </Label>
+            <Label fx:id="lblMaXE" text="..." GridPane.columnIndex="1" GridPane.rowIndex="6">
+               <padding>
+                  <Insets left="20.0" />
+               </padding>
+            </Label>
+         </children>
+      </GridPane>
+      <ButtonBar prefHeight="40.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+      <Button maxWidth="100.0" mnemonicParsing="false" onAction="#initThongTinTextField" text="VÉ MỚI" GridPane.halignment="CENTER" GridPane.rowIndex="5" GridPane.valignment="BOTTOM">
+         <GridPane.margin>
+            <Insets bottom="10.0" />
+         </GridPane.margin>
+      </Button>
+      <Button maxWidth="100.0" mnemonicParsing="false" onAction="#muaVeButton" text="MUA VÉ" GridPane.rowIndex="5" />
    </children>
 </GridPane>

@@ -22,6 +22,7 @@ import pojo.xe_ghe;
  */
 public class Sv_xe {
     
+    //////TRẢ VỀ DANH SÁCH XE
     public List<xe> getXe() throws SQLException{
         List<xe> dsxe = new ArrayList<>();
         Connection conn = jdbcUtils.getConn();
@@ -36,7 +37,7 @@ public class Sv_xe {
         }
         return dsxe;
     }
-    
+    ///// TRẢ VỀ DANH SÁCH GHẾ XE CỦA MÃ XE ĐÓ
     public List<xe_ghe> getGhe(int maXE) throws SQLException{
         List<xe_ghe> lstG = new ArrayList<>();
         Connection conn = jdbcUtils.getConn();
@@ -50,7 +51,8 @@ public class Sv_xe {
         }
         return lstG;
     }
-    
+  
+    //TRẢ DANH SÁCH KIỂU STRING CỦA NHỮNG GHẾ TRỐNG
     public List<String> getGheTrong(int maXE) throws SQLException{
         List<String> lstGT = new ArrayList<>();
         Connection conn = jdbcUtils.getConn();
@@ -60,7 +62,7 @@ public class Sv_xe {
             for(int i = 1; i <= 16; i++){
                 int xGT = rs.getInt("g" + i);
                 if(xGT == 0)
-                    lstGT.add("g"+i);
+                    lstGT.add("g"+i+" ");
                 else
                     lstGT.add("g"+i+" (ĐÃ ĐƯỢC ĐẶT)");
             }
@@ -68,6 +70,7 @@ public class Sv_xe {
         return lstGT;
     }
     
+    ///TÌM XE PHÙ HỢP CHO CHUYẾN ĐI Ở PHẦN ĐẶT VÉ
     public xe getMaToXE(int maXE,int maCD) throws SQLException{
         Connection conn = jdbcUtils.getConn();
         Statement stm = conn.createStatement();
@@ -79,6 +82,7 @@ public class Sv_xe {
         return xe;
     }
     
+    /////TRẢ DANH SÁCH XE ĐƯỢC TÌM KIẾM TỪ MÃ CHUYẾN ĐI
     public List<xe> getXeFromMaCD(int maCD) throws SQLException{
         List<xe> dsxe = new ArrayList<>();
         Connection conn = jdbcUtils.getConn();
@@ -90,6 +94,25 @@ public class Sv_xe {
             xe xe = new xe(rs.getInt("MaXE"), rs.getString("TenXe"), rs.getString("Bienso"), rs.getInt("Trangthai"),rs.getInt("MaChuyen"));
             dsxe.add(xe);
         }
+        return dsxe;
+    }
+    
+    //////TRẢ DANH SÁCH XE BĂNG TỪ KHOÁ TÌM KIẾM THEO TÊN
+    public List<xe> getXe(String kw) throws SQLException{
+        List<xe> dsxe = new ArrayList<>();
+        Connection conn = jdbcUtils.getConn();
+        
+        String sql = "Select * from xe";
+        if (kw != null && !kw.isEmpty()) {
+            sql += " Where TenXe like \'%" + kw +"%\'";
+        }
+        Statement stm = conn.createStatement();
+        ResultSet rs = stm.executeQuery(sql);
+
+        while (rs.next()) {
+            xe xe = new xe(rs.getInt("MaXE"), rs.getString("TenXe"), rs.getString("Bienso"), rs.getInt("Trangthai"),rs.getInt("MaChuyen"));
+            dsxe.add(xe);
+        }            
         return dsxe;
     }
 }
