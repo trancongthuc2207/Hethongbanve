@@ -1,2 +1,16 @@
 Cơ sở dữ liệu: thiếu phần kết nối giữa xe và chuyến. -> không thể truy suất được trực tiếp từ 
 chuyến nào có xe nào đi, mà phải thông qua vé là nơi tổng hợp các thông tin. - Đã được giải quyết
+
+
+TextField đặt vé nhập dữ diệu: Không bắt được lỗi nếu nhập rồi xoá . 
+
+
+--------------
+Trạng thái vé:
+1 : đại diện cho vé được đặt và vé chưa được nhận
+2 : vé mua tại chỗ và đã được khách nhận
+
+1 -> chưa nhận
+2 -> đã nhận
+
+0 : thu hồi

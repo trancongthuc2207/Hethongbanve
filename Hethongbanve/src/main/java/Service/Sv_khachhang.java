@@ -67,4 +67,23 @@ public class Sv_khachhang {
         }
         return kh;
     }
+    
+    public List<khachhang> getKhachhang(String kw) throws SQLException{
+        List<khachhang> dskh = new ArrayList<>();
+        Connection conn = jdbcUtils.getConn();
+        
+        String sql = "Select * from khachhang";
+        if (kw != null && !kw.isEmpty()) {
+            sql += " Where TenKH like \'%" + kw +"%\'";
+        }
+        Statement stm = conn.createStatement();
+        ResultSet rs = stm.executeQuery(sql);
+
+        while (rs.next()) {
+            khachhang kh = new khachhang(rs.getInt("MaKH"), rs.getString("TenKH"), rs.getString("CMND"), rs.getString("SDT"));
+            dskh.add(kh);
+        }            
+        return dskh;
+    }
+    
 }

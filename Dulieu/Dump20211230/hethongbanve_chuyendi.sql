@@ -16,30 +16,30 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `nhanvien`
+-- Table structure for table `chuyendi`
 --
 
-DROP TABLE IF EXISTS `nhanvien`;
+DROP TABLE IF EXISTS `chuyendi`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `nhanvien` (
-  `MaNV` int NOT NULL,
-  `TenNV` varchar(45) NOT NULL,
-  `CMND` varchar(45) NOT NULL,
-  `SDT` varchar(45) NOT NULL,
-  PRIMARY KEY (`MaNV`),
-  UNIQUE KEY `MaNV_UNIQUE` (`MaNV`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+CREATE TABLE `chuyendi` (
+  `MaChuyen` int NOT NULL,
+  `TenChuyen` varchar(45) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
+  `Gia` double DEFAULT NULL,
+  `ThoiGianBatDau` timestamp NOT NULL,
+  `ThoiGianKetThuc` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`MaChuyen`,`ThoiGianBatDau`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `nhanvien`
+-- Dumping data for table `chuyendi`
 --
 
-LOCK TABLES `nhanvien` WRITE;
-/*!40000 ALTER TABLE `nhanvien` DISABLE KEYS */;
-INSERT INTO `nhanvien` VALUES (1,'Tran Van B','123456','123'),(2,'Nguyen Thi A','12346','456'),(3,'Le Van C','12345','123'),(4,'Tran Thi H','123546','546');
-/*!40000 ALTER TABLE `nhanvien` ENABLE KEYS */;
+LOCK TABLES `chuyendi` WRITE;
+/*!40000 ALTER TABLE `chuyendi` DISABLE KEYS */;
+INSERT INTO `chuyendi` VALUES (1,'Tây Ninh - Thành Ph? HCM',120000,'2021-12-22 02:00:00','2021-12-22 04:30:00'),(2,'An Giang - Thành Ph? HCM',150000,'2021-12-23 02:00:00','2021-12-23 04:30:00'),(3,'Thành Ph? HCM - Cà Mau',200000,'2021-12-24 02:00:00','2021-12-24 04:30:00'),(4,'Gò vấp - Đà Lạt',150000,'2021-12-29 07:50:00','2021-12-29 08:50:00'),(5,'Long An - Long Xuyên',150000,'2021-12-29 08:50:00','2021-12-29 09:50:00'),(6,'Cần Giờ - TP Hồ Chí Minh',150000,'2021-12-29 19:25:00','2021-12-29 10:50:00');
+/*!40000 ALTER TABLE `chuyendi` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -51,4 +51,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-12-27  1:01:02
+-- Dump completed on 2021-12-30  1:44:11

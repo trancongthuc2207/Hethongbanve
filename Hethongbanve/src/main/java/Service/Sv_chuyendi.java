@@ -43,7 +43,7 @@ public class Sv_chuyendi {
         return dscd;
     }
 
-    public List<chuyendi> getChuyendi(String kw) throws SQLException {
+    public List<chuyendi> getChuyendi(String kw) throws SQLException{
         List<chuyendi> dscd = new ArrayList<>();
         Connection conn = jdbcUtils.getConn();
         String sql = "Select * from chuyendi";
@@ -52,6 +52,7 @@ public class Sv_chuyendi {
         }
         Statement stm = conn.createStatement();
         ResultSet rs = stm.executeQuery(sql);
+
         while (rs.next()) {
             chuyendi cd = new chuyendi(rs.getInt("MaChuyen"), rs.getString("TenChuyen"), rs.getDouble("Gia"), rs.getTimestamp("ThoiGianBatDau"), rs.getTimestamp("ThoiGianKetThuc"));
             dscd.add(cd);
@@ -84,6 +85,4 @@ public class Sv_chuyendi {
         }
         return cd;
     }
-
-
 }

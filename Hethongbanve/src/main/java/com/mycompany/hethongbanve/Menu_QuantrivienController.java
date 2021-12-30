@@ -18,16 +18,13 @@ import java.util.logging.Logger;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.stage.Stage;
 import pojo.chuyendi;
 import pojo.nhanvien;
 
@@ -45,9 +42,10 @@ public class Menu_QuantrivienController implements Initializable {
     @FXML private TextField txtGia;
     @FXML private TextField txtTGBD;
     @FXML private TextField txtTGKT;
-    Sv_chuyendi maCapNhatCD = new Sv_chuyendi();
     /**
      * Initializes the controller class.
+     * @param url
+     * @param rb
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -64,7 +62,21 @@ public class Menu_QuantrivienController implements Initializable {
         } catch (SQLException ex) {
             Logger.getLogger(Menu_QuantrivienController.class.getName()).log(Level.SEVERE, null, ex);
         }
-        //TIM KIEM - DANG LAM
+        txtMaChuyen.setText(String.valueOf((Sv_chuyendi.getMaCDCurrent()) + 1)); //CAP NHAT GIA TRI TEXTFIELD MA CHUYEN
+        //CLICK CHON DONG DU LIEU TRONG BANG
+        this.tbChuyenDi.setRowFactory(et -> {
+            TableRow dong = new TableRow();
+            dong.setOnMouseClicked(r -> {
+                chuyendi cd = this.tbChuyenDi.getSelectionModel().getSelectedItem();
+                this.txtMaChuyen.setText(String.valueOf(cd.getMaChuyen()));
+                this.txtTenChuyen.setText(cd.getTenChuyen());
+                this.txtGia.setText(String.valueOf(cd.getGia()));
+                this.txtTGBD.setText(String.valueOf(cd.getThoiGianBatDau()));
+                this.txtTGKT.setText(String.valueOf(cd.getThoiGianKetThuc()));
+            });
+            return dong;
+        });
+        //TIM KIEM
         this.txtTimKiem.textProperty().addListener((evt)-> {
             try {
                 this.loadTableDataCDKw(this.txtTimKiem.getText());
@@ -72,8 +84,6 @@ public class Menu_QuantrivienController implements Initializable {
                 Logger.getLogger(Menu_QuantrivienController.class.getName()).log(Level.SEVERE, null, ex);
             } 
         });
-        //SET VALUE TEXTFIELD MA CHUYEN
-        txtMaChuyen.setText(String.valueOf(maCapNhatCD.getMaCDCurrent() + 1));
     }   
 
     // KHOI TAO TEXT FIELD
@@ -83,7 +93,6 @@ public class Menu_QuantrivienController implements Initializable {
         txtGia.setText(null);
         txtTGBD.setText(null);
         txtTGKT.setText(null);
-        System.
     }
 
     ////////CHUYEN DI
@@ -129,8 +138,7 @@ public class Menu_QuantrivienController implements Initializable {
             try {
                 tcd.themChuyenDi(cd);
                 this.loadTableDataCD();
-                //SET VALUE TEXTFIELD MA CHUYEN
-                txtMaChuyen.setText(String.valueOf(maCapNhatCD.getMaCDCurrent() + 1));
+                txtMaChuyen.setText(String.valueOf((Sv_chuyendi.getMaCDCurrent()) + 1)); //CAP NHAT GIA TRI TEXTFIELD MA CHUYEN
                 Utils.getBox("THEM THANH CONG", Alert.AlertType.INFORMATION).show();
             } catch (SQLException sQLException) {
                 Utils.getBox("THEM THAT BAI", Alert.AlertType.WARNING).show();
@@ -142,15 +150,14 @@ public class Menu_QuantrivienController implements Initializable {
 
     //LAM MOI CHUYEN DI
     public void refreshTextFieldCD(){
-        //SET VALUE TEXTFIELD MA CHUYEN
-        txtMaChuyen.setText(String.valueOf(maCapNhatCD.getMaCDCurrent() + 1));
+        txtMaChuyen.setText(String.valueOf((Sv_chuyendi.getMaCDCurrent()) + 1)); //CAP NHAT GIA TRI TEXTFIELD MA CHUYEN
         txtTenChuyen.setText(null);
         txtGia.setText(null);
         txtTGBD.setText(null);
         txtTGKT.setText(null);
         //this.loadTableDataCD();
     }
-
+    
     //SUA CHUYEN DI
     
 
