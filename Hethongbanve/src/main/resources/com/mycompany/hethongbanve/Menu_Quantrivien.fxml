@@ -11,7 +11,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="619.0" prefWidth="1133.0" stylesheets="@../../../css/style.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.hethongbanve.Menu_QuantrivienController">
+<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" stylesheets="@../../../css/style.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.hethongbanve.Menu_QuantrivienController">
   <columnConstraints>
       <ColumnConstraints hgrow="SOMETIMES" maxWidth="344.0" minWidth="10.0" prefWidth="225.0" />
     <ColumnConstraints hgrow="SOMETIMES" maxWidth="661.0" minWidth="10.0" prefWidth="630.0" />
@@ -118,9 +118,9 @@
                   <Insets />
                </GridPane.margin>
             </Button>
-            <Button maxWidth="70.0" mnemonicParsing="false" text="SỬA" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="5" />
-            <Button maxWidth="70.0" mnemonicParsing="false" onAction="#themChuyenDi" text="THÊM" GridPane.halignment="CENTER" GridPane.rowIndex="5" />
-            <Button maxWidth="70.0" mnemonicParsing="false" text="XÓA" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="6" />
+            <Button maxWidth="70.0" mnemonicParsing="false" onAction="#suaChuyenDiBtn" text="SỬA" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="5" />
+            <Button maxWidth="70.0" mnemonicParsing="false" onAction="#themChuyenDiBtn" text="THÊM" GridPane.halignment="CENTER" GridPane.rowIndex="5" />
+            <TextField fx:id="txtTimKiem" maxWidth="165.0" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="6" />
          </children>
       </GridPane>
       <GridPane styleClass="EditTravel" GridPane.rowIndex="2">
@@ -133,16 +133,6 @@
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
-         <children>
-            <Label text="TÌM KIẾM" GridPane.columnIndex="1" GridPane.halignment="CENTER" />
-            <Label styleClass="CNEdit" text="TÌM KIẾM:" GridPane.rowIndex="1">
-               <GridPane.margin>
-                  <Insets left="15.0" />
-               </GridPane.margin>
-            </Label>
-            <TextField fx:id="txtTimKiem" maxWidth="165.0" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="1" />
-            <Button mnemonicParsing="false" text="TÌM KIẾM " GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
-         </children>
       </GridPane>
       <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="title" text="CHỨC NĂNG QUẢN TRỊ" GridPane.columnIndex="1" GridPane.columnSpan="3" GridPane.halignment="CENTER" GridPane.valignment="TOP" />
    </children>

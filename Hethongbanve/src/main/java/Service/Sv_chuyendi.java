@@ -42,13 +42,13 @@ public class Sv_chuyendi {
         }
         return dscd;
     }
-
+    
     public List<chuyendi> getChuyendi(String kw) throws SQLException{
         List<chuyendi> dscd = new ArrayList<>();
         Connection conn = jdbcUtils.getConn();
         String sql = "Select * from chuyendi";
         if (kw != null && !kw.isEmpty()) {
-            sql += " Where TenChuyen like \'%" + kw +"%\'";
+            sql += " Where TenChuyen like '%" + kw +"%'";
         }
         Statement stm = conn.createStatement();
         ResultSet rs = stm.executeQuery(sql);
@@ -56,26 +56,28 @@ public class Sv_chuyendi {
         while (rs.next()) {
             chuyendi cd = new chuyendi(rs.getInt("MaChuyen"), rs.getString("TenChuyen"), rs.getDouble("Gia"), rs.getTimestamp("ThoiGianBatDau"), rs.getTimestamp("ThoiGianKetThuc"));
             dscd.add(cd);
-        }            
+        }
+        conn.close();
         return dscd;
     }
 
-
+    //THEM CHUYEN DI
     public void themChuyenDi(chuyendi cd) throws SQLException{
         try(Connection conn = jdbcUtils.getConn()){
             conn.setAutoCommit(false);
-            PreparedStatement stm2 = conn.prepareStatement("INSERT INTO chuyendi(MaChuyen,TenChuyen,Gia,ThoiGianBatDau,ThoiGianKetThuc) VALUES (?,?,?,?,?)");
-            stm2.setInt(1, cd.getMaChuyen());
-            stm2.setString(2, cd.getTenChuyen());
+            PreparedStatement stm2 = conn.prepareStatement("INSERT INTO chuyendi(ThoiGianKetThuc,ThoiGianBatDau,Gia,TenChuyen,MaChuyen) VALUES (?,?,?,?,?)");
+            stm2.setTimestamp(1, cd.getThoiGianKetThuc());
+            stm2.setTimestamp(2, cd.getThoiGianBatDau());
             stm2.setDouble(3, cd.getGia());
-            stm2.setTimestamp(4, cd.getThoiGianBatDau());
-            stm2.setTimestamp(5, cd.getThoiGianKetThuc());
+            stm2.setString(4, cd.getTenChuyen());
+            stm2.setInt(5, cd.getMaChuyen());
             stm2.executeUpdate();
             conn.commit();
         }
     }
-
+    
     public chuyendi getMaToChuyen(int maCD) throws SQLException{
+
         Connection conn = jdbcUtils.getConn();
         Statement stm = conn.createStatement();
         ResultSet rs = stm.executeQuery("Select * from chuyendi where MaChuyen = " + maCD);
@@ -83,6 +85,36 @@ public class Sv_chuyendi {
         while(rs.next()){
             cd = new chuyendi(rs.getInt("MaChuyen"), rs.getString("TenChuyen"), rs.getDouble("Gia"), rs.getTimestamp("ThoiGianBatDau"), rs.getTimestamp("ThoiGianKetThuc"));
         }
+        conn.close();
         return cd;
+    }
+    
+    //SUA CHUYEN DI
+    /**
+     *
+     * @param cd
+     * @throws java.sql.SQLException
+     */
+    public void suaChuyenDi(chuyendi cd) throws SQLException {
+        try(Connection conn = jdbcUtils.getConn()){
+            conn.setAutoCommit(false);
+            PreparedStatement stm3 = conn.prepareStatement("UPDATE chuyendi SET ThoiGianKetThuc=?, ThoiGianBatDau=?, Gia=?, TenChuyen=? WHERE MaChuyen = " + cd.getMaChuyen());
+            stm3.setTimestamp(1, cd.getThoiGianKetThuc());
+            stm3.setTimestamp(2, cd.getThoiGianBatDau());
+            stm3.setDouble(3, cd.getGia());
+            stm3.setString(4, cd.getTenChuyen());
+            stm3.executeUpdate();
+            conn.commit();
+        }
+    }
+    
+    //------------ CHUA HOAN THANH
+    public void xoaChuyenDi(chuyendi cd) throws SQLException {
+        try(Connection conn = jdbcUtils.getConn()){
+            conn.setAutoCommit(false);
+            PreparedStatement stm4 = conn.prepareStatement("DELETE FROM chuyendi WHERE MaChuyen = " + cd.getMaChuyen());
+            stm4.executeUpdate();
+            conn.commit();
+        }
     }
 }

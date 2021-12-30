@@ -14,3 +14,8 @@ Trạng thái vé:
 2 -> đã nhận
 
 0 : thu hồi
+
+---------------
+Hưng
+- Một số vấn đề về xóa chuyến đi - Chưa giải quyết
+- Hàm check chuyến đi chưa có xe nhận và ngược lại (sẽ check bằng button ngoài gui) - Chưa giải quyết
