@@ -23,6 +23,19 @@ public class Sv_Update_TrangThaiVe {
                 stm.setInt(1, vx.getMaVE());
                 stm.executeUpdate();
                 conn.commit();
+                conn.close();
             }
     }
+    
+    public void UpdateTrangThaiVeToNhan(vexe vx) throws SQLException{
+            try(Connection conn = jdbcUtils.getConn()){
+                conn.setAutoCommit(false);
+                PreparedStatement stm = conn.prepareStatement("UPDATE vexe Set Trangthai = 2 where MaVE = ?");
+                stm.setInt(1, vx.getMaVE());
+                stm.executeUpdate();
+                conn.commit();
+                conn.close();
+            }
+    }
+    
 }

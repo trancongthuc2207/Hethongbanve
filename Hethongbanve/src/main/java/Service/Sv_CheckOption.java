@@ -18,6 +18,7 @@ import java.util.Date;
 import java.util.List;
 import pojo.chuyendi;
 import pojo.vexe;
+import pojo.xe;
 import pojo.xe_ghe;
 
 /**
@@ -51,6 +52,7 @@ public class Sv_CheckOption {
                 System.out.println(lstG.size());
                 check = true;  
             }
+            conn.close();
         } catch (SQLException sQLException) {
         }
         return check;
@@ -73,11 +75,77 @@ public class Sv_CheckOption {
         String date = sdf.format(dateCur);
         
         Timestamp tgHT = Timestamp.valueOf(date); //THOI GIAN HIEN TAI        
-        Timestamp tGHetHieuLuc = new Timestamp(vx.getNgayin().getTime() + 30*60*1000); // THOI GIAN IN + 30p
+        Timestamp tGHetHieuLuc = new Timestamp(vx.getNgayin().getTime() - 30*60*1000); // THOI GIAN IN - 30p (Truoc 30p trang thai ve vẫn = 1)
 
-        if((tgHT.getTime() >= tGHetHieuLuc.getTime()) && vx.getTrangthai() != 2)
+        if((tgHT.getTime() == tGHetHieuLuc.getTime()) && vx.getTrangthai() != 2)
             check = true;  // HẾT HIỆU LỰC
-        System.out.println(check);
         return check;
     }
+    
+    public boolean isOutOfTimeToMove(chuyendi cd){  /// XÉT THỜI GIAN HỆ THỐNG > THỜI GIAN BẮT ĐẦU CỦA CHUYẾN ĐI
+        boolean check = false;                      /// ĐỂ NGĂN CHẶN VIỆC ĐẶT VÉ
+        Date dateCur = new Date();
+        SimpleDateFormat sdf = new SimpleDateFormat(DATE_FORMAT_NOW);
+        ///DEFAULT
+        String date = sdf.format(dateCur);
+        
+        Timestamp tgHT = Timestamp.valueOf(date); //THOI GIAN HIEN TAI
+        if((tgHT.getTime() >= cd.getThoiGianBatDau().getTime()))  // TRUE LÀ HẾT HẠN
+            check = true;
+        
+        return check;
+    }
+    
+    public boolean isFullSlotGhe(xe xe) throws SQLException{
+        boolean check = true;
+        Connection conn = jdbcUtils.getConn();
+        Statement stm = conn.createStatement();
+        ResultSet rs = stm.executeQuery("Select * from xe_ghe where MaXE = " + xe.getMaXE());
+        while(rs.next()){
+            for(int i = 1; i <= 16; i++){
+                int xGT = rs.getInt("g" + i);
+                if(xGT == 0)
+                    return check = false;
+            }
+        }
+        conn.close();
+        
+        return check;
+    }
+    
+    public boolean isCanForDeleteVe(vexe vx){
+        boolean check = true;           // true là xoá đc, false là không xoá đc
+        if(vx.getTrangthai() == 2)     // 2 là ko thể xoá
+            check = false;
+        return check;
+    }
+    
+    public boolean isVeThuHoi(vexe vx){
+        boolean check = false;           // true là thu hoi, false là không 
+        if(vx.getTrangthai() == 0 || vx.getTrangthai() == 2)     
+            check = true;
+        return check;
+    }
+    
+    public boolean isFullSlotGheVeNhan(int maXE) throws SQLException{
+        boolean check = false;
+        Sv_vexe listVe = new Sv_vexe();
+        List<vexe> dsVe = listVe.getVeXeTheoMaXE(maXE);
+        int SLTrangThai = 0;
+        
+        for(vexe h : dsVe){
+            System.out.println(h.getTrangthai());
+            if(h.getTrangthai() == 1)
+                SLTrangThai--;
+            else{
+                if(h.getTrangthai() == 2)
+                    SLTrangThai++;
+            }
+        }
+        System.out.println(SLTrangThai);
+        if(SLTrangThai == 16)
+            return true;
+        return check;
+    }
+    
 }

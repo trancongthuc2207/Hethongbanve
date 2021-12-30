@@ -5,7 +5,9 @@
  */
 package com.mycompany.hethongbanve;
 
+import Service.Sv_CheckOption;
 import Service.Sv_vexe;
+import config.Utils;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
@@ -15,6 +17,7 @@ import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -26,6 +29,8 @@ import pojo.vexe;
  * @author Admin
  */
 public class Menu_XuLyVeController implements Initializable {
+    private static vexe veCurr = new vexe();
+    
     @FXML private TableView<vexe> tbVeXE;
     /**
      * Initializes the controller class.
@@ -33,6 +38,7 @@ public class Menu_XuLyVeController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
+        this.veCurr = this.tbVeXE.getSelectionModel().getSelectedItem();
         this.loadTableViewVeXE();
         try {
             this.loadTableDataVeXE();
@@ -84,10 +90,41 @@ public class Menu_XuLyVeController implements Initializable {
         Sv_vexe listVe = new Sv_vexe();
         this.tbVeXE.setItems(FXCollections.observableList(listVe.getVeXe()));
     }
-    
+    ////////////VE CLICK
+    public static vexe getVeCurr(){
+        return Menu_XuLyVeController.veCurr;
+    }
+   
+    /////////////
     public void capNhatVeHieuLuc(ActionEvent event) throws SQLException{
         Sv_vexe dvCN = new Sv_vexe();
         dvCN.capNhatVe();
         this.loadTableDataVeXE();
+    }
+    /////////////
+    public void thuHoiVeButton(ActionEvent event) throws SQLException{
+        Sv_vexe svVe = new Sv_vexe();
+        Sv_CheckOption ckOP = new Sv_CheckOption();
+        vexe ve = new vexe();
+        ve = this.tbVeXE.getSelectionModel().getSelectedItem();
+        if(ckOP.isCanForDeleteVe(ve)){
+            svVe.thuHoiVe(ve);
+            Utils.getBox("THU HỒI THÀNH CÔNG!", Alert.AlertType.INFORMATION).show();
+        }
+        else
+            Utils.getBox("VÉ ĐÃ NHẬN, THU HỒI THẤT BẠI!", Alert.AlertType.INFORMATION).show();
+    }
+    
+    public void nhanVeButton(ActionEvent event) throws SQLException{
+        Sv_vexe svVe = new Sv_vexe();
+        Sv_CheckOption ckOP = new Sv_CheckOption();
+        vexe ve = new vexe();
+        ve = this.tbVeXE.getSelectionModel().getSelectedItem();
+        if(ckOP.isVeThuHoi(ve) == false){
+            svVe.nhanVe(ve);
+            Utils.getBox("VÉ ĐÃ NHẬN THÀNH CÔNG!", Alert.AlertType.INFORMATION).show();
+        }
+        else
+            Utils.getBox("VÉ ĐÃ ĐƯỢC NHẬN HOẶC THU HỒI", Alert.AlertType.INFORMATION).show();
     }
 }
