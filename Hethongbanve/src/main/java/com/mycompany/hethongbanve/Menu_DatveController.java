@@ -281,6 +281,7 @@ public class Menu_DatveController implements Initializable {
     }
     public void loadTableDataXE() throws SQLException{
         Sv_xe listXe = new Sv_xe();
+        listXe.capNhatTrangThaiXe();
         this.tbXe.setItems(FXCollections.observableList(listXe.getXe()));
     }
     public void loadTableDataXEKeyword(String kw) throws SQLException{
@@ -338,7 +339,7 @@ public class Menu_DatveController implements Initializable {
         this.ClickloadCD = true;
         Sv_chuyendi loadcd = new Sv_chuyendi();
         chuyendi cd = new chuyendi();
-        if(txtMaCD.getText() != null && txtMaCD.getText() != ""){
+        if(txtMaCD.getText() != null && txtMaCD.getText() != "" && !txtMaCD.getText().isEmpty()){
             if(Integer.parseInt(txtMaCD.getText()) > 0 && Integer.parseInt(txtMaCD.getText()) <= loadcd.getChuyendi().size()){
                 cd = loadcd.getMaToChuyen(Integer.parseInt(txtMaCD.getText()));
                 if(cd != null){
@@ -366,7 +367,7 @@ public class Menu_DatveController implements Initializable {
         this.ClickloadKH = true;
         Sv_khachhang loadKH = new Sv_khachhang();
         khachhang kh = new khachhang();
-        if(txtMaKH.getText() != null && txtMaKH.getText() != ""){
+        if(txtMaKH.getText() != null && txtMaKH.getText() != "" && !txtMaKH.getText().isEmpty()){
             if(Integer.parseInt(txtMaKH.getText()) > 0 && Integer.parseInt(txtMaKH.getText()) <= loadKH.getKhachHang().size()){
                 kh = loadKH.getMaToKH(Integer.parseInt(txtMaKH.getText()));
                 if(kh != null){
@@ -387,7 +388,7 @@ public class Menu_DatveController implements Initializable {
         this.ClickloadXE = true;
         Sv_xe loadXe = new Sv_xe();
         xe xe = new xe();
-        if(txtMaXE.getText() != null && txtMaXE.getText() != ""){
+        if(txtMaXE.getText() != null && txtMaXE.getText() != "" && !txtMaXE.getText().isEmpty()){
             if(Integer.parseInt(txtMaXE.getText()) > 0 && Integer.parseInt(txtMaXE.getText()) <= loadXe.getXe().size()){
                 if(txtMaCD.getText() != null){
                     xe = loadXe.getMaToXE(Integer.parseInt(txtMaXE.getText()), Integer.parseInt(txtMaCD.getText()));
@@ -453,12 +454,12 @@ public class Menu_DatveController implements Initializable {
         this.cbXe_ghetrong.setItems(null);
         this.lblMaXE.setText(null);
         this.lblSoghe.setText(null);
-        if(txtMaCD.getText() != null){
-            Sv_xe listXe = new Sv_xe();
-            this.tbXe.setItems(FXCollections.observableList(listXe.getXeFromMaCD(Integer.parseInt(txtMaCD.getText()))));
-        }
-        else
-            this.loadTableDataXE();
+//        if(txtMaCD.getText() != null){
+//            Sv_xe listXe = new Sv_xe();
+//            this.tbXe.setItems(FXCollections.observableList(listXe.getXeFromMaCD(Integer.parseInt(txtMaCD.getText()))));
+//        }
+//        else
+//            this.loadTableDataXE();
     }
     
     /////XU LY VE CURRENT FOR UPDATE TO DATABASE
@@ -483,54 +484,60 @@ public class Menu_DatveController implements Initializable {
     public void datVeButton(ActionEvent event) throws ParseException, SQLException{
         vexe vx = this.veCurrent();
         Sv_vexe service = new Sv_vexe();
+        Sv_chuyendi sv_cd = new Sv_chuyendi();
         Sv_CheckOption CkOP = new Sv_CheckOption();
-        if(isInputFullOp()){
-            if(CkOP.checkTimeDatVe(vx) == true){
-                System.out.println("ĐÚNG");
-                if(CkOP.checkGheTrung(vx) != true){
-                    System.out.println("ĐÚNG");
-                    service.addVeXe(vx);
-                    Utils.getBox("THÊM VÉ THÀNH CÔNG", Alert.AlertType.INFORMATION).show();
-                    initInputFullOp();
-                    this.loadTableDataVeXE();
-                    this.initThongTinTextField();
+        if(CkOP.isOutOfTimeToMove(sv_cd.getMaToChuyen(vx.getMaChuyen())) != true){
+            if(isInputFullOp()){
+                if(CkOP.checkTimeDatVe(vx) == true){
+                    if(CkOP.checkGheTrung(vx) != true){
+                        service.addVeXe(vx);
+                        Utils.getBox("THÊM VÉ THÀNH CÔNG", Alert.AlertType.INFORMATION).show();
+                        initInputFullOp();
+                        this.loadTableDataVeXE();
+                        this.initThongTinTextField();
+                    }
+                    else
+                        Utils.getBox("GHẾ ĐÃ TRÙNG", Alert.AlertType.WARNING).show();
                 }
-                else
-                    Utils.getBox("GHẾ ĐÃ TRÙNG", Alert.AlertType.WARNING).show();
+                else{
+                    Utils.getBox("VÉ ĐẶT PHẢI TRƯỚC 1 TIẾNG!!", Alert.AlertType.WARNING).show();
+                }
             }
-            else{
-                Utils.getBox("VÉ ĐẶT PHẢI TRƯỚC 1 TIẾNG!!", Alert.AlertType.WARNING).show();
-            }
+            else
+                Utils.getBox("YÊU CẦU BẠN NHẬP ĐẦY ĐỦ (LOAD ĐỦ THÔNG TIN TRƯỚC KHI NHẤN NÚT ĐẶT VÉ)", Alert.AlertType.WARNING).show();
         }
         else
-            Utils.getBox("YÊU CẦU BẠN NHẬP ĐẦY ĐỦ (LOAD ĐỦ THÔNG TIN TRƯỚC KHI NHẤN NÚT ĐẶT VÉ)", Alert.AlertType.WARNING).show();
+            Utils.getBox("XE ĐÃ DI CHUYỂN", Alert.AlertType.WARNING).show();
     }
     
     public void muaVeButton(ActionEvent event) throws ParseException, SQLException{
         vexe vx = this.veCurrent();
         vx.setTrangthai(2);
         Sv_vexe service = new Sv_vexe();
+        Sv_chuyendi sv_cd = new Sv_chuyendi();
         Sv_CheckOption CkOP = new Sv_CheckOption();
-        if(isInputFullOp()){
-            if(CkOP.checkTimeMuaVe(vx) == true){
-                System.out.println("ĐÚNG");
-                if(CkOP.checkGheTrung(vx) != true){
-                    System.out.println("ĐÚNG");
-                    service.addMuaVeXe(vx);
-                    Utils.getBox("THÊM VÉ THÀNH CÔNG", Alert.AlertType.INFORMATION).show();
-                    initInputFullOp();
-                    this.loadTableDataVeXE();
-                    this.initThongTinTextField();
+        if(CkOP.isOutOfTimeToMove(sv_cd.getMaToChuyen(vx.getMaChuyen())) != true){
+            if(isInputFullOp()){
+                if(CkOP.checkTimeMuaVe(vx) == true){
+                    if(CkOP.checkGheTrung(vx) != true){
+                        service.addMuaVeXe(vx);
+                        Utils.getBox("THÊM VÉ THÀNH CÔNG", Alert.AlertType.INFORMATION).show();
+                        initInputFullOp();
+                        this.loadTableDataVeXE();
+                        this.initThongTinTextField();
+                    }
+                    else
+                        Utils.getBox("GHẾ ĐÃ TRÙNG", Alert.AlertType.WARNING).show();
                 }
-                else
-                    Utils.getBox("GHẾ ĐÃ TRÙNG", Alert.AlertType.WARNING).show();
+                else{
+                    Utils.getBox("HẾT HẠN MUA VÉ", Alert.AlertType.WARNING).show();
+                }
             }
-            else{
-                Utils.getBox("HẾT HẠN MUA VÉ", Alert.AlertType.WARNING).show();
-            }
+            else
+                Utils.getBox("YÊU CẦU BẠN NHẬP ĐẦY ĐỦ (LOAD ĐỦ THÔNG TIN TRƯỚC KHI NHẤN NÚT ĐẶT VÉ)", Alert.AlertType.WARNING).show();
         }
         else
-            Utils.getBox("YÊU CẦU BẠN NHẬP ĐẦY ĐỦ (LOAD ĐỦ THÔNG TIN TRƯỚC KHI NHẤN NÚT ĐẶT VÉ)", Alert.AlertType.WARNING).show();
+            Utils.getBox("XE ĐÃ DI CHUYỂN", Alert.AlertType.WARNING).show();
     }
     //////PHAN KHOI TAO FORM
     public void initThongTinTextField() throws SQLException{
@@ -570,5 +577,31 @@ public class Menu_DatveController implements Initializable {
     }
     public void CbBoxToLabel(ActionEvent evt){
         this.lblSoghe.setText(this.cbXe_ghetrong.getValue());
+    }
+    
+    public void loadVeHienTaiHoanVe() throws SQLException{
+        vexe vx = new vexe();
+        vx = Menu_XuLyVeController.getVeCurr();
+        
+        //CD
+        Sv_chuyendi loadcd = new Sv_chuyendi();
+        this.txtMaCD.setText(String.valueOf(vx.getMaChuyen()));
+        this.txtTenCD.setText(loadcd.getMaToChuyen(vx.getMaChuyen()).getTenChuyen());
+        this.txtGia.setText(String.valueOf(loadcd.getMaToChuyen(vx.getMaChuyen()).getGia()));
+        this.txtThoiGianBatDau.setText(String.valueOf(loadcd.getMaToChuyen(vx.getMaChuyen()).getThoiGianBatDau()));
+        this.lblMaChuyen.setText(this.txtMaCD.getText());
+        this.lblTgbt.setText(this.txtThoiGianBatDau.getText());
+        //KH
+        Sv_khachhang loadKH = new Sv_khachhang();
+        this.txtMaKH.setText(String.valueOf(vx.getMaKH()));
+        txtTenKH.setText(String.valueOf(loadKH.getMaToKH(vx.getMaKH()).getTenKH()));
+        this.lblMaKH.setText(txtMaKH.getText());
+        //XE
+        Sv_xe loadXE = new Sv_xe();
+        this.txtMaXE.setText(String.valueOf(vx.getMaXE()));
+        txtTenXe.setText(String.valueOf(loadXE.getMaToXE(vx.getMaXE(), vx.getMaChuyen()).getTenXe()));
+        txtTrangthai.setText(String.valueOf(loadXE.getMaToXE(vx.getMaXE(), vx.getMaChuyen()).getTrangthai()));
+        this.lblMaXE.setText(txtMaXE.getText());
+        this.lblSoghe.setText(vx.getSoghe());
     }
 }

@@ -40,6 +40,7 @@ public class Sv_khachhang {
             result.add(kh);
         }
         MaKHCurrent = result.size();
+        conn.close();
         return result;
     }
     
@@ -54,6 +55,7 @@ public class Sv_khachhang {
             
             stm1.executeUpdate();
             conn.commit();
+            conn.close();
         }
     }
     
@@ -65,6 +67,7 @@ public class Sv_khachhang {
         while(rs.next()){
             kh = new khachhang(rs.getInt("MaKH"), rs.getString("TenKH"), rs.getString("CMND"), rs.getString("SDT"));
         }
+        conn.close();
         return kh;
     }
     
@@ -83,6 +86,7 @@ public class Sv_khachhang {
             khachhang kh = new khachhang(rs.getInt("MaKH"), rs.getString("TenKH"), rs.getString("CMND"), rs.getString("SDT"));
             dskh.add(kh);
         }            
+        conn.close();
         return dskh;
     }
     

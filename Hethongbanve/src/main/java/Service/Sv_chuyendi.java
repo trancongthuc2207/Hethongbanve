@@ -33,6 +33,7 @@ public class Sv_chuyendi {
             chuyendi cd = new chuyendi(rs.getInt("MaChuyen"), rs.getString("TenChuyen"), rs.getDouble("Gia"), rs.getTimestamp("ThoiGianBatDau"), rs.getTimestamp("ThoiGianKetThuc"));
             dscd.add(cd);
         }
+        conn.close();
         return dscd;
     }
     
@@ -45,6 +46,7 @@ public class Sv_chuyendi {
         while(rs.next()){
             cd = new chuyendi(rs.getInt("MaChuyen"), rs.getString("TenChuyen"), rs.getDouble("Gia"), rs.getTimestamp("ThoiGianBatDau"), rs.getTimestamp("ThoiGianKetThuc"));
         }
+        conn.close();
         return cd;
     }
     
@@ -61,7 +63,8 @@ public class Sv_chuyendi {
         while (rs.next()) {
             chuyendi cd = new chuyendi(rs.getInt("MaChuyen"), rs.getString("TenChuyen"), rs.getDouble("Gia"), rs.getTimestamp("ThoiGianBatDau"), rs.getTimestamp("ThoiGianKetThuc"));
             dscd.add(cd);
-        }            
+        }
+        conn.close();
         return dscd;
     }
     
