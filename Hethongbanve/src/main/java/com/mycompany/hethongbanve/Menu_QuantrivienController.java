@@ -6,7 +6,6 @@ package com.mycompany.hethongbanve;
  * and open the template in the editor.
  */
 
-import Service.Login_nhanvien;
 import Service.Sv_chuyendi;
 import config.Utils;
 import java.sql.SQLException;
@@ -29,7 +28,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import pojo.chuyendi;
-import pojo.nhanvien;
+// import pojo.nhanvien;
 
 /**
  * FXML Controller class
@@ -38,8 +37,8 @@ import pojo.nhanvien;
  */
 public class Menu_QuantrivienController implements Initializable {
     @FXML private TableView<chuyendi> tbChuyenDi;
-    @FXML private TableView<nhanvien> tbNhanVien;
-    @FXML private TextField txtTimKiem;
+//    @FXML private TableView<nhanvien> tbNhanVien;
+    @FXML private TextField txtTimKiemCD;
     @FXML private TextField txtMaChuyen;
     @FXML private TextField txtTenChuyen;
     @FXML private TextField txtGia;
@@ -63,14 +62,16 @@ public class Menu_QuantrivienController implements Initializable {
         } catch (SQLException ex) {
             Logger.getLogger(Menu_QuantrivienController.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
-        this.loadTableViewNV();
-        try {
-            this.loadTableDataNV();
-        } catch (SQLException ex) {
-            Logger.getLogger(Menu_QuantrivienController.class.getName()).log(Level.SEVERE, null, ex);
-        }
-            //this.initTextFieldNV(); //KHOI TAO TEXT FIELD
+       
+//////////////////////////////////////////////////////////////////////////////////////        
+//        this.loadTableViewNV();
+//        try {
+//            this.loadTableDataNV();
+//        } catch (SQLException ex) {
+//            Logger.getLogger(Menu_QuantrivienController.class.getName()).log(Level.SEVERE, null, ex);
+//        }
+//            //this.initTextFieldNV(); //KHOI TAO TEXT FIELD
+//////////////////////////////////////////////////////////////////////////////////////       
 
         //THEO DOI CHON DONG DU LIEU
         this.tbChuyenDi.setRowFactory(et -> {
@@ -83,9 +84,9 @@ public class Menu_QuantrivienController implements Initializable {
         });
 
         //THEO DOI TIM KIEM THEO TEN
-        this.txtTimKiem.textProperty().addListener((evt)-> {
+        this.txtTimKiemCD.textProperty().addListener((evt)-> {
             try {
-                this.loadTableDataCDKw(this.txtTimKiem.getText());
+                this.loadTableDataCDKw(this.txtTimKiemCD.getText());
             } catch (SQLException ex) {
                 Logger.getLogger(Menu_QuantrivienController.class.getName()).log(Level.SEVERE, null, ex);
             } 
@@ -238,30 +239,30 @@ public class Menu_QuantrivienController implements Initializable {
         });
     }
 
-////////////////////////////////////////////////////////////////////NHAN VIEN////////////////////////////////////////////////////////////////////
-    public void loadTableViewNV(){
-        TableColumn colMaNV = new TableColumn("Mã");
-        colMaNV.setCellValueFactory(new PropertyValueFactory("MaNV"));
-        colMaNV.setPrefWidth(100);
-        
-        TableColumn colTenNV = new TableColumn("Tên Nhân Viên");
-        colTenNV.setCellValueFactory(new PropertyValueFactory("TenNV"));
-        colTenNV.setPrefWidth(220);
-        
-        TableColumn colCMND = new TableColumn("CMND/CCCD");
-        colCMND.setCellValueFactory(new PropertyValueFactory("CMND"));
-        colCMND.setPrefWidth(160);
-        
-        TableColumn colSDT = new TableColumn("Số Điện Thoại");
-        colSDT.setCellValueFactory(new PropertyValueFactory("SDT"));
-        colSDT.setPrefWidth(160);
-        
-        this.tbNhanVien.getColumns().addAll(colMaNV,colTenNV,colCMND,colSDT);
-    }
-    
-    public void loadTableDataNV() throws SQLException{
-        Login_nhanvien lnv = new Login_nhanvien();
-        this.tbNhanVien.setItems(FXCollections.observableList(lnv.getNhanvien()));
-    }
-    
+//////////////////////////////////////////////////////////////////////NHAN VIEN////////////////////////////////////////////////////////////////////
+//    public void loadTableViewNV(){
+//        TableColumn colMaNV = new TableColumn("Mã");
+//        colMaNV.setCellValueFactory(new PropertyValueFactory("MaNV"));
+//        colMaNV.setPrefWidth(100);
+//        
+//        TableColumn colTenNV = new TableColumn("Tên Nhân Viên");
+//        colTenNV.setCellValueFactory(new PropertyValueFactory("TenNV"));
+//        colTenNV.setPrefWidth(220);
+//        
+//        TableColumn colCMND = new TableColumn("CMND/CCCD");
+//        colCMND.setCellValueFactory(new PropertyValueFactory("CMND"));
+//        colCMND.setPrefWidth(160);
+//        
+//        TableColumn colSDT = new TableColumn("Số Điện Thoại");
+//        colSDT.setCellValueFactory(new PropertyValueFactory("SDT"));
+//        colSDT.setPrefWidth(160);
+//        
+//        this.tbNhanVien.getColumns().addAll(colMaNV,colTenNV,colCMND,colSDT);
+//    }
+//    
+//    public void loadTableDataNV() throws SQLException{
+//        Login_nhanvien lnv = new Login_nhanvien();
+//        this.tbNhanVien.setItems(FXCollections.observableList(lnv.getNhanvien()));
+//    }
+//    
 }

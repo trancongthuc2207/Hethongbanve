@@ -108,7 +108,6 @@ public class Sv_chuyendi {
             conn.commit();
         }
     }
-    
     //------------ CHUA HOAN THANH
     public void xoaChuyenDi(chuyendi cd) throws SQLException {
         try(Connection conn = jdbcUtils.getConn()){
@@ -118,4 +117,6 @@ public class Sv_chuyendi {
             conn.commit();
         }
     }
+    
+    
 }
