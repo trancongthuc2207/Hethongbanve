@@ -15,7 +15,31 @@ Trạng thái vé:
 
 0 : thu hồi
 
+<<<<<<< HEAD
 ---------------
 Hưng
 - Một số vấn đề về xóa chuyến đi - Chưa giải quyết
 - Hàm check chuyến đi chưa có xe nhận và ngược lại (sẽ check bằng button ngoài gui) - Chưa giải quyết
+=======
+-------------
+Trước 30 phút nếu khách hàng không đến nhận vé đã đặt thì hệ thống sẽ tự động 
+huỷ vé  -  Bao gồm diều kiện trc 5p xe chạy mà chưa nhận vé!!
+
+[  Giờ hệ thống >= (Giờ Xe chạy (Bắt đầu) - 30p) Và trạng thái vé đó phải khác 2 ] - hieuLucVeDat
+
+------------
+Hoàn vé thực hiện đổi vé trước 60 phút trước khi chuyến xe khởi 
+hành
+
+[  (Giờ xe chạy (Bắt đầu)) - Giờ hệ thống >= 60p  _   Và trạng thái vé đó phải là 1  ]  -   isVeCanTransfer
+
+------------
+đặt vé chỉ được thực hiện trước 60 
+phút
+
+[  Giờ xe chạy - Giờ hệ thống >= 60p  ]  -  checkTimeDatVe
+------------
+mua vé trước 5 phút
+
+[ Giờ xe chạy - giờ hệ thống >= 5p  ] - checkTimeMuaVe
+>>>>>>> 34233d0d4a70f3028688bfc2f396846765860686

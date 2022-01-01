@@ -155,7 +155,6 @@ public class Sv_vexe {
         Sv_Update_TrangThaiVe upDateStatus = new Sv_Update_TrangThaiVe();
         List<vexe> list = new ArrayList<>();
         list = this.getVeXe();
-        
         ///////////// LOAD TỪNG VÉ XE: Check Time Trc 30p mà vẫn chưa nhận vé thì vé tự động thu hồi và reset lại chỗ đã đặt
         for(vexe v : list){
             if(CkStatus.hieuLucVeDat(v) == true){

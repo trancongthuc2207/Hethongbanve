@@ -296,7 +296,7 @@
          </GridPane.margin>
       </Button>
       <Button maxWidth="100.0" mnemonicParsing="false" onAction="#muaVeButton" text="MUA VÉ" GridPane.rowIndex="5" />
-      <Button maxWidth="100.0" mnemonicParsing="false" text="Hoàn vé" GridPane.rowIndex="5" GridPane.valignment="BOTTOM">
+      <Button maxWidth="100.0" mnemonicParsing="false" onAction="#hoanVeButton" text="Hoàn vé" GridPane.rowIndex="5" GridPane.valignment="BOTTOM">
          <GridPane.margin>
             <Insets bottom="10.0" />
          </GridPane.margin>
