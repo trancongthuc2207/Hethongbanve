@@ -8,6 +8,7 @@ package com.mycompany.hethongbanve;
 import Service.Sv_CheckOption;
 import Service.Sv_vexe;
 import config.Utils;
+import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
@@ -16,11 +17,14 @@ import java.util.logging.Logger;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.stage.Stage;
 import pojo.vexe;
 
 /**
@@ -30,7 +34,7 @@ import pojo.vexe;
  */
 public class Menu_XuLyVeController implements Initializable {
     private static vexe veCurr = new vexe();
-    
+    public static boolean clickHoanVe = false;
     @FXML private TableView<vexe> tbVeXE;
     /**
      * Initializes the controller class.
@@ -38,7 +42,6 @@ public class Menu_XuLyVeController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
-        this.veCurr = this.tbVeXE.getSelectionModel().getSelectedItem();
         this.loadTableViewVeXE();
         try {
             this.loadTableDataVeXE();
@@ -92,7 +95,7 @@ public class Menu_XuLyVeController implements Initializable {
     }
     ////////////VE CLICK
     public static vexe getVeCurr(){
-        return Menu_XuLyVeController.veCurr;
+        return veCurr;
     }
    
     /////////////
@@ -110,6 +113,7 @@ public class Menu_XuLyVeController implements Initializable {
         if(ckOP.isCanForDeleteVe(ve)){
             svVe.thuHoiVe(ve);
             Utils.getBox("THU HỒI THÀNH CÔNG!", Alert.AlertType.INFORMATION).show();
+            this.loadTableDataVeXE();
         }
         else
             Utils.getBox("VÉ ĐÃ NHẬN, THU HỒI THẤT BẠI!", Alert.AlertType.INFORMATION).show();
@@ -123,6 +127,25 @@ public class Menu_XuLyVeController implements Initializable {
         if(ckOP.isVeThuHoi(ve) == false){
             svVe.nhanVe(ve);
             Utils.getBox("VÉ ĐÃ NHẬN THÀNH CÔNG!", Alert.AlertType.INFORMATION).show();
+            this.loadTableDataVeXE();
+        }
+        else
+            Utils.getBox("VÉ ĐÃ ĐƯỢC NHẬN HOẶC THU HỒI", Alert.AlertType.INFORMATION).show();
+    }
+    
+    public void hoanVeButton(ActionEvent event) throws SQLException, IOException{
+        Sv_CheckOption ckOP = new Sv_CheckOption();
+        vexe vx = new vexe();
+        vx = this.tbVeXE.getSelectionModel().getSelectedItem();
+        this.veCurr = vx;
+        if(ckOP.isVeCanTransfer(vx) == true && ckOP.isVeChuaNhan(vx)){
+            this.clickHoanVe = true;
+            FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("Menu_Datve.fxml"));
+            Scene scene = new Scene(fxmlLoader.load());
+            Stage stage = new Stage();
+            stage.setScene(scene);
+            stage.setTitle("MENU ĐẶT VÉ");
+            stage.show(); 
         }
         else
             Utils.getBox("VÉ ĐÃ ĐƯỢC NHẬN HOẶC THU HỒI", Alert.AlertType.INFORMATION).show();

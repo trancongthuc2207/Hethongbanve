@@ -23,6 +23,11 @@ import pojo.xe_ghe;
  * @author Admin
  */
 public class Sv_xe {
+    private static int MaXeCurrent = 0;
+    
+    public static int getMaXeCurrent(){
+        return MaXeCurrent;
+    }
     
     //////TRẢ VỀ DANH SÁCH XE
     public List<xe> getXe() throws SQLException{
@@ -36,6 +41,7 @@ public class Sv_xe {
         while(rs.next()){
             xe xe = new xe(rs.getInt("MaXE"), rs.getString("TenXe"), rs.getString("Bienso"), rs.getInt("Trangthai"),rs.getInt("MaChuyen"));
             dsxe.add(xe);
+            MaXeCurrent = rs.getInt("MaXE");
         }
         conn.close();
         return dsxe;
@@ -148,13 +154,8 @@ public class Sv_xe {
         list = this.getXe();
         
         for(xe x : list){
-            if(CkStatus.isOutOfTimeToMove(sv_cd.getMaToChuyen(this.maChuyenOfMaXE(x.getMaChuyen()))) == true || CkStatus.isFullSlotGhe(x) == true){
-                
-                if(CkStatus.isFullSlotGheVeNhan(x.getMaXE()))
-                {
-                    System.out.println("ĐÚNG");
+            if(CkStatus.isOutOfTimeToMove(sv_cd.getMaToChuyen(this.maChuyenOfMaXE(x.getMaChuyen()))) == true){
                     upDateStatus.UpdateTrangThaiXeToDiChuyen(x);
-                }
             }
         }
     }

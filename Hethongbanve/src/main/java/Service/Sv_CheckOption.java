@@ -31,13 +31,12 @@ public class Sv_CheckOption {
         Sv_chuyendi cd = new Sv_chuyendi();
         boolean check = false;
         if((cd.getMaToChuyen(vx.getMaChuyen()).getThoiGianBatDau().getTime() - vx.getNgayin().getTime()) >= (60*60*1000))
-            check = true;
-        System.out.println(check);
+            check = true;  // ĐẶT ĐƯỢC
         return check;
     }
     
     public boolean checkGheTrung(vexe vx) throws SQLException{ //TRUE LÀ TRÙNG
-        boolean check = false;
+        boolean check = false;              //trả về danh sach ghế nếu Ghế đó đã được đặt từ vé khác
         List<xe_ghe> lstG = new ArrayList<>();
         try {
             Connection conn = jdbcUtils.getConn();
@@ -49,8 +48,7 @@ public class Sv_CheckOption {
                 lstG.add(xG);
             }
             if(lstG.size() > 0){
-                System.out.println(lstG.size());
-                check = true;  
+                check = true;   /// trùng
             }
             conn.close();
         } catch (SQLException sQLException) {
@@ -63,7 +61,6 @@ public class Sv_CheckOption {
         boolean check = false;
         if((cd.getMaToChuyen(vx.getMaChuyen()).getThoiGianBatDau().getTime() - vx.getNgayin().getTime()) > (5*60*1000))
             check = true;
-        System.out.println(check);
         return check;
     }
     
@@ -74,10 +71,11 @@ public class Sv_CheckOption {
         ///DEFAULT
         String date = sdf.format(dateCur);
         
-        Timestamp tgHT = Timestamp.valueOf(date); //THOI GIAN HIEN TAI        
-        Timestamp tGHetHieuLuc = new Timestamp(vx.getNgayin().getTime() - 30*60*1000); // THOI GIAN IN - 30p (Truoc 30p trang thai ve vẫn = 1)
-
-        if((tgHT.getTime() == tGHetHieuLuc.getTime()) && vx.getTrangthai() != 2)
+        Timestamp tgHT = Timestamp.valueOf(date); //THOI GIAN HIEN TAI 
+        Sv_chuyendi cd = new Sv_chuyendi();
+        Timestamp tGHetHieuLuc = new Timestamp(cd.getMaToChuyen(vx.getMaChuyen()).getThoiGianBatDau().getTime() - 30*60*1000); // THOI GIAN CHUYEN DI - 30p (Truoc 30p trang thai ve vẫn = 1)
+        
+        if((tgHT.getTime() >= tGHetHieuLuc.getTime()) && vx.getTrangthai() != 2)
             check = true;  // HẾT HIỆU LỰC
         return check;
     }
@@ -127,25 +125,24 @@ public class Sv_CheckOption {
         return check;
     }
     
-    public boolean isFullSlotGheVeNhan(int maXE) throws SQLException{
-        boolean check = false;
-        Sv_vexe listVe = new Sv_vexe();
-        List<vexe> dsVe = listVe.getVeXeTheoMaXE(maXE);
-        int SLTrangThai = 0;
-        
-        for(vexe h : dsVe){
-            System.out.println(h.getTrangthai());
-            if(h.getTrangthai() == 1)
-                SLTrangThai--;
-            else{
-                if(h.getTrangthai() == 2)
-                    SLTrangThai++;
-            }
-        }
-        System.out.println(SLTrangThai);
-        if(SLTrangThai == 16)
-            return true;
+    public boolean isVeChuaNhan(vexe vx){
+        boolean check = false;           // true là thu hoi, false là không 
+        if(vx.getTrangthai() == 1)     
+            check = true;
         return check;
     }
     
+    public boolean isVeCanTransfer(vexe vx) throws SQLException{
+        Date dateCur = new Date();
+        SimpleDateFormat sdf = new SimpleDateFormat(DATE_FORMAT_NOW);
+        ///DEFAULT
+        String date = sdf.format(dateCur); // Lay thoi gian hien tai
+        Timestamp tgHT = Timestamp.valueOf(date);
+        boolean check = false;
+        Sv_chuyendi cd = new Sv_chuyendi();
+        if((cd.getMaToChuyen(vx.getMaChuyen()).getThoiGianBatDau().getTime() - tgHT.getTime()) >= (60*60*1000))
+            check = true;  // ĐẶT ĐƯỢC
+        return check;
+    }
+   
 }
