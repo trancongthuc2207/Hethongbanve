@@ -105,6 +105,7 @@ public class Menu_DatveController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        this.initInputFullOp();
         ////////init Ma~
         this.txtMaCD.setText(null);
         this.txtMaKH.setText(null);
@@ -208,7 +209,6 @@ public class Menu_DatveController implements Initializable {
             this.maKHtam = Integer.valueOf(this.txtMaKH.getText());
             this.gheNgoitam = this.lblSoghe.getText();
         }
-        System.out.println(this.ISTRANGTHAIHOANVE());
     }  
     ///////////////LOAD CAC TABLE
     /////////CHUYEN DI
@@ -375,8 +375,10 @@ public class Menu_DatveController implements Initializable {
                 this.ClickloadCD = false;
             }
         }
-        else
+        else{
+            this.ClickloadCD = true;
             Utils.getBox("MỜI BẠN NHẬP MÃ CHUYẾN", Alert.AlertType.WARNING).show();
+        }
     }
     //LOAD BUTTON KHACH HANG
     public void loadMaToKH(ActionEvent event) throws SQLException{
@@ -396,8 +398,10 @@ public class Menu_DatveController implements Initializable {
                 this.ClickloadKH = false;
             }
         }
-        else
+        else{
             Utils.getBox("MỜI BẠN NHẬP MÃ KHÁCH HÀNG", Alert.AlertType.WARNING).show();
+            this.ClickloadKH = true;
+        }
     }
     //LOAD BUTTON XE
     public void loadMaToXE(ActionEvent event) throws SQLException{
@@ -413,14 +417,8 @@ public class Menu_DatveController implements Initializable {
                     } catch (SQLException sQLException) {
                         Utils.getBox("KHÔNG CÓ XE PHÙ HỢP VỚI CHUYẾN ĐÃ CHỌN", Alert.AlertType.WARNING).show();
                     }
-                    xe = loadXe.getMaToXE(Integer.parseInt(txtMaXE.getText()), Integer.parseInt(txtMaCD.getText()));
                     this.cbXe_ghetrong.setItems(FXCollections.observableList(loadXe.getGheTrong(Integer.parseInt(txtMaXE.getText()))));
-                    try {
-                        this.lblSoghe.setText(cbXe_ghetrong.getValue());
-                        this.ClickloadGHE = true;
-                    } catch (Exception e) {
-                        this.ClickloadGHE = false;
-                    }
+                    
                     if(xe.getMaXE() != 0){
                         txtTenXe.setText(xe.getTenXe());
                         this.lblMaXE.setText(txtMaXE.getText());
@@ -448,8 +446,10 @@ public class Menu_DatveController implements Initializable {
             else
                 Utils.getBox("SỐ MÃ XE KHÔNG HỢP LỆ", Alert.AlertType.WARNING).show();
         }
-        else
+        else{
             Utils.getBox("MỜI BẠN NHẬP MÃ XE", Alert.AlertType.WARNING).show();
+            this.ClickloadXE = false;
+        }
     }
     
     ///////REFRESH
@@ -483,7 +483,7 @@ public class Menu_DatveController implements Initializable {
     public vexe veCurrent() throws ParseException{
         Sv_vexe vx = new Sv_vexe();
         this.SLMV = vx.getMaVeCurrent();
-        if(txtMaCD.getText() != null && txtMaKH.getText() != null && txtMaXE.getText() != null){
+        if(isInputFullOp()){
             this.veCur.setMaVE(SLMV+1);
             this.veCur.setThoigianbatdau(Timestamp.valueOf(txtThoiGianBatDau.getText()));
             this.veCur.setSoghe(this.cbXe_ghetrong.getValue().substring(0, 3));
@@ -494,8 +494,9 @@ public class Menu_DatveController implements Initializable {
             this.veCur.setNgayin(Timestamp.valueOf(txtGioIn.getText()));
             this.veCur.setTrangthai(1);
         }
-        else
+        else{
             Utils.getBox("CÓ THỂ BẠN CHƯA NHẬP ĐỦ THÔNG TIN CỦA VÉ", Alert.AlertType.WARNING).show();
+        }
         return this.veCur;
     }
     public void datVeButton(ActionEvent event) throws ParseException, SQLException{
@@ -504,28 +505,27 @@ public class Menu_DatveController implements Initializable {
             Sv_vexe service = new Sv_vexe();
             Sv_chuyendi sv_cd = new Sv_chuyendi();
             Sv_CheckOption CkOP = new Sv_CheckOption();
-            if(CkOP.isOutOfTimeToMove(sv_cd.getMaToChuyen(vx.getMaChuyen())) != true){
-                if(isInputFullOp()){
-                    if(CkOP.checkTimeDatVe(vx) == true){
-                        if(CkOP.checkGheTrung(vx) != true){
-                            service.addVeXe(vx);
-                            Utils.getBox("THÊM VÉ THÀNH CÔNG", Alert.AlertType.INFORMATION).show();
-                            initInputFullOp();
-                            this.loadTableDataVeXE();
-                            this.initThongTinTextField();
+                if(isInputFullOp() == true){
+                    if(CkOP.isOutOfTimeToMove(sv_cd.getMaToChuyen(vx.getMaChuyen())) != true){
+                        if(CkOP.checkTimeDatVe(vx) == true){
+                            if(CkOP.checkGheTrung(vx) != true){
+                                    service.addVeXe(vx);
+                                    Utils.getBox("THÊM VÉ THÀNH CÔNG", Alert.AlertType.INFORMATION).show();
+                                    initInputFullOp();
+                                    this.loadTableDataVeXE();
+                                    this.initThongTinTextField();
+                            }
+                            else
+                                Utils.getBox("GHẾ ĐÃ TRÙNG", Alert.AlertType.WARNING).show();
                         }
                         else
-                            Utils.getBox("GHẾ ĐÃ TRÙNG", Alert.AlertType.WARNING).show();
+                            Utils.getBox("VÉ ĐẶT PHẢI TRƯỚC 1 TIẾNG!!", Alert.AlertType.WARNING).show();
                     }
-                    else{
-                        Utils.getBox("VÉ ĐẶT PHẢI TRƯỚC 1 TIẾNG!!", Alert.AlertType.WARNING).show();
-                    }
+                    else
+                        Utils.getBox("XE ĐÃ DI CHUYỂN", Alert.AlertType.WARNING).show();
                 }
                 else
                     Utils.getBox("YÊU CẦU BẠN NHẬP ĐẦY ĐỦ (LOAD ĐỦ THÔNG TIN TRƯỚC KHI NHẤN NÚT ĐẶT VÉ)", Alert.AlertType.WARNING).show();
-            }
-            else
-                Utils.getBox("XE ĐÃ DI CHUYỂN", Alert.AlertType.WARNING).show();
         }
         else
             Utils.getBox("ĐANG TRONG TRẠNG THÁI HOÀN VÉ, KHÔNG THỂ ĐẶT VÉ NÀY", Alert.AlertType.WARNING).show();
@@ -534,33 +534,33 @@ public class Menu_DatveController implements Initializable {
     public void muaVeButton(ActionEvent event) throws ParseException, SQLException{
         if(this.ISTRANGTHAIHOANVE() != true){
             vexe vx = this.veCurrent();
-            vx.setTrangthai(2);
             Sv_vexe service = new Sv_vexe();
             Sv_chuyendi sv_cd = new Sv_chuyendi();
             Sv_CheckOption CkOP = new Sv_CheckOption();
-            if(CkOP.isOutOfTimeToMove(sv_cd.getMaToChuyen(vx.getMaChuyen())) != true){
-                if(isInputFullOp()){
-                    if(CkOP.checkTimeMuaVe(vx) == true){
-                        if(CkOP.checkGheTrung(vx) != true){
-                            service.addMuaVeXe(vx);
-                            Utils.getBox("THÊM VÉ THÀNH CÔNG", Alert.AlertType.INFORMATION).show();
-                            initInputFullOp();
-                            this.loadTableDataVeXE();
-                            this.initThongTinTextField();
+                if(isInputFullOp() == true){
+                    vx.setTrangthai(2);
+                    if(CkOP.isOutOfTimeToMove(sv_cd.getMaToChuyen(vx.getMaChuyen())) != true){
+                        if(CkOP.checkTimeMuaVe(vx) == true){
+                            if(CkOP.checkGheTrung(vx) != true){
+                                    service.addMuaVeXe(vx);
+                                    Utils.getBox("THÊM VÉ THÀNH CÔNG", Alert.AlertType.INFORMATION).show();
+                                    initInputFullOp();
+                                    this.loadTableDataVeXE();
+                                    this.initThongTinTextField();
+                            }
+                            else
+                                Utils.getBox("GHẾ ĐÃ TRÙNG", Alert.AlertType.WARNING).show();
                         }
-                        else
-                            Utils.getBox("GHẾ ĐÃ TRÙNG", Alert.AlertType.WARNING).show();
+                        else{
+                            Utils.getBox("HẾT HẠN MUA VÉ", Alert.AlertType.WARNING).show();
+                        }
                     }
-                    else{
-                        Utils.getBox("HẾT HẠN MUA VÉ", Alert.AlertType.WARNING).show();
-                    }
+                    else
+                        Utils.getBox("XE ĐÃ DI CHUYỂN", Alert.AlertType.WARNING).show();
                 }
                 else
-                    Utils.getBox("YÊU CẦU BẠN NHẬP ĐẦY ĐỦ (LOAD ĐỦ THÔNG TIN TRƯỚC KHI NHẤN NÚT ĐẶT VÉ)", Alert.AlertType.WARNING).show();
-            }
-            else
-                Utils.getBox("XE ĐÃ DI CHUYỂN", Alert.AlertType.WARNING).show();
-        }
+                        Utils.getBox("YÊU CẦU BẠN NHẬP ĐẦY ĐỦ (LOAD ĐỦ THÔNG TIN TRƯỚC KHI NHẤN NÚT ĐẶT VÉ)", Alert.AlertType.WARNING).show();
+          }
         else
             Utils.getBox("ĐANG TRONG TRẠNG THÁI HOÀN VÉ, KHÔNG THỂ MUA VÉ NÀY", Alert.AlertType.WARNING).show();
     }
@@ -580,6 +580,7 @@ public class Menu_DatveController implements Initializable {
         Sv_vexe vx = new Sv_vexe();
         this.SLMV = vx.getMaVeCurrent() + 1;
         this.lblMaVe.setText(String.valueOf(SLMV));
+        this.initInputFullOp();
     }
     public void initThongTinLabel(){
         this.lblMaVe.setText(null);
@@ -603,10 +604,11 @@ public class Menu_DatveController implements Initializable {
     }
     public void CbBoxToLabel(ActionEvent evt){
         this.lblSoghe.setText(this.cbXe_ghetrong.getValue());
+        this.ClickloadGHE = true;
     }
     
 
-    ////
+    ////XU LY VE --->
     public void loadVeHienTaiHoanVe() throws SQLException{
         vexe vx = new vexe();
         vx = Menu_XuLyVeController.getVeCurr();
@@ -636,58 +638,61 @@ public class Menu_DatveController implements Initializable {
         Menu_XuLyVeController.clickHoanVe = false;
     }
     public void hoanVeButton(ActionEvent event) throws SQLException{
-        Sv_vexe sv_ve = new Sv_vexe();
-        Sv_xe loadXe = new Sv_xe();
-        Sv_CheckOption ckOp = new Sv_CheckOption();
-        Date dateCur = new Date();
-        SimpleDateFormat sdf = new SimpleDateFormat(DATE_FORMAT_NOW);
-        xe xe = new xe();
-        vexe veOldToNull = sv_ve.getVeXe(Menu_XuLyVeController.getVeCurr().getMaVE());
-        this.veCur = sv_ve.getVeXe(Menu_XuLyVeController.getVeCurr().getMaVE());
-        if(ckOp.isVeCanTransfer(veCur)){
-            if(Integer.valueOf(this.txtMaKH.getText()) == veCur.getMaKH()){
-                this.SLMV = sv_ve.getMaVeCurrent();
-                this.veCur.setMaVE(SLMV+1);
-                if(Integer.valueOf(this.txtMaCD.getText()) == this.maCDtam){
-                    xe = loadXe.getMaToXE(veCur.getMaXE(), veCur.getMaChuyen());
-                    this.cbXe_ghetrong.setItems(FXCollections.observableList(loadXe.getGheTrong(veCur.getMaXE())));
-                    this.veCur.setSoghe(this.cbXe_ghetrong.getValue().substring(0, 3));
-                    String Ngayinmoi = sdf.format(dateCur);
-                    this.veCur.setNgayin(Timestamp.valueOf(Ngayinmoi));
-                    this.veCur.setTrangthai(1);
-                    if(ckOp.checkGheTrung(veCur) != true){
-                        sv_ve.addVeXe(veCur);
-                        sv_ve.thuHoiVe(veOldToNull);  // chuyển đổi vé cũ thành vé thu hồi
-                        Utils.getBox("HOÀN VÉ THÀNH CÔNG", Alert.AlertType.INFORMATION).show();
-                        this.loadTableDataVeXE();
-                        initThongTinTextField();
+        if(this.ISTRANGTHAIHOANVE() == true){
+            Sv_vexe sv_ve = new Sv_vexe();
+            Sv_xe loadXe = new Sv_xe();
+            Sv_CheckOption ckOp = new Sv_CheckOption();
+            Date dateCur = new Date();
+            SimpleDateFormat sdf = new SimpleDateFormat(DATE_FORMAT_NOW);
+            xe xe = new xe();
+            vexe veOldToNull = sv_ve.getVeXe(Menu_XuLyVeController.getVeCurr().getMaVE());
+            this.veCur = sv_ve.getVeXe(Menu_XuLyVeController.getVeCurr().getMaVE());
+            if(ckOp.isVeCanTransfer(veCur)){
+                if(Integer.valueOf(this.txtMaKH.getText()) == veCur.getMaKH()){
+                    this.SLMV = sv_ve.getMaVeCurrent();
+                    this.veCur.setMaVE(SLMV+1);
+                    if(Integer.valueOf(this.txtMaCD.getText()) == this.maCDtam){
+                        xe = loadXe.getMaToXE(veCur.getMaXE(), veCur.getMaChuyen());
+                        this.cbXe_ghetrong.setItems(FXCollections.observableList(loadXe.getGheTrong(veCur.getMaXE())));
+                        this.veCur.setSoghe(this.cbXe_ghetrong.getValue().substring(0, 3));
+                        String Ngayinmoi = sdf.format(dateCur);
+                        this.veCur.setNgayin(Timestamp.valueOf(Ngayinmoi));
+                        this.veCur.setTrangthai(1);
+                        if(ckOp.checkGheTrung(veCur) != true){
+                            sv_ve.addVeXe(veCur);
+                            sv_ve.thuHoiVe(veOldToNull);  // chuyển đổi vé cũ thành vé thu hồi
+                            Utils.getBox("HOÀN VÉ THÀNH CÔNG", Alert.AlertType.INFORMATION).show();
+                            this.loadTableDataVeXE();
+                            initThongTinTextField();
+                        }
+                        else
+                            Utils.getBox("TRÙNG GHẾ", Alert.AlertType.INFORMATION).show();
                     }
-                    else
-                        Utils.getBox("TRÙNG GHẾ", Alert.AlertType.INFORMATION).show();
-                }
-                else{       // NẾU CHUYẾN ĐI THAY ĐỔI
-                    ///DEFAULT
-                    String Ngayinmoi = sdf.format(dateCur);
-                    this.veCur.setMaChuyen(Integer.parseInt(txtMaCD.getText()));
-                    this.veCur.setMaXE(Integer.parseInt(txtMaXE.getText()));
-                    this.veCur.setSoghe(this.cbXe_ghetrong.getValue().substring(0, 3));
-                    this.veCur.setNgayin(Timestamp.valueOf(Ngayinmoi));
-                    this.veCur.setTrangthai(1);
-                   if(ckOp.checkGheTrung(veCur) != true){
-                        sv_ve.addVeXe(veCur);
-                        sv_ve.thuHoiVe(veOldToNull);  // chuyển đổi vé cũ thành vé thu hồi
-                        Utils.getBox("HOÀN VÉ THÀNH CÔNG", Alert.AlertType.INFORMATION).show();
-                        this.loadTableDataVeXE();
-                        initThongTinTextField();
+                    else{       // NẾU CHUYẾN ĐI THAY ĐỔI
+                        ///DEFAULT
+                        String Ngayinmoi = sdf.format(dateCur);
+                        this.veCur.setMaChuyen(Integer.parseInt(txtMaCD.getText()));
+                        this.veCur.setMaXE(Integer.parseInt(txtMaXE.getText()));
+                        this.veCur.setSoghe(this.cbXe_ghetrong.getValue().substring(0, 3));
+                        this.veCur.setNgayin(Timestamp.valueOf(Ngayinmoi));
+                        this.veCur.setTrangthai(1);
+                       if(ckOp.checkGheTrung(veCur) != true){
+                            sv_ve.addVeXe(veCur);
+                            sv_ve.thuHoiVe(veOldToNull);  // chuyển đổi vé cũ thành vé thu hồi
+                            Utils.getBox("HOÀN VÉ THÀNH CÔNG", Alert.AlertType.INFORMATION).show();
+                            this.loadTableDataVeXE();
+                            initThongTinTextField();
+                        }
+                        else
+                            Utils.getBox("TRÙNG GHẾ", Alert.AlertType.INFORMATION).show();
                     }
-                    else
-                        Utils.getBox("TRÙNG GHẾ", Alert.AlertType.INFORMATION).show();
-                   
                 }
+                else
+                    Utils.getBox("MÃ KHÁCH HÀNG HOÀN VÉ KHÔNG ĐƯỢC THAY ĐỔI", Alert.AlertType.WARNING).show();
             }
-            else
-                Utils.getBox("MÃ KHÁCH HÀNG HOÀN VÉ KHÔNG ĐƯỢC THAY ĐỔI", Alert.AlertType.WARNING).show();
         }
+        else
+            Utils.getBox("ĐANG TRONG TRẠNG THÁI ĐẶT VÀ MUA VÉ, KHÔNG THỂ HOÀN VÉ NÀO NGAY LÚC NÀY", Alert.AlertType.WARNING).show();
     }
     
     public boolean ISTRANGTHAIHOANVE(){

@@ -38,21 +38,18 @@ public class Sv_CheckOption {
     public boolean checkGheTrung(vexe vx) throws SQLException{ //TRUE LÀ TRÙNG
         boolean check = false;              //trả về danh sach ghế nếu Ghế đó đã được đặt từ vé khác
         List<xe_ghe> lstG = new ArrayList<>();
-        try {
-            Connection conn = jdbcUtils.getConn();
-            Statement stm = conn.createStatement();
-            ResultSet rs = stm.executeQuery("Select * from xe_ghe where MaXE = " + vx.getMaXE() + 
-                    " and " + vx.getSoghe() + " = 1");
-            while(rs.next()){
-                xe_ghe xG = new xe_ghe(rs.getInt("MaXE"), rs.getInt("g1"), rs.getInt("g2"), rs.getInt("g3"), rs.getInt("g4"), rs.getInt("g5"), rs.getInt("g6"), rs.getInt("g7"), rs.getInt("g8"), rs.getInt("g9"), rs.getInt("g10"), rs.getInt("g11"), rs.getInt("g12"), rs.getInt("g13"), rs.getInt("g14"), rs.getInt("g15"), rs.getInt("g16"));
-                lstG.add(xG);
-            }
-            if(lstG.size() > 0){
-                check = true;   /// trùng
-            }
-            conn.close();
-        } catch (SQLException sQLException) {
+        Connection conn = jdbcUtils.getConn();
+        Statement stm = conn.createStatement();
+        ResultSet rs = stm.executeQuery("Select * from xe_ghe where MaXE = " + vx.getMaXE() + 
+                " and " + vx.getSoghe() + " = 1");
+        while(rs.next()){
+            xe_ghe xG = new xe_ghe(rs.getInt("MaXE"), rs.getInt("g1"), rs.getInt("g2"), rs.getInt("g3"), rs.getInt("g4"), rs.getInt("g5"), rs.getInt("g6"), rs.getInt("g7"), rs.getInt("g8"), rs.getInt("g9"), rs.getInt("g10"), rs.getInt("g11"), rs.getInt("g12"), rs.getInt("g13"), rs.getInt("g14"), rs.getInt("g15"), rs.getInt("g16"));
+            lstG.add(xG);
         }
+        if(lstG.size() > 0){
+            check = true;   /// trùng
+        }
+        conn.close();
         return check;
     }
     
@@ -94,6 +91,21 @@ public class Sv_CheckOption {
         return check;
     }
     
+    public boolean isTimeXeToMove(xe xe) throws SQLException{  /// XÉT THỜI GIAN HỆ THỐNG > THỜI GIAN BẮT ĐẦU CỦA CHUYẾN ĐI
+        boolean check = false;                      /// ĐỂ NGĂN CHẶN VIỆC ĐẶT 
+        Sv_chuyendi cd = new Sv_chuyendi();
+        Date dateCur = new Date();
+        SimpleDateFormat sdf = new SimpleDateFormat(DATE_FORMAT_NOW);
+        ///DEFAULT
+        String date = sdf.format(dateCur);
+        
+        Timestamp tgHT = Timestamp.valueOf(date); //THOI GIAN HIEN TAI
+        if(tgHT.getTime() >= cd.getMaToChuyen(xe.getMaChuyen()).getThoiGianBatDau().getTime())  // TRUE LÀ HẾT HẠN
+            check = true;
+        
+        return check;
+    }
+    
     public boolean isFullSlotGhe(xe xe) throws SQLException{
         boolean check = true;
         Connection conn = jdbcUtils.getConn();
@@ -113,7 +125,7 @@ public class Sv_CheckOption {
     
     public boolean isCanForDeleteVe(vexe vx){
         boolean check = true;           // true là xoá đc, false là không xoá đc
-        if(vx.getTrangthai() == 2)     // 2 là ko thể xoá
+        if(vx.getTrangthai() == 2 || vx.getTrangthai() == 0)     // 2 là ko thể xoá
             check = false;
         return check;
     }
