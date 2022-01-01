@@ -24,6 +24,12 @@ import pojo.xe_ghe;
  */
 public class Sv_xe {
     
+    private static int MaXeCurrent = 0;
+    
+    public static int getMaXeCurrent(){
+        return MaXeCurrent;
+    }
+    
     //////TRẢ VỀ DANH SÁCH XE
     public List<xe> getXe() throws SQLException{
         List<xe> dsxe = new ArrayList<>();
@@ -36,6 +42,7 @@ public class Sv_xe {
         while(rs.next()){
             xe xe = new xe(rs.getInt("MaXE"), rs.getString("TenXe"), rs.getString("Bienso"), rs.getInt("Trangthai"),rs.getInt("MaChuyen"));
             dsxe.add(xe);
+            MaXeCurrent = rs.getInt("MaXE");
         }
         conn.close();
         return dsxe;
@@ -80,6 +87,18 @@ public class Sv_xe {
         Connection conn = jdbcUtils.getConn();
         Statement stm = conn.createStatement();
         ResultSet rs = stm.executeQuery("Select * from xe where MaXE = " + maXE + " and MaChuyen = " + maCD);
+        xe xe = new xe();
+        while(rs.next()){
+           xe = new xe(rs.getInt("MaXE"), rs.getString("TenXe"), rs.getString("Bienso"), rs.getInt("Trangthai"),rs.getInt("MaChuyen"));
+        }
+        conn.close();
+        return xe;
+    }
+    
+        public xe getMaToXE(int maXE) throws SQLException{
+        Connection conn = jdbcUtils.getConn();
+        Statement stm = conn.createStatement();
+        ResultSet rs = stm.executeQuery("Select * from xe where MaXE = " + maXE);
         xe xe = new xe();
         while(rs.next()){
            xe = new xe(rs.getInt("MaXE"), rs.getString("TenXe"), rs.getString("Bienso"), rs.getInt("Trangthai"),rs.getInt("MaChuyen"));

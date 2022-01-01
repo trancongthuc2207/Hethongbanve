@@ -6,7 +6,6 @@ package com.mycompany.hethongbanve;
  * and open the template in the editor.
  */
 
-import Service.Sv_chuyendi;
 import config.Utils;
 import java.sql.SQLException;
 import java.sql.Timestamp;
@@ -27,8 +26,10 @@ import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import Service.Sv_chuyendi;
 import pojo.chuyendi;
-// import pojo.nhanvien;
+import Service.Sv_xe;
+import pojo.xe;
 
 /**
  * FXML Controller class
@@ -37,13 +38,21 @@ import pojo.chuyendi;
  */
 public class Menu_QuantrivienController implements Initializable {
     @FXML private TableView<chuyendi> tbChuyenDi;
-//    @FXML private TableView<nhanvien> tbNhanVien;
     @FXML private TextField txtTimKiemCD;
     @FXML private TextField txtMaChuyen;
     @FXML private TextField txtTenChuyen;
     @FXML private TextField txtGia;
     @FXML private TextField txtTGBD;
     @FXML private TextField txtTGKT;
+    
+    @FXML private TableView<xe> tbXe;
+    @FXML private TextField txtTimKiemXe;
+    @FXML private TextField txtMaXe;
+    @FXML private TextField txtTenXe;
+    @FXML private TextField txtBienSo;
+    @FXML private TextField txtTrangThai;
+    @FXML private TextField txtMaChuyenKN;
+    
     /**
      * Initializes the controller class.
      * @param url
@@ -51,6 +60,7 @@ public class Menu_QuantrivienController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        //KHOI DONG - LOAD DU LIEU
         this.loadTableViewCD();
         try {
             this.loadTableDataCD();
@@ -62,16 +72,19 @@ public class Menu_QuantrivienController implements Initializable {
         } catch (SQLException ex) {
             Logger.getLogger(Menu_QuantrivienController.class.getName()).log(Level.SEVERE, null, ex);
         }
-       
-//////////////////////////////////////////////////////////////////////////////////////        
-//        this.loadTableViewNV();
-//        try {
-//            this.loadTableDataNV();
-//        } catch (SQLException ex) {
-//            Logger.getLogger(Menu_QuantrivienController.class.getName()).log(Level.SEVERE, null, ex);
-//        }
-//            //this.initTextFieldNV(); //KHOI TAO TEXT FIELD
-//////////////////////////////////////////////////////////////////////////////////////       
+        
+        this.loadTableViewXe();
+        try {
+            this.loadTableDataXe();
+        } catch (SQLException ex) {
+            Logger.getLogger(Menu_QuantrivienController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        try {
+            this.initTextFieldXe();
+        } catch (SQLException ex) {
+            Logger.getLogger(Menu_QuantrivienController.class.getName()).log(Level.SEVERE, null, ex);
+        }
 
         //THEO DOI CHON DONG DU LIEU
         this.tbChuyenDi.setRowFactory(et -> {
@@ -114,7 +127,7 @@ public class Menu_QuantrivienController implements Initializable {
     
     //LOAD DU LIEU LEN TABLE
     public void loadTableViewCD(){
-        TableColumn colMaCD = new TableColumn("Mã");
+        TableColumn colMaCD = new TableColumn("Mã CD");
         colMaCD.setCellValueFactory(new PropertyValueFactory("MaChuyen"));
         colMaCD.setPrefWidth(100);
         
@@ -134,8 +147,8 @@ public class Menu_QuantrivienController implements Initializable {
         colThoiGianKetThuc.setCellValueFactory(new PropertyValueFactory("ThoiGianKetThuc"));
         colThoiGianKetThuc.setPrefWidth(160);
         
-        TableColumn colXoa = new TableColumn();
-        colXoa.setCellFactory(p -> {
+        TableColumn colXoaCD = new TableColumn();
+        colXoaCD.setCellFactory(p -> {
             Button xoaBtn = new Button("Xóa");
             xoaBtn.setOnAction(et -> {
                 TableCell cellGet =  (TableCell)((Button)et.getSource()).getParent();
@@ -147,7 +160,7 @@ public class Menu_QuantrivienController implements Initializable {
             return cell;
         });
 
-        this.tbChuyenDi.getColumns().addAll(colMaCD,colTenCD,colGia,colThoiGianBatDau,colThoiGianKetThuc, colXoa);
+        this.tbChuyenDi.getColumns().addAll(colMaCD,colTenCD,colGia,colThoiGianBatDau,colThoiGianKetThuc, colXoaCD);
     }
     
     public void loadTableDataCD() throws SQLException {
@@ -239,30 +252,69 @@ public class Menu_QuantrivienController implements Initializable {
         });
     }
 
-//////////////////////////////////////////////////////////////////////NHAN VIEN////////////////////////////////////////////////////////////////////
-//    public void loadTableViewNV(){
-//        TableColumn colMaNV = new TableColumn("Mã");
-//        colMaNV.setCellValueFactory(new PropertyValueFactory("MaNV"));
-//        colMaNV.setPrefWidth(100);
-//        
-//        TableColumn colTenNV = new TableColumn("Tên Nhân Viên");
-//        colTenNV.setCellValueFactory(new PropertyValueFactory("TenNV"));
-//        colTenNV.setPrefWidth(220);
-//        
-//        TableColumn colCMND = new TableColumn("CMND/CCCD");
-//        colCMND.setCellValueFactory(new PropertyValueFactory("CMND"));
-//        colCMND.setPrefWidth(160);
-//        
-//        TableColumn colSDT = new TableColumn("Số Điện Thoại");
-//        colSDT.setCellValueFactory(new PropertyValueFactory("SDT"));
-//        colSDT.setPrefWidth(160);
-//        
-//        this.tbNhanVien.getColumns().addAll(colMaNV,colTenNV,colCMND,colSDT);
-//    }
-//    
-//    public void loadTableDataNV() throws SQLException{
-//        Login_nhanvien lnv = new Login_nhanvien();
-//        this.tbNhanVien.setItems(FXCollections.observableList(lnv.getNhanvien()));
-//    }
-//    
+//////////////////////////////////////////////////////////////////////XE////////////////////////////////////////////////////////////////////
+
+    //TRUYEN GIA TRI TEXTFIELD DA SUA SANG DONG DANG CHON
+    public void truyenGiaTriXe(xe xe)
+    {
+         this.txtMaXe.setText(String.valueOf(xe.getMaXE()));
+         this.txtTenXe.setText(xe.getTenXe());
+         this.txtBienSo.setText(xe.getBienso());
+         this.txtTrangThai.setText(String.valueOf(xe.getTrangthai()));
+         this.txtMaChuyenKN.setText(String.valueOf(xe.getMaChuyen()));
+    }
+    
+    //KHOI TAO TEXT FIELD
+    public void initTextFieldXe() throws SQLException {
+         Sv_xe sxe = new Sv_xe();
+         xe initXe = sxe.getMaToXE(Sv_xe.getMaXeCurrent());
+         this.truyenGiaTriXe(initXe);
+    }
+    
+    //LOAD DU LIEU LEN TABLE
+    public void loadTableViewXe(){
+        TableColumn colMaXE = new TableColumn("Mã Xe");
+        colMaXE.setCellValueFactory(new PropertyValueFactory("MaXE"));
+        colMaXE.setPrefWidth(100);
+        
+        TableColumn colTenXe = new TableColumn("Tên Xe");
+        colTenXe.setCellValueFactory(new PropertyValueFactory("TenXe"));
+        colTenXe.setPrefWidth(100);
+        
+        TableColumn colBienso = new TableColumn("Biển Số");
+        colBienso.setCellValueFactory(new PropertyValueFactory("Bienso"));
+        colBienso.setPrefWidth(100);
+        
+        TableColumn colTrangthai = new TableColumn("Trạng Thái");
+        colTrangthai.setCellValueFactory(new PropertyValueFactory("Trangthai"));
+        colTrangthai.setPrefWidth(100);
+        
+        TableColumn colMaChuyen = new TableColumn("Mã CD");
+        colMaChuyen.setCellValueFactory(new PropertyValueFactory("MaChuyen"));
+        colMaChuyen.setPrefWidth(100);
+        
+        TableColumn colXoaXe = new TableColumn();
+        colXoaXe.setCellFactory(p -> {
+            Button xoaBtn = new Button("Xóa");
+            xoaBtn.setOnAction(et -> {
+            });
+            TableCell cell = new TableCell();
+            cell.setGraphic(xoaBtn);
+            return cell;
+        });
+        
+        this.tbXe.getColumns().addAll(colMaXE, colTenXe, colBienso, colTrangthai, colMaChuyen, colXoaXe);
+    }
+    
+    public void loadTableDataXe() throws SQLException {
+        Sv_xe sxe = new Sv_xe();
+        this.tbXe.setItems(FXCollections.observableList(sxe.getXe()));
+    }
+    
+    public void loadTableDataXeKw(String kw) throws SQLException {
+        Sv_xe sxe = new Sv_xe();
+        this.tbXe.setItems(FXCollections.observableList(sxe.getXe(kw)));
+    }
+    
+    
 }
