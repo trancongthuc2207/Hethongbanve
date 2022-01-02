@@ -12,10 +12,12 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.Timestamp;
+import java.text.ParsePosition;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.regex.Pattern;
 import pojo.chuyendi;
 import pojo.vexe;
 import pojo.xe;
@@ -144,5 +146,19 @@ public class Sv_CheckOption {
             check = true;  // ĐẶT ĐƯỢC
         return check;
     }
-   
+////////////////////////////////////////KIEM TRA CHO QUAN TRI VIEN////////////////////////////////
+    private final Pattern pattern = Pattern.compile("-?\\d+(\\.\\d+)?");
+
+    public boolean isNumeric(String strNum) {
+        if (strNum == null) {
+            return false; 
+        }
+        return pattern.matcher(strNum).matches();
+    }
+    
+    public boolean isLegalDate(String s) {
+    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+    sdf.setLenient(false);
+    return sdf.parse(s, new ParsePosition(0)) != null;
+    }
 }

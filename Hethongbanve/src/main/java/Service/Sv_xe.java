@@ -7,14 +7,12 @@ package Service;
 
 import config.jdbcUtils;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
-import javafx.event.ActionEvent;
-import pojo.chuyendi;
-import pojo.vexe;
 import pojo.xe;
 import pojo.xe_ghe;
 
@@ -123,6 +121,30 @@ public class Sv_xe {
         return dsxe;
     }
     
+    /////TRẢ DANH SÁCH XE ĐƯỢC TÌM KIẾM TỪ MÃ CHUYẾN ĐI
+    public List<xe> getXeFromMaCD(String kw) throws SQLException{
+        List<xe> dsxe = new ArrayList<>();
+        Connection conn = jdbcUtils.getConn();
+        
+        Sv_CheckOption check = new Sv_CheckOption();
+        String sql = "Select * from xe";
+        if (kw != null && !kw.isEmpty() && check.isNumeric(kw)) {
+            sql += " where MaChuyen = " + Integer.valueOf(kw);
+        }
+//        if ("empty".equalsIgnoreCase(kw) || Integer.valueOf(kw) == 0) {
+//            sql += " where MaChuyen = " + null;
+//        }
+        Statement stm = conn.createStatement();
+        ResultSet rs = stm.executeQuery(sql);
+        
+        while (rs.next()) {
+            xe xe = new xe(rs.getInt("MaXE"), rs.getString("TenXe"), rs.getString("Bienso"), rs.getInt("Trangthai"),rs.getInt("MaChuyen"));
+            dsxe.add(xe);
+        }            
+        conn.close();
+        return dsxe;
+    }
+    
     //////TRẢ DANH SÁCH XE BĂNG TỪ KHOÁ TÌM KIẾM THEO TÊN
     public List<xe> getXe(String kw) throws SQLException{
         List<xe> dsxe = new ArrayList<>();
@@ -173,5 +195,56 @@ public class Sv_xe {
         }
     }
     
+    //THEM XE
+    public void themXe(xe xe) throws SQLException{
+        try(Connection conn = jdbcUtils.getConn()){
+            conn.setAutoCommit(false);   
+            if (xe.getMaChuyen() != 0) {
+                PreparedStatement stm = conn.prepareStatement("INSERT INTO xe(MaChuyen,Trangthai,Bienso,TenXe,MaXE) VALUES (?,?,?,?,?)");
+                stm.setInt(1,xe.getMaChuyen());
+                stm.setInt(2, xe.getTrangthai());
+                stm.setString(3, xe.getBienso());
+                stm.setString(4, xe.getTenXe());
+                stm.setInt(5, xe.getMaXE());
+                stm.executeUpdate();
+            } else {
+                PreparedStatement stm = conn.prepareStatement("INSERT INTO xe(MaChuyen,Trangthai,Bienso,TenXe,MaXE) VALUES (null,?,?,?,?)");
+                stm.setInt(1, xe.getTrangthai());
+                stm.setString(2, xe.getBienso());
+                stm.setString(3, xe.getTenXe());
+                stm.setInt(4, xe.getMaXE());
+                stm.executeUpdate();
+            }
+            conn.commit();
+        }
+    }
+    
+    //SUA XE
+    /**
+     *
+     * @param xe
+     * @throws java.sql.SQLException
+     */
+    public void suaXe(xe xe) throws SQLException {
+        try(Connection conn = jdbcUtils.getConn()){
+            conn.setAutoCommit(false);
+            PreparedStatement stm = conn.prepareStatement("UPDATE xe SET MaChuyen=?, Trangthai=?, Bienso=?, TenXe=? WHERE MaXE = " + xe.getMaXE());
+            stm.setInt(1, xe.getMaChuyen());
+            stm.setInt(2, xe.getTrangthai());
+            stm.setString(3, xe.getBienso());
+            stm.setString(4, xe.getTenXe());
+            stm.executeUpdate();
+            conn.commit();
+        }
+    }
+    //XOA XE - CHUA HOAN THANH DIEU KIEN (CHECK LAI SV CHUYEN DI)
+    public void xoaXe(xe xe) throws SQLException {
+        try(Connection conn = jdbcUtils.getConn()){
+            conn.setAutoCommit(false);
+            PreparedStatement stm = conn.prepareStatement("DELETE FROM xe WHERE MaXE = " + xe.getMaXE());
+            stm.executeUpdate();
+            conn.commit();
+        }
+    }
     
 }

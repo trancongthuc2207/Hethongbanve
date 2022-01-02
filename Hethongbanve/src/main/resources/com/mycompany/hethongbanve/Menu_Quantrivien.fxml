@@ -11,11 +11,10 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<GridPane prefHeight="720.0" prefWidth="1280.0" style="-fx-background-color: rgb(215, 212, 243);" stylesheets="@../../../css/style.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.hethongbanve.Menu_QuantrivienController">
+<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="750.0" minWidth="1223.0" pickOnBounds="false" prefHeight="750.0" prefWidth="1223.0" style="-fx-background-color: rgb(215, 212, 243);" stylesheets="@../../../css/style.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.hethongbanve.Menu_QuantrivienController">
   <columnConstraints>
       <ColumnConstraints hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="10.0" prefWidth="325.0" />
-    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="955.0" />
-      <ColumnConstraints />
+    <ColumnConstraints hgrow="SOMETIMES" maxWidth="893.5999999999999" minWidth="10.0" prefWidth="868.0000244140624" />
   </columnConstraints>
   <rowConstraints>
     <RowConstraints maxHeight="-Infinity" minHeight="10.0" percentHeight="15.0" prefHeight="30.0" vgrow="SOMETIMES" />
@@ -25,20 +24,27 @@
    <children>
       <Text strokeType="OUTSIDE" strokeWidth="0.0" text="QUẢN LÍ CHUYẾN ĐI - XE" textAlignment="CENTER" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
          <font>
-            <Font name="System Bold" size="45.0" />
-         </font></Text>
-      <TableView fx:id="tbChuyenDi" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-      <TableView fx:id="tbXe" GridPane.columnIndex="1" GridPane.rowIndex="2">
+            <Font name="System Bold" size="65.0" />
+         </font>
          <GridPane.margin>
-            <Insets top="10.0" />
+            <Insets bottom="10.0" />
+         </GridPane.margin></Text>
+      <TableView fx:id="tbChuyenDi" maxHeight="297.6" minHeight="297.6" minWidth="865.0" prefHeight="297.6" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="1" GridPane.valignment="CENTER">
+         <GridPane.margin>
+            <Insets right="10.0" />
          </GridPane.margin></TableView>
-      <GridPane style="-fx-background-color: rgb(186, 181, 234);" GridPane.rowIndex="1">
+      <TableView fx:id="tbXe" maxHeight="297.6" minHeight="297.6" minWidth="865.0" prefHeight="297.6" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="2" GridPane.valignment="CENTER">
+         <GridPane.margin>
+            <Insets right="10.0" />
+         </GridPane.margin></TableView>
+      <GridPane maxHeight="297.6" maxWidth="315.2" minHeight="297.6" minWidth="315.2" prefHeight="297.6" prefWidth="315.2" style="-fx-background-color: rgb(186, 181, 234);" GridPane.halignment="RIGHT" GridPane.rowIndex="1" GridPane.valignment="CENTER">
         <columnConstraints>
           <ColumnConstraints hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="10.0" prefWidth="150.0" />
           <ColumnConstraints hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="10.0" prefWidth="165.0" />
         </columnConstraints>
         <rowConstraints>
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
@@ -77,13 +83,14 @@
             <TextField fx:id="txtGia" GridPane.columnIndex="1" GridPane.rowIndex="3" />
             <TextField fx:id="txtTGBD" GridPane.columnIndex="1" GridPane.rowIndex="4" />
             <TextField fx:id="txtTGKT" GridPane.columnIndex="1" GridPane.rowIndex="5" />
-            <TextField fx:id="txtTimKiemCD" alignment="CENTER" promptText="Tìm kiếm" GridPane.columnSpan="2" GridPane.halignment="CENTER" />
+            <TextField fx:id="txtTimKiemCD" alignment="CENTER" promptText="Tìm kiếm chuyến đi theo tên" GridPane.columnSpan="2" GridPane.halignment="CENTER" />
             <Button mnemonicParsing="false" onAction="#themChuyenDiBtn" prefHeight="25.0" prefWidth="80.0" text="THÊM" GridPane.halignment="LEFT" GridPane.rowIndex="6" GridPane.valignment="CENTER" />
             <Button mnemonicParsing="false" onAction="#suaChuyenDiBtn" prefHeight="25.0" prefWidth="80.0" text="SỬA" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="6" GridPane.valignment="CENTER" />
             <Button mnemonicParsing="false" onAction="#refreshTextFieldCD" prefHeight="25.0" prefWidth="80.0" text="LÀM MỚI" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="6" GridPane.valignment="CENTER" />
+            <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="318.0" text="CẬP NHẬT" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="7" GridPane.valignment="CENTER" />
          </children>
       </GridPane>
-      <GridPane style="-fx-background-color: rgb(186, 181, 234);" GridPane.rowIndex="2">
+      <GridPane maxHeight="297.6" maxWidth="315.2" minHeight="297.6" minWidth="315.2" prefHeight="297.6" prefWidth="315.2" style="-fx-background-color: rgb(186, 181, 234);" GridPane.halignment="RIGHT" GridPane.rowIndex="2" GridPane.valignment="CENTER">
          <columnConstraints>
             <ColumnConstraints hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="10.0" prefWidth="150.0" />
             <ColumnConstraints hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="10.0" prefWidth="165.0" />
@@ -99,49 +106,49 @@
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
          </rowConstraints>
          <children>
-            <Label text="MÃ XE:" GridPane.rowIndex="1">
+            <Label text="MÃ XE:" GridPane.rowIndex="2">
                <font>
                   <Font size="30.0" />
                </font>
             </Label>
-            <Label text="TÊN XE:" GridPane.rowIndex="2">
+            <Label text="TÊN XE:" GridPane.rowIndex="3">
                <font>
                   <Font size="30.0" />
                </font>
             </Label>
-            <Label text="BIỂN SỐ:" GridPane.rowIndex="3">
+            <Label text="BIỂN SỐ:" GridPane.rowIndex="4">
                <font>
                   <Font size="30.0" />
                </font>
             </Label>
-            <Label text="TRẠNG THÁI:" GridPane.rowIndex="4">
+            <Label text="TRẠNG THÁI:" GridPane.rowIndex="5">
                <font>
                   <Font size="30.0" />
                </font>
             </Label>
-            <Label text="MÃ CHUYẾN:" GridPane.rowIndex="5">
+            <Label text="MÃ CHUYẾN:" GridPane.rowIndex="6">
                <font>
                   <Font size="30.0" />
                </font>
             </Label>
-            <TextField fx:id="txtMaXe" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-            <TextField fx:id="txtTenXe" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-            <TextField fx:id="txtBienSo" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-            <TextField fx:id="txtTrangThai" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-            <TextField fx:id="txtMaChuyenKN" GridPane.columnIndex="1" GridPane.rowIndex="5" />
-            <TextField fx:id="txtTimKiemXe" alignment="CENTER" promptText="Tìm kiếm" GridPane.columnSpan="2" GridPane.halignment="CENTER" />
-            <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="80.0" text="THÊM" GridPane.halignment="CENTER" GridPane.rowIndex="6" GridPane.valignment="CENTER" />
-            <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="80.0" text="SỬA" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="6" GridPane.valignment="CENTER" />
-            <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="80.0" text="LÀM MỚI" GridPane.halignment="CENTER" GridPane.rowIndex="7" GridPane.valignment="CENTER" />
-            <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="80.0" text="KIỂM TRA" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="7" GridPane.valignment="CENTER" />
+            <TextField fx:id="txtMaXe" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <TextField fx:id="txtTenXe" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+            <TextField fx:id="txtBienSo" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+            <TextField fx:id="txtTrangThai" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+            <TextField fx:id="txtMaChuyenKN" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+            <TextField fx:id="txtTimKiemXe" alignment="CENTER" promptText="Tìm kiếm xe theo tên" GridPane.columnSpan="2" GridPane.halignment="CENTER" />
+            <Button mnemonicParsing="false" onAction="#themXeBtn" prefHeight="25.0" prefWidth="80.0" text="THÊM" GridPane.halignment="LEFT" GridPane.rowIndex="7" GridPane.valignment="CENTER" />
+            <Button mnemonicParsing="false" onAction="#suaXeBtn" prefHeight="25.0" prefWidth="80.0" text="SỬA" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="7" GridPane.valignment="CENTER" />
+            <Button mnemonicParsing="false" onAction="#refreshTextFieldXe" prefHeight="25.0" prefWidth="80.0" text="LÀM MỚI" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="7" GridPane.valignment="CENTER" />
+            <TextField fx:id="txtTimKiemXeCD" alignment="CENTER" promptText="Tìm kiếm xe theo mã chuyến đi" GridPane.columnSpan="2" GridPane.rowIndex="1" />
          </children>
          <GridPane.margin>
-            <Insets top="10.0" />
+            <Insets />
          </GridPane.margin>
       </GridPane>
       <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="130.0" text="QUẢN LÍ NHÂN VIÊN" textAlignment="CENTER" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.valignment="BOTTOM">
          <GridPane.margin>
-            <Insets bottom="5.0" right="5.0" />
+            <Insets bottom="5.0" right="10.0" />
          </GridPane.margin>
       </Button>
    </children>
