@@ -639,6 +639,7 @@ public class Menu_DatveController implements Initializable {
     }
     public void hoanVeButton(ActionEvent event) throws SQLException{
         if(this.ISTRANGTHAIHOANVE() == true){
+            this.txtMaNV.setEditable(false);
             Sv_vexe sv_ve = new Sv_vexe();
             Sv_xe loadXe = new Sv_xe();
             Sv_CheckOption ckOp = new Sv_CheckOption();
@@ -664,27 +665,35 @@ public class Menu_DatveController implements Initializable {
                             Utils.getBox("HOÀN VÉ THÀNH CÔNG", Alert.AlertType.INFORMATION).show();
                             this.loadTableDataVeXE();
                             initThongTinTextField();
+                            this.txtMaNV.setEditable(true);
+                            initInputFullOp();
                         }
                         else
                             Utils.getBox("TRÙNG GHẾ", Alert.AlertType.INFORMATION).show();
                     }
                     else{       // NẾU CHUYẾN ĐI THAY ĐỔI
-                        ///DEFAULT
-                        String Ngayinmoi = sdf.format(dateCur);
-                        this.veCur.setMaChuyen(Integer.parseInt(txtMaCD.getText()));
-                        this.veCur.setMaXE(Integer.parseInt(txtMaXE.getText()));
-                        this.veCur.setSoghe(this.cbXe_ghetrong.getValue().substring(0, 3));
-                        this.veCur.setNgayin(Timestamp.valueOf(Ngayinmoi));
-                        this.veCur.setTrangthai(1);
-                       if(ckOp.checkGheTrung(veCur) != true){
-                            sv_ve.addVeXe(veCur);
-                            sv_ve.thuHoiVe(veOldToNull);  // chuyển đổi vé cũ thành vé thu hồi
-                            Utils.getBox("HOÀN VÉ THÀNH CÔNG", Alert.AlertType.INFORMATION).show();
-                            this.loadTableDataVeXE();
-                            initThongTinTextField();
+                        if(ClickloadCD  && ClickloadXE && ClickloadGHE){
+                            ///DEFAULT
+                            String Ngayinmoi = sdf.format(dateCur);
+                            this.veCur.setMaChuyen(Integer.parseInt(txtMaCD.getText()));
+                            this.veCur.setMaXE(Integer.parseInt(txtMaXE.getText()));
+                            this.veCur.setSoghe(this.cbXe_ghetrong.getValue().substring(0, 3));
+                            this.veCur.setNgayin(Timestamp.valueOf(Ngayinmoi));
+                            this.veCur.setTrangthai(1);
+                           if(ckOp.checkGheTrung(veCur) != true){
+                                sv_ve.addVeXe(veCur);
+                                sv_ve.thuHoiVe(veOldToNull);  // chuyển đổi vé cũ thành vé thu hồi
+                                Utils.getBox("HOÀN VÉ THÀNH CÔNG", Alert.AlertType.INFORMATION).show();
+                                this.loadTableDataVeXE();
+                                initThongTinTextField();
+                                this.txtMaNV.setEditable(true);
+                                initInputFullOp();
+                            }
+                            else
+                                Utils.getBox("TRÙNG GHẾ", Alert.AlertType.INFORMATION).show();
                         }
                         else
-                            Utils.getBox("TRÙNG GHẾ", Alert.AlertType.INFORMATION).show();
+                            Utils.getBox("CHƯA ĐẦY ĐỦ THÔNG TIN", Alert.AlertType.INFORMATION).show();
                     }
                 }
                 else

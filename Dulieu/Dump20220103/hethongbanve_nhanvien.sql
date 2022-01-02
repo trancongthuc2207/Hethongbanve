@@ -16,30 +16,30 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `khachhang`
+-- Table structure for table `nhanvien`
 --
 
-DROP TABLE IF EXISTS `khachhang`;
+DROP TABLE IF EXISTS `nhanvien`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `khachhang` (
-  `MaKH` int NOT NULL,
-  `TenKH` varchar(45) NOT NULL,
+CREATE TABLE `nhanvien` (
+  `MaNV` int NOT NULL,
+  `TenNV` varchar(45) NOT NULL,
   `CMND` varchar(45) NOT NULL,
   `SDT` varchar(45) NOT NULL,
-  PRIMARY KEY (`MaKH`),
-  UNIQUE KEY `MaKH_UNIQUE` (`MaKH`)
+  PRIMARY KEY (`MaNV`),
+  UNIQUE KEY `MaNV_UNIQUE` (`MaNV`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `khachhang`
+-- Dumping data for table `nhanvien`
 --
 
-LOCK TABLES `khachhang` WRITE;
-/*!40000 ALTER TABLE `khachhang` DISABLE KEYS */;
-INSERT INTO `khachhang` VALUES (1,'Tr?n Công Th?c','121231','213213213'),(2,'Võ V?n H?ng','123456','231345613'),(3,'Trần Thị Tuyết','02541125','01235412');
-/*!40000 ALTER TABLE `khachhang` ENABLE KEYS */;
+LOCK TABLES `nhanvien` WRITE;
+/*!40000 ALTER TABLE `nhanvien` DISABLE KEYS */;
+INSERT INTO `nhanvien` VALUES (1,'Tran Van B','123456','123'),(2,'Nguyen Thi A','12346','456'),(3,'Le Van C','12345','123'),(4,'Tran Thi H','123546','546'),(5,'Nguyen Van Toan','12346','4852'),(6,'Ly Thi Lan','12346','4852'),(7,'Nguyen Thi Nhung','12346','4852');
+/*!40000 ALTER TABLE `nhanvien` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -51,4 +51,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-12-30  1:44:11
+-- Dump completed on 2022-01-03  0:22:47

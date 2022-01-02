@@ -16,42 +16,43 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `vexe`
+-- Table structure for table `xe_ghe`
 --
 
-DROP TABLE IF EXISTS `vexe`;
+DROP TABLE IF EXISTS `xe_ghe`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `vexe` (
-  `MaVE` int NOT NULL,
-  `Thoigianbatdau` timestamp NOT NULL,
-  `Soghe` varchar(45) NOT NULL,
-  `MaChuyen` int NOT NULL,
-  `MaKH` int NOT NULL,
-  `MaNV` int NOT NULL,
+CREATE TABLE `xe_ghe` (
   `MaXE` int NOT NULL,
-  `Ngayin` timestamp NOT NULL,
-  `Trangthai` int DEFAULT NULL,
-  PRIMARY KEY (`MaVE`),
-  KEY `MaNV_idx` (`MaNV`),
+  `g1` int DEFAULT NULL,
+  `g2` int DEFAULT NULL,
+  `g3` int DEFAULT NULL,
+  `g4` int DEFAULT NULL,
+  `g5` int DEFAULT NULL,
+  `g6` int DEFAULT NULL,
+  `g7` int DEFAULT NULL,
+  `g8` int DEFAULT NULL,
+  `g9` int DEFAULT NULL,
+  `g10` int DEFAULT NULL,
+  `g11` int DEFAULT NULL,
+  `g12` int DEFAULT NULL,
+  `g13` int DEFAULT NULL,
+  `g14` int DEFAULT NULL,
+  `g15` int DEFAULT NULL,
+  `g16` int DEFAULT NULL,
   KEY `MaXE_idx` (`MaXE`),
-  KEY `MaKH_idx` (`MaKH`),
-  KEY `MaChuyen_idx` (`MaChuyen`),
-  CONSTRAINT `MaChuyen` FOREIGN KEY (`MaChuyen`) REFERENCES `chuyendi` (`MaChuyen`),
-  CONSTRAINT `MaKH` FOREIGN KEY (`MaKH`) REFERENCES `khachhang` (`MaKH`),
-  CONSTRAINT `MaNV` FOREIGN KEY (`MaNV`) REFERENCES `nhanvien` (`MaNV`),
-  CONSTRAINT `MaXE` FOREIGN KEY (`MaXE`) REFERENCES `xe` (`MaXE`)
+  CONSTRAINT `MaXE_Ghe` FOREIGN KEY (`MaXE`) REFERENCES `xe` (`MaXE`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `vexe`
+-- Dumping data for table `xe_ghe`
 --
 
-LOCK TABLES `vexe` WRITE;
-/*!40000 ALTER TABLE `vexe` DISABLE KEYS */;
-INSERT INTO `vexe` VALUES (1,'2021-12-29 19:25:00','g14',6,3,4,6,'2021-12-29 17:50:00',NULL),(2,'2021-12-29 19:25:00','g15',6,2,4,6,'2021-12-29 18:20:34',2);
-/*!40000 ALTER TABLE `vexe` ENABLE KEYS */;
+LOCK TABLES `xe_ghe` WRITE;
+/*!40000 ALTER TABLE `xe_ghe` DISABLE KEYS */;
+INSERT INTO `xe_ghe` VALUES (3,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0),(6,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0),(7,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0),(1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0),(2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0),(4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0),(5,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0);
+/*!40000 ALTER TABLE `xe_ghe` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -63,4 +64,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-12-30  1:44:12
+-- Dump completed on 2022-01-03  0:22:48

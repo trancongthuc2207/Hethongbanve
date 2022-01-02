@@ -119,7 +119,8 @@ public class Sv_vexe {
         Sv_chuyendi svCD = new Sv_chuyendi();
         Sv_CheckOption ckOP = new Sv_CheckOption();
         Sv_Update_CD_XeGhe upGhe = new Sv_Update_CD_XeGhe();
-        if(ckOP.checkTimeMuaVe(vx) == true && ckOP.isOutOfTimeToMove(svCD.getMaToChuyen(vx.getMaChuyen())) != true){
+ //       && ckOP.isOutOfTimeToMove(svCD.getMaToChuyen(vx.getMaChuyen())) != true
+        if(ckOP.checkTimeMuaVe(vx) == true){
             if(ckOP.checkGheTrung(vx) != true){ // true là trùng
                 try(Connection conn = jdbcUtils.getConn()){
                     conn.setAutoCommit(false);
@@ -161,7 +162,6 @@ public class Sv_vexe {
                 upDateStatus.UpdateTrangThaiVeToNull(v);
                 rsGhe.UpdateGheForXeKhiHuyVe(v);
             }
-            System.out.println(v.getTrangthai());
         }
         
     }

@@ -39,8 +39,6 @@ public class xe {
         this.Trangthai = Trangthai;
         this.MaChuyen = MaChuyen;
     }
-
-    
     
     /**
      * @return the MaXE
