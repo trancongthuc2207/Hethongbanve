@@ -33,6 +33,7 @@ public class xeTester {
     
     @Test
     public void testXe() throws SQLException{
+        beforeAll();
         Statement stm = conn.createStatement();
         ResultSet rs = stm.executeQuery("Select * from xe");
         

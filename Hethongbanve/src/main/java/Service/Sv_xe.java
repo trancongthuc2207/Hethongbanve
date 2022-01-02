@@ -189,7 +189,7 @@ public class Sv_xe {
         list = this.getXe();
         
         for(xe x : list){
-            if(CkStatus.isOutOfTimeToMove(sv_cd.getMaToChuyen(this.maChuyenOfMaXE(x.getMaChuyen()))) == true){
+            if(CkStatus.isTimeXeToMove(x) == true){
                     upDateStatus.UpdateTrangThaiXeToDiChuyen(x);
             }
         }
