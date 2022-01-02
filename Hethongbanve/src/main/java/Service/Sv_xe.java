@@ -128,12 +128,13 @@ public class Sv_xe {
         
         Sv_CheckOption check = new Sv_CheckOption();
         String sql = "Select * from xe";
-        if (kw != null && !kw.isEmpty() && check.isNumeric(kw)) {
-            sql += " where MaChuyen = " + Integer.valueOf(kw);
-        }
-//        if ("empty".equalsIgnoreCase(kw) || Integer.valueOf(kw) == 0) {
-//            sql += " where MaChuyen = " + null;
-//        }
+        if (kw.isEmpty())
+            sql = "Select * from xe";
+        if ("empty".equalsIgnoreCase(kw) || "0".equals(kw))
+            sql = "Select * from xe where MaChuyen is null";
+        if (kw != null && !kw.isEmpty() && !"0".equals(kw) && check.isNumeric(kw))
+            sql = "Select * from xe where MaChuyen = " + Integer.valueOf(kw);
+        
         Statement stm = conn.createStatement();
         ResultSet rs = stm.executeQuery(sql);
         

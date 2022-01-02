@@ -92,8 +92,10 @@ public class Menu_QuantrivienController implements Initializable {
         this.tbChuyenDi.setRowFactory(et -> {
             TableRow dong = new TableRow();
             dong.setOnMouseClicked(r -> {
-                chuyendi cd = this.tbChuyenDi.getSelectionModel().getSelectedItem();
-                this.truyenGiaTriCD(cd);
+                if (this.tbChuyenDi.getSelectionModel().getSelectedItem() != null) {
+                    chuyendi cd = this.tbChuyenDi.getSelectionModel().getSelectedItem();
+                    this.truyenGiaTriCD(cd);
+                }
             });
             return dong;
         });
@@ -101,8 +103,10 @@ public class Menu_QuantrivienController implements Initializable {
         this.tbXe.setRowFactory(et -> {
             TableRow dong = new TableRow();
             dong.setOnMouseClicked(r -> {
-                xe xe = this.tbXe.getSelectionModel().getSelectedItem();
-                this.truyenGiaTriXe(xe);
+                if (this.tbXe.getSelectionModel().getSelectedItem() != null) {
+                    xe xe = this.tbXe.getSelectionModel().getSelectedItem();
+                    this.truyenGiaTriXe(xe);
+                }
             });
             return dong;
         });
@@ -218,7 +222,7 @@ public class Menu_QuantrivienController implements Initializable {
     //KIEM TRA NHAP LIEU
     public boolean isCDNotNull() {
         if (this.txtMaChuyen.getText() == null || this.txtTenChuyen.getText() == null || this.txtGia.getText() == null || this.txtTGBD.getText() == null || this.txtTGKT.getText() == null
-                || "".equals(this.txtMaChuyen.getText()) || "".equals(this.txtTenChuyen.getText()) || "".equals(this.txtGia.getText()) || "".equals(this.txtTGBD.getText()) || "".equals(this.txtTGKT.getText()))
+                || this.txtMaChuyen.getText().isEmpty() || this.txtTenChuyen.getText().isEmpty() || this.txtGia.getText().isEmpty() || this.txtTGBD.getText().isEmpty() || this.txtTGKT.getText().isEmpty())
             return false;
         return true;
     }
@@ -281,7 +285,7 @@ public class Menu_QuantrivienController implements Initializable {
             Utils.getBox("Mã chuyến không trùng khớp!", Alert.AlertType.WARNING).show();
     }
 
-    //XOA CHUYEN DI --------------------------CHUA RAO DIEU KIEN
+    //XOA CHUYEN DI --------------------------CHUA RAO DIEU KIEN -- 2 ma khong giong nhau
     public void xoaChuyenDiBtn(chuyendi cd) {
     Alert xacNhanXoa = Utils.getBox("Xác nhận xóa chuyến đi?", Alert.AlertType.CONFIRMATION);
         xacNhanXoa.showAndWait().ifPresent(res -> {
@@ -299,8 +303,12 @@ public class Menu_QuantrivienController implements Initializable {
         });
     }
     
-    //CAP NHAT CHUYEN DI --------------- CHUA HOAN THANH
-    
+    //CAP NHAT THOI GIAN
+    public void capNhatTGBtn(ActionEvent event) throws SQLException {
+        Sv_chuyendi cncd = new Sv_chuyendi();
+        cncd.capNhatTG();
+        this.loadTableDataCD();
+    }
     
 //////////////////////////////////////////////////////////////////////XE////////////////////////////////////////////////////////////////////
     
@@ -392,7 +400,7 @@ public class Menu_QuantrivienController implements Initializable {
     //KIEM TRA NHAP LIEU
     public boolean isXeNotNull() {
         if (this.txtMaXe.getText() == null || this.txtTenXe.getText() == null || this.txtBienSo.getText() == null || this.txtTrangThai.getText() == null || this.txtMaChuyenKN.getText() == null
-                || "".equals(this.txtMaXe.getText()) || "".equals(this.txtTenXe.getText()) || "".equals(this.txtBienSo.getText()) || "".equals(this.txtTrangThai.getText()) || "".equals(this.txtMaChuyenKN.getText()))
+                || this.txtMaXe.getText().isEmpty() || this.txtTenXe.getText().isEmpty() || this.txtBienSo.getText().isEmpty() || this.txtTrangThai.getText().isEmpty() || this.txtMaChuyenKN.getText().isEmpty())
             return false;
         return true;
     }
@@ -404,7 +412,7 @@ public class Menu_QuantrivienController implements Initializable {
         return false;
     }
     
-    //THEM XE
+    //THEM XE -------------------- CHUA HOAN THANH (THEM XE GHE)
     public void themXeBtn(ActionEvent Event) throws SQLException{
         if (this.isXeNotNull()) {
             if (this.isXeInputExactly()) {
@@ -424,7 +432,7 @@ public class Menu_QuantrivienController implements Initializable {
             Utils.getBox("Chưa nhập đủ thông tin!", Alert.AlertType.WARNING).show();
     }
 
-    //SUA XE -------------- CHUA HOAN THANH
+    //SUA XE -------------- CHUA HOAN THANH + RAO DIEU KIEN
     public void suaXeBtn(ActionEvent event) throws SQLException {
         xe xe = this.tbXe.getSelectionModel().getSelectedItem();
         if (xe != null && Integer.valueOf(this.txtMaXe.getText()) == xe.getMaXE()) {
@@ -452,7 +460,7 @@ public class Menu_QuantrivienController implements Initializable {
             Utils.getBox("MÃ XE KHÔNG TRÙNG KHỚP!", Alert.AlertType.WARNING).show();
     }
 
-    //XOA XE --------------- CHUA HOAN THANH
+    //XOA XE --------------- CHUA HOAN THANH + RAO DIEU KIEN
     public void xoaXeBtn(xe xe) {
     Alert xacNhanXoaXe = Utils.getBox("Xác nhận xóa thông tin xe?", Alert.AlertType.CONFIRMATION);
         xacNhanXoaXe.showAndWait().ifPresent(res -> {

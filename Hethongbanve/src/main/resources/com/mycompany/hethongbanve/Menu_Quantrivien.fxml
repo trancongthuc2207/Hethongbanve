@@ -78,16 +78,16 @@
                   <Font size="30.0" />
                </font>
             </Label>
-            <TextField fx:id="txtMaChuyen" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <TextField fx:id="txtMaChuyen" promptText="không để trống khi thêm" GridPane.columnIndex="1" GridPane.rowIndex="1" />
             <TextField fx:id="txtTenChuyen" GridPane.columnIndex="1" GridPane.rowIndex="2" />
             <TextField fx:id="txtGia" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-            <TextField fx:id="txtTGBD" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-            <TextField fx:id="txtTGKT" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+            <TextField fx:id="txtTGBD" promptText="yyyy-MM-dd HH:mm:ss" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+            <TextField fx:id="txtTGKT" promptText="yyyy-MM-dd HH:mm:ss" GridPane.columnIndex="1" GridPane.rowIndex="5" />
             <TextField fx:id="txtTimKiemCD" alignment="CENTER" promptText="Tìm kiếm chuyến đi theo tên" GridPane.columnSpan="2" GridPane.halignment="CENTER" />
             <Button mnemonicParsing="false" onAction="#themChuyenDiBtn" prefHeight="25.0" prefWidth="80.0" text="THÊM" GridPane.halignment="LEFT" GridPane.rowIndex="6" GridPane.valignment="CENTER" />
             <Button mnemonicParsing="false" onAction="#suaChuyenDiBtn" prefHeight="25.0" prefWidth="80.0" text="SỬA" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="6" GridPane.valignment="CENTER" />
             <Button mnemonicParsing="false" onAction="#refreshTextFieldCD" prefHeight="25.0" prefWidth="80.0" text="LÀM MỚI" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="6" GridPane.valignment="CENTER" />
-            <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="318.0" text="CẬP NHẬT" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="7" GridPane.valignment="CENTER" />
+            <Button mnemonicParsing="false" onAction="#capNhatTGBtn" prefHeight="25.0" prefWidth="318.0" text="CẬP NHẬT THỜI GIAN" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="7" GridPane.valignment="CENTER" />
          </children>
       </GridPane>
       <GridPane maxHeight="297.6" maxWidth="315.2" minHeight="297.6" minWidth="315.2" prefHeight="297.6" prefWidth="315.2" style="-fx-background-color: rgb(186, 181, 234);" GridPane.halignment="RIGHT" GridPane.rowIndex="2" GridPane.valignment="CENTER">
@@ -131,10 +131,10 @@
                   <Font size="30.0" />
                </font>
             </Label>
-            <TextField fx:id="txtMaXe" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <TextField fx:id="txtMaXe" promptText="không để trống khi thêm" GridPane.columnIndex="1" GridPane.rowIndex="2" />
             <TextField fx:id="txtTenXe" GridPane.columnIndex="1" GridPane.rowIndex="3" />
             <TextField fx:id="txtBienSo" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-            <TextField fx:id="txtTrangThai" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+            <TextField fx:id="txtTrangThai" promptText="thêm xe mặc định nhập: 0" GridPane.columnIndex="1" GridPane.rowIndex="5" />
             <TextField fx:id="txtMaChuyenKN" GridPane.columnIndex="1" GridPane.rowIndex="6" />
             <TextField fx:id="txtTimKiemXe" alignment="CENTER" promptText="Tìm kiếm xe theo tên" GridPane.columnSpan="2" GridPane.halignment="CENTER" />
             <Button mnemonicParsing="false" onAction="#themXeBtn" prefHeight="25.0" prefWidth="80.0" text="THÊM" GridPane.halignment="LEFT" GridPane.rowIndex="7" GridPane.valignment="CENTER" />

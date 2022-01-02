@@ -11,7 +11,11 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import pojo.chuyendi;
 
@@ -26,6 +30,7 @@ public class Sv_chuyendi {
     public static int getMaCDCurrent(){
         return MaCDCurrent;
     }
+    
 
     public List<chuyendi> getChuyendi() throws SQLException{
         List<chuyendi> dscd = new ArrayList<>();
@@ -108,7 +113,8 @@ public class Sv_chuyendi {
             conn.commit();
         }
     }
-    //------------ CHUA HOAN THANH
+    
+    //XOA CHUYEN DI
     public void xoaChuyenDi(chuyendi cd) throws SQLException {
         try(Connection conn = jdbcUtils.getConn()){
             conn.setAutoCommit(false);
@@ -118,5 +124,19 @@ public class Sv_chuyendi {
         }
     }
     
-    
+    //CAP NHAT THOI GIAN
+    public void capNhatTG() throws SQLException {
+        List<chuyendi> dscd = new ArrayList<>();
+        dscd = getChuyendi();
+        
+        Calendar cal = Calendar.getInstance();
+        Date date = cal.getTime();
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        
+        for (chuyendi cd : dscd) {
+            cd.setThoiGianBatDau(Timestamp.valueOf(sdf.format(date).concat((String.valueOf(cd.getThoiGianBatDau())).substring(10))));
+            cd.setThoiGianKetThuc(Timestamp.valueOf(sdf.format(date).concat((String.valueOf(cd.getThoiGianKetThuc())).substring(10))));
+            this.suaChuyenDi(cd);
+        }
+    }
 }
