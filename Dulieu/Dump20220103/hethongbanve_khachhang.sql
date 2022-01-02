@@ -16,43 +16,30 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `xe_ghe`
+-- Table structure for table `khachhang`
 --
 
-DROP TABLE IF EXISTS `xe_ghe`;
+DROP TABLE IF EXISTS `khachhang`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `xe_ghe` (
-  `MaXE` int NOT NULL,
-  `g1` int DEFAULT NULL,
-  `g2` int DEFAULT NULL,
-  `g3` int DEFAULT NULL,
-  `g4` int DEFAULT NULL,
-  `g5` int DEFAULT NULL,
-  `g6` int DEFAULT NULL,
-  `g7` int DEFAULT NULL,
-  `g8` int DEFAULT NULL,
-  `g9` int DEFAULT NULL,
-  `g10` int DEFAULT NULL,
-  `g11` int DEFAULT NULL,
-  `g12` int DEFAULT NULL,
-  `g13` int DEFAULT NULL,
-  `g14` int DEFAULT NULL,
-  `g15` int DEFAULT NULL,
-  `g16` int DEFAULT NULL,
-  KEY `MaXE_idx` (`MaXE`),
-  CONSTRAINT `MaXE_Ghe` FOREIGN KEY (`MaXE`) REFERENCES `xe` (`MaXE`)
+CREATE TABLE `khachhang` (
+  `MaKH` int NOT NULL,
+  `TenKH` varchar(45) NOT NULL,
+  `CMND` varchar(45) NOT NULL,
+  `SDT` varchar(45) NOT NULL,
+  PRIMARY KEY (`MaKH`),
+  UNIQUE KEY `MaKH_UNIQUE` (`MaKH`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `xe_ghe`
+-- Dumping data for table `khachhang`
 --
 
-LOCK TABLES `xe_ghe` WRITE;
-/*!40000 ALTER TABLE `xe_ghe` DISABLE KEYS */;
-INSERT INTO `xe_ghe` VALUES (3,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,1),(6,1,1,1,1,1,1,1,1,1,1,1,1,1,2,2,0);
-/*!40000 ALTER TABLE `xe_ghe` ENABLE KEYS */;
+LOCK TABLES `khachhang` WRITE;
+/*!40000 ALTER TABLE `khachhang` DISABLE KEYS */;
+INSERT INTO `khachhang` VALUES (1,'Tr?n Công Th?c','121231','213213213'),(2,'Võ V?n H?ng','123456','231345613'),(3,'Trần Thị Tuyết','02541125','01235412');
+/*!40000 ALTER TABLE `khachhang` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -64,4 +51,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-12-30  1:44:11
+-- Dump completed on 2022-01-03  0:22:48

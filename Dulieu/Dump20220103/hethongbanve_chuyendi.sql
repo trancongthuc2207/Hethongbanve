@@ -16,30 +16,30 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `nhanvien_taikhoan`
+-- Table structure for table `chuyendi`
 --
 
-DROP TABLE IF EXISTS `nhanvien_taikhoan`;
+DROP TABLE IF EXISTS `chuyendi`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `nhanvien_taikhoan` (
-  `MaNV` int NOT NULL,
-  `Taikhoan` varchar(45) NOT NULL,
-  `Matkhau` varchar(45) NOT NULL,
-  `Chucvu` int NOT NULL,
-  KEY `idx_nhanvien_taikhoan_MaNV` (`MaNV`),
-  CONSTRAINT `MaNV_TK` FOREIGN KEY (`MaNV`) REFERENCES `nhanvien` (`MaNV`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+CREATE TABLE `chuyendi` (
+  `MaChuyen` int NOT NULL,
+  `TenChuyen` varchar(45) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
+  `Gia` double DEFAULT NULL,
+  `ThoiGianBatDau` timestamp NOT NULL,
+  `ThoiGianKetThuc` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`MaChuyen`,`ThoiGianBatDau`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `nhanvien_taikhoan`
+-- Dumping data for table `chuyendi`
 --
 
-LOCK TABLES `nhanvien_taikhoan` WRITE;
-/*!40000 ALTER TABLE `nhanvien_taikhoan` DISABLE KEYS */;
-INSERT INTO `nhanvien_taikhoan` VALUES (1,'tranb','b123',1),(2,'nguyena','a123',1),(3,'lec','c123',1),(4,'tranh','h123',2);
-/*!40000 ALTER TABLE `nhanvien_taikhoan` ENABLE KEYS */;
+LOCK TABLES `chuyendi` WRITE;
+/*!40000 ALTER TABLE `chuyendi` DISABLE KEYS */;
+INSERT INTO `chuyendi` VALUES (1,'Tây Ninh - Thành Ph? HCM',120000,'2022-01-03 00:50:00','2022-01-03 03:50:00'),(2,'An Giang - Thành Ph? HCM',150000,'2022-01-03 00:50:00','2022-01-03 03:50:00'),(3,'Thành Ph? HCM - Cà Mau',200000,'2022-01-03 00:50:00','2022-01-03 03:50:00'),(4,'Gò vấp - Đà Lạt',150000,'2022-01-03 00:50:00','2022-01-03 03:50:00'),(5,'Long An - Long Xuyên',150000,'2022-01-03 00:50:00','2022-01-03 03:50:00'),(6,'Cần Giờ - TP Hồ Chí Minh',150000,'2022-01-03 00:50:00','2022-01-03 03:50:00'),(7,'TPHCM - Cần Giuộc',150000,'2022-01-03 00:50:00','2022-01-03 03:50:00');
+/*!40000 ALTER TABLE `chuyendi` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -51,4 +51,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-12-30  1:44:12
+-- Dump completed on 2022-01-03  0:22:48

@@ -7,6 +7,7 @@ package com.mycompany.hethongbanve;
 
 import Service.Sv_CheckOption;
 import Service.Sv_vexe;
+import Service.Sv_xe;
 import config.Utils;
 import java.io.IOException;
 import java.net.URL;
@@ -26,6 +27,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 import pojo.vexe;
+import pojo.xe;
 
 /**
  * FXML Controller class
@@ -48,6 +50,7 @@ public class Menu_XuLyVeController implements Initializable {
         } catch (SQLException ex) {
             Logger.getLogger(Menu_DatveController.class.getName()).log(Level.SEVERE, null, ex);
         }
+        
     }
 
     public void loadTableViewVeXE(){

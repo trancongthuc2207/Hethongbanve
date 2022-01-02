@@ -16,30 +16,30 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `nhanvien`
+-- Table structure for table `nhanvien_taikhoan`
 --
 
-DROP TABLE IF EXISTS `nhanvien`;
+DROP TABLE IF EXISTS `nhanvien_taikhoan`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `nhanvien` (
+CREATE TABLE `nhanvien_taikhoan` (
   `MaNV` int NOT NULL,
-  `TenNV` varchar(45) NOT NULL,
-  `CMND` varchar(45) NOT NULL,
-  `SDT` varchar(45) NOT NULL,
-  PRIMARY KEY (`MaNV`),
-  UNIQUE KEY `MaNV_UNIQUE` (`MaNV`)
+  `Taikhoan` varchar(45) NOT NULL,
+  `Matkhau` varchar(45) NOT NULL,
+  `Chucvu` int NOT NULL,
+  KEY `idx_nhanvien_taikhoan_MaNV` (`MaNV`),
+  CONSTRAINT `MaNV_TK` FOREIGN KEY (`MaNV`) REFERENCES `nhanvien` (`MaNV`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `nhanvien`
+-- Dumping data for table `nhanvien_taikhoan`
 --
 
-LOCK TABLES `nhanvien` WRITE;
-/*!40000 ALTER TABLE `nhanvien` DISABLE KEYS */;
-INSERT INTO `nhanvien` VALUES (1,'Tran Van B','123456','123'),(2,'Nguyen Thi A','12346','456'),(3,'Le Van C','12345','123'),(4,'Tran Thi H','123546','546');
-/*!40000 ALTER TABLE `nhanvien` ENABLE KEYS */;
+LOCK TABLES `nhanvien_taikhoan` WRITE;
+/*!40000 ALTER TABLE `nhanvien_taikhoan` DISABLE KEYS */;
+INSERT INTO `nhanvien_taikhoan` VALUES (1,'tranb','b123',1),(2,'nguyena','a123',1),(3,'lec','c123',1),(4,'tranh','h123',2),(5,'nguyentoan','toan123',2),(6,'lylan','lan123',2),(7,'nguyennhung','nhung123',1);
+/*!40000 ALTER TABLE `nhanvien_taikhoan` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -51,4 +51,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-12-30  1:44:11
+-- Dump completed on 2022-01-03  0:22:48
