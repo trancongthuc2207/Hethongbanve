@@ -201,7 +201,6 @@ public class MenuChucNangController implements Initializable {
        }
        else
            Utils.getBox("Bạn không đủ quyền để sử dụng!", Alert.AlertType.WARNING).show();
-       
     }
     
     public void ChucNangXuLyVe(ActionEvent event) throws IOException, SQLException{

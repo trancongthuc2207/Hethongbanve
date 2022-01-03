@@ -8,124 +8,148 @@
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="619.0" prefWidth="1133.0" stylesheets="@../../../css/style.css" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8.0.171" fx:controller="com.mycompany.hethongbanve.Menu_QuantrivienController">
+<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="750.0" minWidth="1223.0" pickOnBounds="false" prefHeight="750.0" prefWidth="1223.0" style="-fx-background-color: rgb(215, 212, 243);" stylesheets="@../../../css/style.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.hethongbanve.Menu_QuantrivienController">
   <columnConstraints>
-      <ColumnConstraints hgrow="SOMETIMES" maxWidth="344.0" minWidth="10.0" prefWidth="225.0" />
-    <ColumnConstraints hgrow="SOMETIMES" maxWidth="661.0" minWidth="10.0" prefWidth="630.0" />
-    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+      <ColumnConstraints hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="10.0" prefWidth="325.0" />
+    <ColumnConstraints hgrow="SOMETIMES" maxWidth="893.5999999999999" minWidth="10.0" prefWidth="868.0000244140624" />
   </columnConstraints>
   <rowConstraints>
-    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+    <RowConstraints maxHeight="-Infinity" minHeight="10.0" percentHeight="15.0" prefHeight="30.0" vgrow="SOMETIMES" />
     <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
     <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
   </rowConstraints>
    <children>
-      <GridPane prefHeight="396.0" prefWidth="586.0" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="1" GridPane.rowSpan="2">
+      <Text strokeType="OUTSIDE" strokeWidth="0.0" text="CHỨC NĂNG QUẢN TRỊ" textAlignment="CENTER" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+         <font>
+            <Font name="System Bold" size="65.0" />
+         </font>
+         <GridPane.margin>
+            <Insets bottom="10.0" />
+         </GridPane.margin></Text>
+      <TableView fx:id="tbChuyenDi" maxHeight="297.6" minHeight="297.6" minWidth="865.0" prefHeight="297.6" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="1" GridPane.valignment="CENTER">
+         <GridPane.margin>
+            <Insets right="10.0" />
+         </GridPane.margin></TableView>
+      <TableView fx:id="tbXe" maxHeight="297.6" minHeight="297.6" minWidth="865.0" prefHeight="297.6" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="2" GridPane.valignment="CENTER">
+         <GridPane.margin>
+            <Insets right="10.0" />
+         </GridPane.margin></TableView>
+      <GridPane maxHeight="297.6" maxWidth="315.2" minHeight="297.6" minWidth="315.2" prefHeight="297.6" prefWidth="315.2" style="-fx-background-color: rgb(186, 181, 234);" GridPane.halignment="RIGHT" GridPane.rowIndex="1" GridPane.valignment="CENTER">
         <columnConstraints>
-          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="10.0" prefWidth="150.0" />
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="10.0" prefWidth="165.0" />
         </columnConstraints>
         <rowConstraints>
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <TableView fx:id="tbChuyendi" maxHeight="220.0" prefHeight="200.0" prefWidth="200.0" GridPane.columnSpan="2" GridPane.rowSpan="2" GridPane.valignment="TOP">
-               <GridPane.margin>
-                  <Insets />
-               </GridPane.margin>
-            </TableView>
-            <TableView fx:id="tbNhanvien" maxHeight="240.0" prefHeight="200.0" prefWidth="200.0" GridPane.columnSpan="2" GridPane.rowIndex="1" GridPane.rowSpan="2" GridPane.valignment="BOTTOM">
-               <GridPane.margin>
-                  <Insets bottom="30.0" />
-               </GridPane.margin>
-            </TableView>
-            <Button maxWidth="120.0" mnemonicParsing="false" text="Cho phép sử dụng" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="2" GridPane.valignment="BOTTOM" />
-            <Button maxWidth="120.0" mnemonicParsing="false" text="Cấm sử dụng " GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="2" GridPane.valignment="BOTTOM">
-               <GridPane.margin>
-                  <Insets right="130.0" />
-               </GridPane.margin>
-            </Button>
+            <Label text="MÃ CHUYẾN:" GridPane.rowIndex="1">
+               <font>
+                  <Font size="30.0" />
+               </font>
+            </Label>
+            <Label text="TÊN CHUYẾN: " GridPane.rowIndex="2">
+               <font>
+                  <Font size="30.0" />
+               </font>
+            </Label>
+            <Label text="GIÁ CHUYẾN:" GridPane.rowIndex="3">
+               <font>
+                  <Font size="30.0" />
+               </font>
+            </Label>
+            <Label text="TG BẮT ĐẦU:" GridPane.rowIndex="4">
+               <font>
+                  <Font size="30.0" />
+               </font>
+            </Label>
+            <Label text="TG KẾT THÚC:" GridPane.rowIndex="5">
+               <font>
+                  <Font size="30.0" />
+               </font>
+            </Label>
+            <TextField fx:id="txtMaChuyen" promptText="không để trống khi thêm" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <TextField fx:id="txtTenChuyen" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <TextField fx:id="txtGia" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+            <TextField fx:id="txtTGBD" promptText="yyyy-MM-dd HH:mm:ss" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+            <TextField fx:id="txtTGKT" promptText="yyyy-MM-dd HH:mm:ss" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+            <TextField fx:id="txtTimKiemCD" alignment="CENTER" promptText="Tìm kiếm chuyến đi theo tên" GridPane.columnSpan="2" GridPane.halignment="CENTER" />
+            <Button mnemonicParsing="false" onAction="#themChuyenDiBtn" prefHeight="25.0" prefWidth="80.0" text="THÊM" GridPane.halignment="LEFT" GridPane.rowIndex="6" GridPane.valignment="CENTER" />
+            <Button mnemonicParsing="false" onAction="#suaChuyenDiBtn" prefHeight="25.0" prefWidth="80.0" text="SỬA" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="6" GridPane.valignment="CENTER" />
+            <Button mnemonicParsing="false" onAction="#refreshTextFieldCD" prefHeight="25.0" prefWidth="80.0" text="LÀM MỚI" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="6" GridPane.valignment="CENTER" />
+            <Button mnemonicParsing="false" onAction="#capNhatTGBtn" prefHeight="25.0" prefWidth="318.0" text="CẬP NHẬT THỜI GIAN" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="7" GridPane.valignment="CENTER" />
          </children>
       </GridPane>
-      <GridPane styleClass="EditTravel" GridPane.rowIndex="1">
-        <columnConstraints>
-          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-        </columnConstraints>
-        <rowConstraints>
-          <RowConstraints maxHeight="52.16" minHeight="0.0" prefHeight="51.0" vgrow="SOMETIMES" />
-          <RowConstraints maxHeight="52.16" minHeight="3.0" prefHeight="33.0" vgrow="SOMETIMES" />
-          <RowConstraints maxHeight="52.16" minHeight="0.0" prefHeight="35.0" vgrow="SOMETIMES" />
-            <RowConstraints maxHeight="52.16" minHeight="10.0" prefHeight="54.0" vgrow="SOMETIMES" />
-            <RowConstraints maxHeight="52.16" minHeight="10.0" prefHeight="194.0" vgrow="SOMETIMES" />
-            <RowConstraints maxHeight="52.16" minHeight="10.0" prefHeight="194.0" vgrow="SOMETIMES" />
-        </rowConstraints>
+      <GridPane maxHeight="297.6" maxWidth="315.2" minHeight="297.6" minWidth="315.2" prefHeight="297.6" prefWidth="315.2" style="-fx-background-color: rgb(186, 181, 234);" GridPane.halignment="RIGHT" GridPane.rowIndex="2" GridPane.valignment="CENTER">
+         <columnConstraints>
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="10.0" prefWidth="150.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="10.0" prefWidth="165.0" />
+         </columnConstraints>
+         <rowConstraints>
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+         </rowConstraints>
          <children>
-            <TextField maxWidth="165.0" GridPane.columnSpan="2" GridPane.halignment="RIGHT" GridPane.rowIndex="4" />
-            <TextField maxWidth="165.0" GridPane.columnSpan="2" GridPane.halignment="RIGHT" GridPane.rowIndex="3" />
-            <TextField maxWidth="165.0" GridPane.columnSpan="2" GridPane.halignment="RIGHT" GridPane.rowIndex="2" />
-            <TextField maxWidth="165.0" GridPane.columnSpan="2" GridPane.halignment="RIGHT" GridPane.rowIndex="1" />
-            <TextField maxWidth="165.0" GridPane.columnSpan="2" GridPane.halignment="RIGHT" />
-            <Label styleClass="CNEdit" text="Tên chuyến:" GridPane.halignment="LEFT" GridPane.rowIndex="1">
-               <GridPane.margin>
-                  <Insets left="15.0" />
-               </GridPane.margin>
+            <Label text="MÃ XE:" GridPane.rowIndex="2">
+               <font>
+                  <Font size="30.0" />
+               </font>
             </Label>
-            <Label styleClass="CNEdit" text="Giá:" GridPane.halignment="LEFT" GridPane.rowIndex="2">
-               <GridPane.margin>
-                  <Insets left="15.0" />
-               </GridPane.margin>
+            <Label text="TÊN XE:" GridPane.rowIndex="3">
+               <font>
+                  <Font size="30.0" />
+               </font>
             </Label>
-            <Label styleClass="CNEdit" text="TG Kết thúc:" GridPane.halignment="LEFT" GridPane.rowIndex="4">
-               <GridPane.margin>
-                  <Insets left="15.0" />
-               </GridPane.margin>
+            <Label text="BIỂN SỐ:" GridPane.rowIndex="4">
+               <font>
+                  <Font size="30.0" />
+               </font>
             </Label>
-            <Label styleClass="CNEdit" text="Mã Chuyến:" GridPane.halignment="LEFT">
-               <GridPane.margin>
-                  <Insets left="15.0" />
-               </GridPane.margin>
+            <Label text="TRẠNG THÁI:" GridPane.rowIndex="5">
+               <font>
+                  <Font size="30.0" />
+               </font>
             </Label>
-            <Label styleClass="CNEdit" text="TG Bắt đầu:" GridPane.halignment="LEFT" GridPane.rowIndex="3">
-               <GridPane.margin>
-                  <Insets left="15.0" />
-               </GridPane.margin>
+            <Label text="MÃ CHUYẾN:" GridPane.rowIndex="6">
+               <font>
+                  <Font size="30.0" />
+               </font>
             </Label>
-            <Button maxWidth="70.0" mnemonicParsing="false" text="Làm mới" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="5">
-               <GridPane.margin>
-                  <Insets />
-               </GridPane.margin>
-            </Button>
-            <Button maxWidth="70.0" mnemonicParsing="false" text="Sửa" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="5" />
-            <Button maxWidth="70.0" mnemonicParsing="false" text="Thêm" GridPane.rowIndex="5" />
+            <TextField fx:id="txtMaXe" promptText="không để trống khi thêm" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <TextField fx:id="txtTenXe" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+            <TextField fx:id="txtBienSo" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+            <TextField fx:id="txtTrangThai" promptText="thêm xe mặc định nhập: 0" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+            <TextField fx:id="txtMaChuyenKN" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+            <TextField fx:id="txtTimKiemXe" alignment="CENTER" promptText="Tìm kiếm xe theo tên" GridPane.columnSpan="2" GridPane.halignment="CENTER" />
+            <Button mnemonicParsing="false" onAction="#themXeBtn" prefHeight="25.0" prefWidth="80.0" text="THÊM" GridPane.halignment="LEFT" GridPane.rowIndex="7" GridPane.valignment="CENTER" />
+            <Button mnemonicParsing="false" onAction="#suaXeBtn" prefHeight="25.0" prefWidth="80.0" text="SỬA" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="7" GridPane.valignment="CENTER" />
+            <Button mnemonicParsing="false" onAction="#refreshTextFieldXe" prefHeight="25.0" prefWidth="80.0" text="LÀM MỚI" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="7" GridPane.valignment="CENTER" />
+            <TextField fx:id="txtTimKiemXeCD" alignment="CENTER" promptText="Tìm kiếm xe theo mã chuyến đi" GridPane.columnSpan="2" GridPane.rowIndex="1" />
          </children>
+         <GridPane.margin>
+            <Insets />
+         </GridPane.margin>
       </GridPane>
-      <Label text="Thêm &amp; Sửa" GridPane.halignment="CENTER" GridPane.valignment="BOTTOM" />
-      <GridPane styleClass="EditTravel" GridPane.rowIndex="2">
-        <columnConstraints>
-          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-        </columnConstraints>
-        <rowConstraints>
-          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-        </rowConstraints>
-         <children>
-            <Label text="Xoá" GridPane.columnSpan="2" GridPane.halignment="CENTER" />
-            <Label styleClass="CNEdit" text="Mã chuyến:" GridPane.rowIndex="1">
-               <GridPane.margin>
-                  <Insets left="15.0" />
-               </GridPane.margin>
-            </Label>
-            <TextField maxWidth="165.0" GridPane.columnSpan="2" GridPane.halignment="RIGHT" GridPane.rowIndex="1" />
-            <Button maxWidth="70.0" mnemonicParsing="false" text="Xoá" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
-         </children>
-      </GridPane>
-      <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="title" text="CHỨC NĂNG QUẢN TRỊ" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="TOP" />
+      <Button mnemonicParsing="false" onAction="#dsNhanVienBtn" prefHeight="26.0" prefWidth="153.0" text="DANH SÁCH NHÂN VIÊN" textAlignment="CENTER" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.valignment="BOTTOM">
+         <GridPane.margin>
+            <Insets bottom="5.0" right="10.0" />
+         </GridPane.margin>
+      </Button>
    </children>
 </GridPane>

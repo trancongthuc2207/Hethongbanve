@@ -13,9 +13,6 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
-import javafx.event.ActionEvent;
-import pojo.chuyendi;
-import pojo.vexe;
 import pojo.xe;
 import pojo.xe_ghe;
 
@@ -24,6 +21,7 @@ import pojo.xe_ghe;
  * @author Admin
  */
 public class Sv_xe {
+    
     private static int MaXeCurrent = 0;
     
     public static int getMaXeCurrent(){
@@ -95,6 +93,18 @@ public class Sv_xe {
         return xe;
     }
     
+        public xe getMaToXE(int maXE) throws SQLException{
+        Connection conn = jdbcUtils.getConn();
+        Statement stm = conn.createStatement();
+        ResultSet rs = stm.executeQuery("Select * from xe where MaXE = " + maXE);
+        xe xe = new xe();
+        while(rs.next()){
+           xe = new xe(rs.getInt("MaXE"), rs.getString("TenXe"), rs.getString("Bienso"), rs.getInt("Trangthai"),rs.getInt("MaChuyen"));
+        }
+        conn.close();
+        return xe;
+    }
+    
     /////TRẢ DANH SÁCH XE ĐƯỢC TÌM KIẾM TỪ MÃ CHUYẾN ĐI
     public List<xe> getXeFromMaCD(int maCD) throws SQLException{
         List<xe> dsxe = new ArrayList<>();
@@ -107,6 +117,31 @@ public class Sv_xe {
             xe xe = new xe(rs.getInt("MaXE"), rs.getString("TenXe"), rs.getString("Bienso"), rs.getInt("Trangthai"),rs.getInt("MaChuyen"));
             dsxe.add(xe);
         }
+        conn.close();
+        return dsxe;
+    }
+    
+    /////TRẢ DANH SÁCH XE ĐƯỢC TÌM KIẾM TỪ MÃ CHUYẾN ĐI
+    public List<xe> getXeFromMaCD(String kw) throws SQLException{
+        List<xe> dsxe = new ArrayList<>();
+        Connection conn = jdbcUtils.getConn();
+        
+        Sv_CheckOption check = new Sv_CheckOption();
+        String sql = "Select * from xe";
+        if (kw.isEmpty())
+            sql = "Select * from xe";
+        if ("empty".equalsIgnoreCase(kw) || "0".equals(kw))
+            sql = "Select * from xe where MaChuyen is null";
+        if (kw != null && !kw.isEmpty() && !"0".equals(kw) && check.isNumeric(kw))
+            sql = "Select * from xe where MaChuyen = " + Integer.valueOf(kw);
+        
+        Statement stm = conn.createStatement();
+        ResultSet rs = stm.executeQuery(sql);
+        
+        while (rs.next()) {
+            xe xe = new xe(rs.getInt("MaXE"), rs.getString("TenXe"), rs.getString("Bienso"), rs.getInt("Trangthai"),rs.getInt("MaChuyen"));
+            dsxe.add(xe);
+        }            
         conn.close();
         return dsxe;
     }
@@ -160,5 +195,82 @@ public class Sv_xe {
             }
         }
     }
-   
+    
+    //THEM XE
+    public void themXe(xe xe) throws SQLException{
+        try(Connection conn = jdbcUtils.getConn()){
+            conn.setAutoCommit(false);   
+            if (xe.getMaChuyen() != 0) {
+                PreparedStatement stm = conn.prepareStatement("INSERT INTO xe(MaChuyen,Trangthai,Bienso,TenXe,MaXE) VALUES (?,?,?,?,?)");
+                stm.setInt(1,xe.getMaChuyen());
+                stm.setInt(2, xe.getTrangthai());
+                stm.setString(3, xe.getBienso());
+                stm.setString(4, xe.getTenXe());
+                stm.setInt(5, xe.getMaXE());
+                stm.executeUpdate();
+            } else {
+                PreparedStatement stm = conn.prepareStatement("INSERT INTO xe(MaChuyen,Trangthai,Bienso,TenXe,MaXE) VALUES (null,?,?,?,?)");
+                stm.setInt(1, xe.getTrangthai());
+                stm.setString(2, xe.getBienso());
+                stm.setString(3, xe.getTenXe());
+                stm.setInt(4, xe.getMaXE());
+                stm.executeUpdate();
+            }
+            conn.commit();
+            conn.close();
+            this.themXeGhe(xe.getMaXE());
+        }
+    }
+    public void themXeGhe(int MaXe) throws SQLException
+    {
+        try(Connection conn = jdbcUtils.getConn()){
+            conn.setAutoCommit(false);
+            PreparedStatement stm = conn.prepareStatement("INSERT INTO xe_ghe(MaXE,g1,g2,g3,g4,g5,g6,g7,g8,g9,g10,g11,g12,g13,g14,g15,g16) VALUES (?,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0)");
+            stm.setInt(1, MaXe);
+            stm.executeUpdate();
+            conn.commit();
+            conn.close();
+        }
+    }
+    
+    //SUA XE
+    /**
+     *
+     * @param xe
+     * @throws java.sql.SQLException
+     */
+    public void suaXe(xe xe) throws SQLException {
+        try(Connection conn = jdbcUtils.getConn()){
+            conn.setAutoCommit(false);
+            if (xe.getMaChuyen() != 0) {
+                PreparedStatement stm = conn.prepareStatement("UPDATE xe SET MaChuyen=?, Trangthai=?, Bienso=?, TenXe=? WHERE MaXE = " + xe.getMaXE());
+                stm.setInt(1, xe.getMaChuyen());
+                stm.setInt(2, xe.getTrangthai());
+                stm.setString(3, xe.getBienso());
+                stm.setString(4, xe.getTenXe());
+                stm.executeUpdate();
+            } else {
+                PreparedStatement stm = conn.prepareStatement("UPDATE xe SET MaChuyen=null, Trangthai=?, Bienso=?, TenXe=? WHERE MaXE = " + xe.getMaXE());
+                stm.setInt(1, xe.getTrangthai());
+                stm.setString(2, xe.getBienso());
+                stm.setString(3, xe.getTenXe());
+                stm.executeUpdate();
+            }
+            conn.commit();
+            conn.close();
+        }
+    }
+    //XOA XE
+    public void xoaXe(xe xe) throws SQLException {
+        try(Connection conn = jdbcUtils.getConn()){
+            conn.setAutoCommit(false);
+            PreparedStatement stmXeGhe = conn.prepareStatement("DELETE FROM xe_ghe WHERE MaXE = " + xe.getMaXE());
+            stmXeGhe.executeUpdate();
+            PreparedStatement stmXe = conn.prepareStatement("DELETE FROM xe WHERE MaXE = " + xe.getMaXE());
+            stmXe.executeUpdate();
+            conn.commit();
+            conn.close();
+        }
+    }
+    
 }

@@ -12,10 +12,12 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.Timestamp;
+import java.text.ParsePosition;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.regex.Pattern;
 import pojo.chuyendi;
 import pojo.nhanvien_taikhoan;
 import pojo.vexe;
@@ -166,5 +168,51 @@ public class Sv_CheckOption {
             check = true;  // ĐẶT ĐƯỢC
         return check;
     }
-   
+////////////////////////////////////////KIEM TRA CHO QUAN TRI VIEN////////////////////////////////
+    private final Pattern pattern = Pattern.compile("-?\\d+(\\.\\d+)?");
+
+    public boolean isNumeric(String strNum) {
+        if (strNum == null) {
+            return false; 
+        }
+        return pattern.matcher(strNum).matches();
+    }
+    
+    public boolean isLegalDate(String s) {
+    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+    sdf.setLenient(false);
+    return sdf.parse(s, new ParsePosition(0)) != null;
+    }
+    
+    public boolean isXeGheTrong(int maXe) throws SQLException {
+        Connection conn = jdbcUtils.getConn();
+        Statement stm = conn.createStatement();
+        ResultSet rs = stm.executeQuery("Select * from xe_ghe where MaXE = " + maXe);
+        xe_ghe xg = new xe_ghe();
+        while (rs.next()) {
+            xe_ghe temp = new xe_ghe(maXe, rs.getInt("g1"), rs.getInt("g2"), rs.getInt("g3"), rs.getInt("g4"), rs.getInt("g5"), rs.getInt("g6"), rs.getInt("g7"), rs.getInt("g8")
+                                                            ,rs.getInt("g9"), rs.getInt("g10"), rs.getInt("g11"), rs.getInt("g12"), rs.getInt("g13"), rs.getInt("g14"), rs.getInt("g15"), rs.getInt("g16"));
+            xg = temp;
+        }
+        conn.close();
+        if (xg.getG1() != 0 || xg.getG2() != 0 || xg.getG3() != 0 || xg.getG4() != 0 || xg.getG5() != 0 || xg.getG6() != 0 || xg.getG7() != 0 || xg.getG8() != 0 
+                || xg.getG9() != 0 || xg.getG10() != 0 || xg.getG11() != 0 || xg.getG12() != 0 || xg.getG13() != 0 || xg.getG14() != 0 || xg.getG15() != 0 || xg.getG16() != 0)
+            return false;
+        return true;
+    }
+    
+    public boolean isQuanTriVien(int maNV) throws SQLException {
+        Connection conn = jdbcUtils.getConn();
+        Statement stm = conn.createStatement();
+        ResultSet rs = stm.executeQuery("Select * from nhanvien_taikhoan where MaNV = " + maNV);
+        nhanvien_taikhoan nvtk = new nhanvien_taikhoan();
+        while (rs.next()) {
+            nhanvien_taikhoan temp = new nhanvien_taikhoan(rs.getInt("MaNV"), rs.getString("Taikhoan"), rs.getString("Matkhau"), rs.getInt("Chucvu"));
+            nvtk = temp;
+        }
+        conn.close();
+        if (nvtk.getChucvu() != 2)
+            return false;
+        return true;
+    }
 }
