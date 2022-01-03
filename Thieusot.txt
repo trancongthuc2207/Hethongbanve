@@ -14,14 +14,7 @@ Trạng thái vé:
 2 -> đã nhận
 
 0 : thu hồi
-
-<<<<<<< HEAD
----------------
-Hưng
-- Một số vấn đề về xóa chuyến đi - Chưa giải quyết
-- Hàm check chuyến đi chưa có xe nhận và ngược lại (sẽ check bằng button ngoài gui) - Chưa giải quyết
-=======
--------------
+----------------------------------------------------
 Trước 30 phút nếu khách hàng không đến nhận vé đã đặt thì hệ thống sẽ tự động 
 huỷ vé  -  Bao gồm diều kiện trc 5p xe chạy mà chưa nhận vé!!
 
