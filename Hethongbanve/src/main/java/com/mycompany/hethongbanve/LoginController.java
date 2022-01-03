@@ -30,13 +30,17 @@ public class LoginController {
         Login_nhanvien lg = new Login_nhanvien();
         boolean check = false;
         check = lg.CheckLogin(tk_mk);
-        if(check){
-            isLogin = true;
-            switchMenuChucNang();
-            Utils.getBox("DANG NHAP THANH CONG", Alert.AlertType.INFORMATION).show();
+        if(!(txtTaikhoan).getText().isEmpty() || !(txtMatkhau).getText().isEmpty()){
+            if(check){
+                isLogin = true;
+                switchMenuChucNang();
+                Utils.getBox("ĐĂNG NHẬP THÀNH CÔNG!!", Alert.AlertType.INFORMATION).show();
+            }
+            else 
+                Utils.getBox("SAI TÀI KHOẢN HOẶC MẬT KHẨU!!", Alert.AlertType.WARNING).show();
         }
-        else 
-            Utils.getBox("DANG NHAP THAT BAI", Alert.AlertType.WARNING).show();
+        else
+            Utils.getBox("BẠN CHƯA NHẬP ĐẦY ĐỦ TÀI KHOẢN HOẶC MẬT KHẨU", Alert.AlertType.WARNING).show();
     }
     
     @FXML

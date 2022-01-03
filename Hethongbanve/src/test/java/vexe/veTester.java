@@ -128,7 +128,6 @@ public class veTester {
         System.out.println("\n");
     }
     
-    
     @Test
     public void testThoigianmuave() throws SQLException{
         beforeAll();

@@ -133,5 +133,18 @@ public class Login_nhanvien {
         return b;
     }
     
+    public nhanvien_taikhoan getTaiKhoanNVFromTK(String kw) throws SQLException{
+        nhanvien_taikhoan tk = new nhanvien_taikhoan();
+        
+        Connection conn = jdbcUtils.getConn();
+        Statement stm = conn.createStatement();
+        ResultSet rs = stm.executeQuery("Select * from nhanvien_taikhoan where Taikhoan = "+ "\"" + kw + "\"");
+        
+        while(rs.next()){
+            tk = new nhanvien_taikhoan(rs.getInt("MaNV"), rs.getString("Taikhoan"), rs.getString("Matkhau"), rs.getInt("Chucvu"));
+        }
+        
+        return tk;
+    }
     
 }

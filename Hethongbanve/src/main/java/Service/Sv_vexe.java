@@ -75,6 +75,41 @@ public class Sv_vexe {
         while(rs.next()){
             vexe ve = new vexe(rs.getInt("Mave"), rs.getTimestamp("ThoiGianBatDau"),rs.getString("Soghe"), rs.getInt("MaChuyen"), rs.getInt("MaKH"), rs.getInt("MaNV"), rs.getInt("MaXE"), rs.getTimestamp("Ngayin"),rs.getInt("Trangthai"));
             this.MaVeCurrent = rs.getInt("Mave");
+            dsVe.add(ve); 
+        }
+        conn.close();
+        return dsVe;
+    }
+    //GET VE THEO KW MA VE
+    public List<vexe> getVexe(String kw) throws SQLException{
+        List<vexe> dsvx = new ArrayList<>();
+        Connection conn = jdbcUtils.getConn();
+        String sql = "Select * from vexe";
+        if (kw != null && !kw.isEmpty()) {
+            sql += " Where MaVE like \'%" + kw +"%\'";
+        }
+        Statement stm = conn.createStatement();
+        ResultSet rs = stm.executeQuery(sql);
+
+       while(rs.next()){
+            vexe ve = new vexe(rs.getInt("Mave"), rs.getTimestamp("ThoiGianBatDau"),rs.getString("Soghe"), rs.getInt("MaChuyen"), rs.getInt("MaKH"), rs.getInt("MaNV"), rs.getInt("MaXE"), rs.getTimestamp("Ngayin"),rs.getInt("Trangthai"));         
+            dsvx.add(ve); 
+        }
+        conn.close();
+        return dsvx;
+    }
+    
+    ///LOAD VE CHUA NHAN
+    public List<vexe> getVeXeChuaNhan() throws SQLException{
+        List<vexe> dsVe = new ArrayList<>();
+        Connection conn = jdbcUtils.getConn();
+        
+        Statement stm = conn.createStatement();
+        ResultSet rs = stm.executeQuery("Select * from vexe where Trangthai = 1");
+        
+        while(rs.next()){
+            vexe ve = new vexe(rs.getInt("Mave"), rs.getTimestamp("ThoiGianBatDau"),rs.getString("Soghe"), rs.getInt("MaChuyen"), rs.getInt("MaKH"), rs.getInt("MaNV"), rs.getInt("MaXE"), rs.getTimestamp("Ngayin"),rs.getInt("Trangthai"));
+            this.MaVeCurrent = rs.getInt("Mave");
             dsVe.add(ve);
             
         }
@@ -82,7 +117,7 @@ public class Sv_vexe {
         return dsVe;
     }
     
-    
+    ///
     public void addVeXe(vexe vx) throws SQLException{ // DAT VE
         //Sv_chuyendi svCD = new Sv_chuyendi();
         Sv_CheckOption ckOP = new Sv_CheckOption();

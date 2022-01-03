@@ -38,8 +38,8 @@ public class Sv_khachhang {
         while(rs.next()){
             khachhang kh = new khachhang(rs.getInt("MaKH"),rs.getString("TenKH"),rs.getString("CMND"),rs.getString("SDT"));
             result.add(kh);
+            MaKHCurrent = kh.getMaKH();
         }
-        MaKHCurrent = result.size();
         conn.close();
         return result;
     }
