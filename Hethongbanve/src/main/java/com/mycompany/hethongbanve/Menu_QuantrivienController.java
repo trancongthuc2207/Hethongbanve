@@ -30,6 +30,10 @@ import Service.Sv_CheckOption;
 import Service.Sv_chuyendi;
 import pojo.chuyendi;
 import Service.Sv_xe;
+import java.io.IOException;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
+import javafx.stage.Stage;
 import pojo.xe;
 
 /**
@@ -81,7 +85,6 @@ public class Menu_QuantrivienController implements Initializable {
         } catch (SQLException ex) {
             Logger.getLogger(Menu_QuantrivienController.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
         try {
             this.initTextFieldXe();
         } catch (SQLException ex) {
@@ -167,8 +170,16 @@ public class Menu_QuantrivienController implements Initializable {
             Button xoaBtn = new Button("Xóa");
             xoaBtn.setOnAction(et -> {
                 TableCell cellGet =  (TableCell)((Button)et.getSource()).getParent();
+                int index = cellGet.getIndex();
+                this.tbChuyenDi.requestFocus();
+                this.tbChuyenDi.getSelectionModel().select(index);
+                this.tbChuyenDi.getFocusModel().focus(index);
                 chuyendi cd = (chuyendi)cellGet.getTableRow().getItem();
-                this.xoaChuyenDiBtn(cd);
+                if (cd != null && !(cd.getTenChuyen()).isEmpty()) {
+                    this.truyenGiaTriCD(cd);
+                    this.xoaChuyenDiBtn(cd);
+                } else
+                    Utils.getBox("Không có thông tin để xóa!", Alert.AlertType.WARNING).show();
             });
             TableCell cell = new TableCell();
             cell.setGraphic(xoaBtn);
@@ -257,50 +268,52 @@ public class Menu_QuantrivienController implements Initializable {
     //SUA CHUYEN DI
     public void suaChuyenDiBtn(ActionEvent event) throws SQLException {
         chuyendi cd = this.tbChuyenDi.getSelectionModel().getSelectedItem();
-        if (cd != null && Integer.valueOf(this.txtMaChuyen.getText()) == cd.getMaChuyen()) {
-            if (this.isCDNotNull()) {
-                if (this.isCDInputExactly()) {
-                    Alert xacNhan = Utils.getBox("Xác nhận sửa chuyến đi?", Alert.AlertType.CONFIRMATION);
-                    xacNhan.showAndWait().ifPresent((ButtonType res) -> {
-                        if (res == ButtonType.OK) {
-                            cd.setTenChuyen(this.txtTenChuyen.getText());
-                            cd.setGia(Double.valueOf(this.txtGia.getText()));
-                            cd.setThoiGianBatDau(Timestamp.valueOf(this.txtTGBD.getText()));
-                            cd.setThoiGianKetThuc(Timestamp.valueOf(this.txtTGKT.getText()));
-                            Sv_chuyendi scd = new Sv_chuyendi();
-                            try {
-                                scd.suaChuyenDi(cd);
-                                Menu_QuantrivienController.this.loadTableDataCD();
-                                Utils.getBox("Sửa thành công !!!", Alert.AlertType.INFORMATION).show();
-                            }catch (SQLException ex) {
-                                Utils.getBox("Sửa thất bại !!!", Alert.AlertType.ERROR).show();
+        if (cd != null) {
+            if (Integer.valueOf(this.txtMaChuyen.getText()) == cd.getMaChuyen()) {
+                if (this.isCDNotNull()) {
+                    if (this.isCDInputExactly()) {
+                        Alert xacNhan = Utils.getBox("Xác nhận sửa chuyến đi?", Alert.AlertType.CONFIRMATION);
+                        xacNhan.showAndWait().ifPresent((ButtonType res) -> {
+                            if (res == ButtonType.OK) {
+                                cd.setTenChuyen(this.txtTenChuyen.getText());
+                                cd.setGia(Double.valueOf(this.txtGia.getText()));
+                                cd.setThoiGianBatDau(Timestamp.valueOf(this.txtTGBD.getText()));
+                                cd.setThoiGianKetThuc(Timestamp.valueOf(this.txtTGKT.getText()));
+                                Sv_chuyendi scd = new Sv_chuyendi();
+                                try {
+                                    scd.suaChuyenDi(cd);
+                                    this.loadTableDataCD();
+                                    Utils.getBox("Sửa thành công !!!", Alert.AlertType.INFORMATION).show();
+                                }catch (SQLException ex) {
+                                    Utils.getBox("Sửa thất bại !!!", Alert.AlertType.ERROR).show();
+                                }
                             }
-                        }
-                    });
+                        });
+                    } else
+                        Utils.getBox("Thông tin không hợp lệ!", Alert.AlertType.WARNING).show();
                 } else
-                    Utils.getBox("Thông tin không hợp lệ!", Alert.AlertType.WARNING).show();
+                    Utils.getBox("Chưa nhập đủ thông tin!", Alert.AlertType.WARNING).show();
             } else
-                Utils.getBox("Chưa nhập đủ thông tin!", Alert.AlertType.WARNING).show();
+                Utils.getBox("Mã chuyến không trùng khớp!", Alert.AlertType.WARNING).show();
         } else
-            Utils.getBox("Mã chuyến không trùng khớp!", Alert.AlertType.WARNING).show();
+            Utils.getBox("Chưa chọn dòng từ bảng để sửa!", Alert.AlertType.WARNING).show();
     }
 
-    //XOA CHUYEN DI --------------------------CHUA RAO DIEU KIEN -- 2 ma khong giong nhau
-    public void xoaChuyenDiBtn(chuyendi cd) {
-    Alert xacNhanXoa = Utils.getBox("Xác nhận xóa chuyến đi?", Alert.AlertType.CONFIRMATION);
-        xacNhanXoa.showAndWait().ifPresent(res -> {
-            if (res == ButtonType.OK) {
-                //chuyendi cd = this.tbChuyenDi.getSelectionModel().getSelectedItem();
-                Sv_chuyendi xcd = new Sv_chuyendi();
-                try {
-                    xcd.xoaChuyenDi(cd);
-                    this.loadTableDataCD();
-                    Utils.getBox("Xóa thành công !!!", Alert.AlertType.INFORMATION).show();
-                } catch (SQLException ex) {
-                    Utils.getBox("Xóa thất bại !!!", Alert.AlertType.ERROR).show();
+    //XOA CHUYEN DI
+    public void xoaChuyenDiBtn(chuyendi cd)  {
+        Alert xacNhanXoa = Utils.getBox("Xác nhận xóa chuyến đi?", Alert.AlertType.CONFIRMATION);
+            xacNhanXoa.showAndWait().ifPresent(res -> {
+                if (res == ButtonType.OK) {
+                    Sv_chuyendi xcd = new Sv_chuyendi();
+                    try {
+                        xcd.xoaChuyenDi(cd);
+                        this.refreshTextFieldCD();
+                        Utils.getBox("Xóa thành công !!!", Alert.AlertType.INFORMATION).show();
+                    } catch (SQLException ex) {
+                        Utils.getBox("Xóa thất bại !!!", Alert.AlertType.ERROR).show();
+                    }
                 }
-            }
-        });
+            });
     }
     
     //CAP NHAT THOI GIAN
@@ -337,14 +350,26 @@ public class Menu_QuantrivienController implements Initializable {
         TableColumn colXoaXe = new TableColumn();
         colXoaXe.setPrefWidth(50);
         colXoaXe.setCellFactory(p -> {
-            Button xoaBtn = new Button("Xóa");
-            xoaBtn.setOnAction(et -> {
+            Button xoaBtn1 = new Button("Xóa");
+            xoaBtn1.setOnAction(et -> {
                 TableCell cellGet =  (TableCell)((Button)et.getSource()).getParent();
+                int index = cellGet.getIndex();
+                this.tbXe.requestFocus();
+                this.tbXe.getSelectionModel().select(index);
+                this.tbXe.getFocusModel().focus(index);
                 xe xxe = (xe)cellGet.getTableRow().getItem();
-                this.xoaXeBtn(xxe);
+                if (xxe != null && !(xxe.getTenXe()).isEmpty()) {
+                    this.truyenGiaTriXe(xxe);
+                    try {
+                        this.xoaXeBtn(xxe);
+                    } catch (SQLException ex) {
+                        Logger.getLogger(Menu_QuantrivienController.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                } else
+                    Utils.getBox("Không có thông tin để xóa!", Alert.AlertType.WARNING).show();
             });
             TableCell cell = new TableCell();
-            cell.setGraphic(xoaBtn);
+            cell.setGraphic(xoaBtn1);
             return cell;
         });
         
@@ -412,7 +437,7 @@ public class Menu_QuantrivienController implements Initializable {
         return false;
     }
     
-    //THEM XE -------------------- CHUA HOAN THANH (THEM XE GHE)
+    //THEM XE
     public void themXeBtn(ActionEvent Event) throws SQLException{
         if (this.isXeNotNull()) {
             if (this.isXeInputExactly()) {
@@ -432,49 +457,70 @@ public class Menu_QuantrivienController implements Initializable {
             Utils.getBox("Chưa nhập đủ thông tin!", Alert.AlertType.WARNING).show();
     }
 
-    //SUA XE -------------- CHUA HOAN THANH + RAO DIEU KIEN
+    //SUA XE
     public void suaXeBtn(ActionEvent event) throws SQLException {
         xe xe = this.tbXe.getSelectionModel().getSelectedItem();
-        if (xe != null && Integer.valueOf(this.txtMaXe.getText()) == xe.getMaXE()) {
-            if (this.txtTenXe.getText() != null && this.txtBienSo.getText() != null && this.txtTrangThai.getText() != null) {
-                Alert xacNhan = Utils.getBox("Xác nhận sửa thông tin của xe?", Alert.AlertType.CONFIRMATION);
-                xacNhan.showAndWait().ifPresent((ButtonType res) -> {
-                    if (res == ButtonType.OK) {
-                        xe.setTenXe(this.txtTenXe.getText());
-                        xe.setBienso(this.txtBienSo.getText());
-                        xe.setTrangthai(Integer.valueOf(this.txtTrangThai.getText()));
-                        xe.setMaChuyen(Integer.valueOf(this.txtMaChuyenKN.getText()));
-                        Sv_xe sxe = new Sv_xe();
-                        try {
-                            sxe.suaXe(xe);
-                            Menu_QuantrivienController.this.loadTableDataXe();
-                            Utils.getBox("Sửa thành công !!!", Alert.AlertType.INFORMATION).show();
-                        }catch (SQLException ex) {
-                            Utils.getBox("Sửa thất bại !!!", Alert.AlertType.ERROR).show();
-                        }
-                    }
-                });
+        if (xe != null) {
+            if (Integer.valueOf(this.txtMaXe.getText()) == xe.getMaXE()) {
+                if (this.isXeNotNull()) {
+                    if (this.isXeInputExactly()) {
+                        Alert xacNhan = Utils.getBox("Xác nhận sửa thông tin của xe?", Alert.AlertType.CONFIRMATION);
+                        xacNhan.showAndWait().ifPresent((ButtonType res) -> {
+                            if (res == ButtonType.OK) {
+                                xe.setTenXe(this.txtTenXe.getText());
+                                xe.setBienso(this.txtBienSo.getText());
+                                xe.setTrangthai(Integer.valueOf(this.txtTrangThai.getText()));
+                                xe.setMaChuyen(Integer.valueOf(this.txtMaChuyenKN.getText()));
+                                Sv_xe sxe = new Sv_xe();
+                                try {
+                                    sxe.suaXe(xe);
+                                    this.loadTableDataXe();
+                                    Utils.getBox("Sửa thành công !!!", Alert.AlertType.INFORMATION).show();
+                                }catch (SQLException ex) {
+                                    Utils.getBox("Sửa thất bại !!!", Alert.AlertType.ERROR).show();
+                                }
+                            }
+                        });
+                    } else
+                        Utils.getBox("Thông tin không hợp lệ!", Alert.AlertType.WARNING).show();
+                } else
+                    Utils.getBox("Chưa nhập đủ thông tin!", Alert.AlertType.WARNING).show();
             } else
-                Utils.getBox("CHƯA NHẬP ĐỦ THÔNG TIN!", Alert.AlertType.WARNING).show();
+                Utils.getBox("Mã xe không trùng khớp!", Alert.AlertType.WARNING).show();
         } else
-            Utils.getBox("MÃ XE KHÔNG TRÙNG KHỚP!", Alert.AlertType.WARNING).show();
+            Utils.getBox("Chưa chọn dòng từ bảng để sửa!", Alert.AlertType.WARNING).show();
     }
 
-    //XOA XE --------------- CHUA HOAN THANH + RAO DIEU KIEN
-    public void xoaXeBtn(xe xe) {
-    Alert xacNhanXoaXe = Utils.getBox("Xác nhận xóa thông tin xe?", Alert.AlertType.CONFIRMATION);
-        xacNhanXoaXe.showAndWait().ifPresent(res -> {
-            if (res == ButtonType.OK) {
-                Sv_xe xxe = new Sv_xe();
-                try {
-                    xxe.xoaXe(xe);
-                    this.loadTableDataXe();
-                    Utils.getBox("Xóa thành công !!!", Alert.AlertType.INFORMATION).show();
-                } catch (SQLException ex) {
-                    Utils.getBox("Xóa thất bại !!!", Alert.AlertType.ERROR).show();
-                }
-            }
-        });
+    //XOA XE
+    public void xoaXeBtn(xe xe) throws SQLException {
+        Sv_CheckOption check = new Sv_CheckOption();
+        if (xe.getTrangthai() == 0) {
+            if (check.isXeGheTrong(xe.getMaXE())) {
+                Alert xacNhanXoaXe = Utils.getBox("Xác nhận xóa thông tin xe?", Alert.AlertType.CONFIRMATION);
+                    xacNhanXoaXe.showAndWait().ifPresent(res -> {
+                        if (res == ButtonType.OK) {
+                            Sv_xe xxe = new Sv_xe();
+                            try {
+                                xxe.xoaXe(xe);
+                                this.loadTableDataXe();
+                                Utils.getBox("Xóa thành công !!!", Alert.AlertType.INFORMATION).show();
+                            } catch (SQLException ex) {
+                                Utils.getBox("Xóa thất bại !!!", Alert.AlertType.ERROR).show();
+                            }
+                        }
+                    });
+            } else
+                Utils.getBox("Xe vẫn còn vé đặt!", Alert.AlertType.WARNING).show();
+        } else
+            Utils.getBox("Xe đang di chuyển!", Alert.AlertType.WARNING).show();
     }
-    
+//////////////////////////////////////////////////////////////////////CHUYEN SANG NHAN VIEN////////////////////////////////////////////////////////////////////
+    public void dsNhanVienBtn(ActionEvent event) throws IOException {
+        FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("Menu_QuantrivienNV.fxml"));
+        Scene scene = new Scene(fxmlLoader.load());
+        Stage stage = new Stage();
+        stage.setScene(scene);
+        stage.setTitle("DANH SÁCH NHÂN VIÊN");
+        stage.show();   
+    }
 }

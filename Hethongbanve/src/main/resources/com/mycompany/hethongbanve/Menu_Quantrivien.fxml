@@ -22,7 +22,7 @@
     <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
   </rowConstraints>
    <children>
-      <Text strokeType="OUTSIDE" strokeWidth="0.0" text="QUẢN LÍ CHUYẾN ĐI - XE" textAlignment="CENTER" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+      <Text strokeType="OUTSIDE" strokeWidth="0.0" text="CHỨC NĂNG QUẢN TRỊ" textAlignment="CENTER" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
          <font>
             <Font name="System Bold" size="65.0" />
          </font>
@@ -146,7 +146,7 @@
             <Insets />
          </GridPane.margin>
       </GridPane>
-      <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="130.0" text="QUẢN LÍ NHÂN VIÊN" textAlignment="CENTER" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.valignment="BOTTOM">
+      <Button mnemonicParsing="false" onAction="#dsNhanVienBtn" prefHeight="26.0" prefWidth="153.0" text="DANH SÁCH NHÂN VIÊN" textAlignment="CENTER" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.valignment="BOTTOM">
          <GridPane.margin>
             <Insets bottom="5.0" right="10.0" />
          </GridPane.margin>

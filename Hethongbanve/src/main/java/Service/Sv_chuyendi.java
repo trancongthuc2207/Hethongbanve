@@ -92,6 +92,7 @@ public class Sv_chuyendi {
             stm2.setInt(5, cd.getMaChuyen());
             stm2.executeUpdate();
             conn.commit();
+            conn.close();
         }
     }
     
@@ -111,6 +112,7 @@ public class Sv_chuyendi {
             stm3.setString(4, cd.getTenChuyen());
             stm3.executeUpdate();
             conn.commit();
+            conn.close();
         }
     }
     
@@ -121,6 +123,7 @@ public class Sv_chuyendi {
             PreparedStatement stm4 = conn.prepareStatement("DELETE FROM chuyendi WHERE MaChuyen = " + cd.getMaChuyen());
             stm4.executeUpdate();
             conn.commit();
+            conn.close();
         }
     }
     

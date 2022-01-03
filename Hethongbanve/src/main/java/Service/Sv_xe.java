@@ -217,6 +217,19 @@ public class Sv_xe {
                 stm.executeUpdate();
             }
             conn.commit();
+            conn.close();
+            this.themXeGhe(xe.getMaXE());
+        }
+    }
+    public void themXeGhe(int MaXe) throws SQLException
+    {
+        try(Connection conn = jdbcUtils.getConn()){
+            conn.setAutoCommit(false);
+            PreparedStatement stm = conn.prepareStatement("INSERT INTO xe_ghe(MaXE,g1,g2,g3,g4,g5,g6,g7,g8,g9,g10,g11,g12,g13,g14,g15,g16) VALUES (?,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0)");
+            stm.setInt(1, MaXe);
+            stm.executeUpdate();
+            conn.commit();
+            conn.close();
         }
     }
     
@@ -229,22 +242,34 @@ public class Sv_xe {
     public void suaXe(xe xe) throws SQLException {
         try(Connection conn = jdbcUtils.getConn()){
             conn.setAutoCommit(false);
-            PreparedStatement stm = conn.prepareStatement("UPDATE xe SET MaChuyen=?, Trangthai=?, Bienso=?, TenXe=? WHERE MaXE = " + xe.getMaXE());
-            stm.setInt(1, xe.getMaChuyen());
-            stm.setInt(2, xe.getTrangthai());
-            stm.setString(3, xe.getBienso());
-            stm.setString(4, xe.getTenXe());
-            stm.executeUpdate();
+            if (xe.getMaChuyen() != 0) {
+                PreparedStatement stm = conn.prepareStatement("UPDATE xe SET MaChuyen=?, Trangthai=?, Bienso=?, TenXe=? WHERE MaXE = " + xe.getMaXE());
+                stm.setInt(1, xe.getMaChuyen());
+                stm.setInt(2, xe.getTrangthai());
+                stm.setString(3, xe.getBienso());
+                stm.setString(4, xe.getTenXe());
+                stm.executeUpdate();
+            } else {
+                PreparedStatement stm = conn.prepareStatement("UPDATE xe SET MaChuyen=null, Trangthai=?, Bienso=?, TenXe=? WHERE MaXE = " + xe.getMaXE());
+                stm.setInt(1, xe.getTrangthai());
+                stm.setString(2, xe.getBienso());
+                stm.setString(3, xe.getTenXe());
+                stm.executeUpdate();
+            }
             conn.commit();
+            conn.close();
         }
     }
-    //XOA XE - CHUA HOAN THANH DIEU KIEN (CHECK LAI SV CHUYEN DI)
+    //XOA XE
     public void xoaXe(xe xe) throws SQLException {
         try(Connection conn = jdbcUtils.getConn()){
             conn.setAutoCommit(false);
-            PreparedStatement stm = conn.prepareStatement("DELETE FROM xe WHERE MaXE = " + xe.getMaXE());
-            stm.executeUpdate();
+            PreparedStatement stmXeGhe = conn.prepareStatement("DELETE FROM xe_ghe WHERE MaXE = " + xe.getMaXE());
+            stmXeGhe.executeUpdate();
+            PreparedStatement stmXe = conn.prepareStatement("DELETE FROM xe WHERE MaXE = " + xe.getMaXE());
+            stmXe.executeUpdate();
             conn.commit();
+            conn.close();
         }
     }
     
