@@ -8,6 +8,7 @@ package com.mycompany.hethongbanve;
 import Service.Login_nhanvien;
 import Service.Sv_chuyendi;
 import Service.Sv_khachhang;
+import Service.Sv_vexe;
 import config.Utils;
 import java.io.IOException;
 import java.net.URL;
@@ -23,6 +24,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
@@ -32,6 +34,7 @@ import javafx.stage.Stage;
 import pojo.chuyendi;
 import pojo.khachhang;
 import pojo.nhanvien;
+import pojo.vexe;
 
 /**
  * FXML Controller class
@@ -40,21 +43,18 @@ import pojo.nhanvien;
  */
 public class MenuChucNangController implements Initializable {
     private static int SLM = 0;
-    @FXML private TableView<chuyendi> tbChuyendi;
+    @FXML private TableView<vexe> tbVeXE;
     @FXML private TableView<khachhang> tbKhachhang;
     @FXML private TextField txtTenKH;
     @FXML private TextField txtCMND;
     @FXML private TextField txtSDT;
-    @FXML private TextField txtChucVu;
-    @FXML private TextField txtNhanVienTruc;
-    @FXML private TextField txtChucVuNhanVienTruc;
-            
+    @FXML private Label txtMaKH;
+    @FXML private Label txtNhanVienTruc;
+    @FXML private Label txtChucVuNhanVienTruc;
+    @FXML private Label txtTrangthainhanvien;
     @Override
    public void initialize(URL url, ResourceBundle rb) {
         // TODO
-        this.txtTenKH.setText(null);
-        this.txtCMND.setText(null);
-        this.txtSDT.setText(null);
         //////////THONG TIN NHAN VIEN TRUC
         try {
             this.loadThongTinNhanVienTruc();
@@ -63,6 +63,20 @@ public class MenuChucNangController implements Initializable {
         }
         /////////THONG TIN KHACH HANG
         this.loadTableViewKH();
+        try {
+            this.loadTableDataKH();
+        } catch (SQLException ex) {
+            Logger.getLogger(MenuChucNangController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        Sv_khachhang sv_kh = new Sv_khachhang();
+        this.txtMaKH.setText(String.valueOf(sv_kh.getMaKHCurrent()+1));
+        
+        this.loadTableViewVeXE();
+        try {
+            this.loadTableDataVeXE();
+        } catch (SQLException ex) {
+            Logger.getLogger(MenuChucNangController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }  
     //////////////////////KHACHHANG        
     public void loadTableViewKH(){
@@ -86,36 +100,78 @@ public class MenuChucNangController implements Initializable {
     }
     public void loadTableDataKH() throws SQLException{
         Sv_khachhang listkh = new Sv_khachhang();
-        SLM = listkh.getMaKHCurrent();
         this.tbKhachhang.setItems(FXCollections.observableList(listkh.getKhachHang()));
     }
     public void loadThongTinNhanVienTruc() throws SQLException{
         Login_nhanvien dsnv = new Login_nhanvien();
-        if(dsnv.ChucVuNhanVienCurrent(LoginController.tenNVCurrent) == 1)
+        if(dsnv.ChucVuNhanVienCurrent(LoginController.tenNVCurrent) != 2)
             txtChucVuNhanVienTruc.setText("NHÂN VIÊN");
         else
             txtChucVuNhanVienTruc.setText("QUẢN TRỊ VIÊN");
         txtNhanVienTruc.setText(dsnv.TenNhanVienCurrent(LoginController.tenNVCurrent));
+        if(dsnv.getTaiKhoanNVFromTK(LoginController.tenNVCurrent).getChucvu() == 0)
+            txtTrangthainhanvien.setText("ĐÃ BỊ CẤM SỬ DỤNG");
+        else
+            txtTrangthainhanvien.setText("BÌNH THƯỜNG");
     }  
     public void addKhachhang(ActionEvent Event) throws SQLException{
-        this.loadTableDataKH();
-        if(this.txtTenKH.getText() != null && this.txtCMND.getText() != null && this.txtSDT.getText() != null)
+        if(!this.txtTenKH.getText().isEmpty() && !this.txtCMND.getText().isEmpty() && !this.txtSDT.getText().isEmpty() && inputFullKH())
         {
-            System.out.println(SLM+1);
-            khachhang kh = new khachhang(SLM+1,this.txtTenKH.getText(), this.txtCMND.getText(), this.txtSDT.getText());
-            System.out.println(kh.getMaKH());
             Sv_khachhang nKH = new Sv_khachhang();
-            try {
-                nKH.addKhachhang(kh);
-                Utils.getBox("Them Thanh Cong", Alert.AlertType.INFORMATION).show();
-            } catch (SQLException sQLException) {
-                Utils.getBox("Them That Bai", Alert.AlertType.WARNING).show();
-            }
+            khachhang kh = new khachhang(nKH.getMaKHCurrent() + 1, this.txtTenKH.getText(), this.txtCMND.getText(), this.txtSDT.getText());
+            nKH.addKhachhang(kh);
+            Utils.getBox("THÊM KHÁCH HÀNG THÀNH CÔNG", Alert.AlertType.INFORMATION).show();
+            this.refreshTextFieldKH();
+            System.out.println(txtTenKH.getText()+ "\n");
         }
         else
-            Utils.getBox("Moi nhap du thong tin", Alert.AlertType.WARNING).show();
-        this.loadTableDataKH();
+            Utils.getBox("BẠN CHƯA NHẬP ĐẦY ĐỦ THÔNG TIN KHÁCH HÀNG", Alert.AlertType.WARNING).show();
     }
+    ////////VE
+    public void loadTableViewVeXE(){
+        TableColumn colMaVE = new TableColumn("Vé");
+        colMaVE.setCellValueFactory(new PropertyValueFactory("MaVE"));
+        colMaVE.setPrefWidth(60);
+        
+        TableColumn colThoigianbatdau = new TableColumn("Bắt đầu");
+        colThoigianbatdau.setCellValueFactory(new PropertyValueFactory("Thoigianbatdau"));
+        colThoigianbatdau.setPrefWidth(120);
+        
+        TableColumn colSoghe = new TableColumn("Ghế");
+        colSoghe.setCellValueFactory(new PropertyValueFactory("Soghe"));
+        colSoghe.setPrefWidth(50);
+        
+        TableColumn colMaChuyen = new TableColumn("Chuyến");
+        colMaChuyen.setCellValueFactory(new PropertyValueFactory("MaChuyen"));
+        colMaChuyen.setPrefWidth(50);
+        
+        TableColumn colMaKH = new TableColumn("KH");
+        colMaKH.setCellValueFactory(new PropertyValueFactory("MaKH"));
+        colMaKH.setPrefWidth(50);
+        
+        TableColumn colMaNV = new TableColumn("NV");
+        colMaNV.setCellValueFactory(new PropertyValueFactory("MaNV"));
+        colMaNV.setPrefWidth(50);
+        
+        TableColumn colMaXE = new TableColumn("XE");
+        colMaXE.setCellValueFactory(new PropertyValueFactory("MaXE"));
+        colMaXE.setPrefWidth(50);
+        
+        TableColumn colNgayin = new TableColumn("Ngàyin");
+        colNgayin.setCellValueFactory(new PropertyValueFactory("Ngayin"));
+        colNgayin.setPrefWidth(120);
+        
+        TableColumn colTrangthai = new TableColumn("Trạngthái");
+        colTrangthai.setCellValueFactory(new PropertyValueFactory("Trangthai"));
+        colTrangthai.setPrefWidth(50);
+        
+        this.tbVeXE.getColumns().addAll(colMaVE,colThoigianbatdau,colSoghe,colMaChuyen,colMaKH,colMaNV,colMaXE,colNgayin,colTrangthai);
+    }
+    public void loadTableDataVeXE() throws SQLException{
+        Sv_vexe listVe = new Sv_vexe();
+        this.tbVeXE.setItems(FXCollections.observableList(listVe.getVeXe()));
+    }
+    
     ////////BUTTON
     public void ChucNangQuanTriButton(ActionEvent event) throws IOException, SQLException{
        Login_nhanvien dsnv = new Login_nhanvien();
@@ -162,4 +218,17 @@ public class MenuChucNangController implements Initializable {
            Utils.getBox("Bạn không đủ quyền để sử dụng!", Alert.AlertType.WARNING).show();
     }
     
+    public void refreshTextFieldKH() throws SQLException{
+        this.txtTenKH.setText(null);
+        this.txtCMND.setText(null);
+        this.txtSDT.setText(null);
+        Sv_khachhang svkh = new Sv_khachhang();
+        this.loadTableDataKH();
+        this.txtMaKH.setText(String.valueOf(svkh.getMaKHCurrent()+1));
+    }
+    public boolean inputFullKH(){
+        if(txtTenKH != null && txtCMND != null && txtSDT != null)
+            return true;
+        return false;
+    }
 }

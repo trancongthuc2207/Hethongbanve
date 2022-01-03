@@ -19,6 +19,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.regex.Pattern;
 import pojo.chuyendi;
+import pojo.nhanvien_taikhoan;
 import pojo.vexe;
 import pojo.xe;
 import pojo.xe_ghe;
@@ -28,6 +29,12 @@ import pojo.xe_ghe;
  * @author Admin
  */
 public class Sv_CheckOption {
+    public boolean isNhanVienBanned(nhanvien_taikhoan nv){
+        boolean check = false;
+        if(nv.getChucvu() == 0)
+            return true;
+        return check;
+    }
     
     public boolean checkTimeDatVe(vexe vx) throws SQLException{  // trc 1h
         //Sv_chuyendi cd = new Sv_chuyendi();
@@ -72,8 +79,9 @@ public class Sv_CheckOption {
         String date = sdf.format(dateCur);
         
         Timestamp tgHT = Timestamp.valueOf(date); //THOI GIAN HIEN TAI 
-        Sv_chuyendi cd = new Sv_chuyendi();
-        Timestamp tGHetHieuLuc = new Timestamp(cd.getMaToChuyen(vx.getMaChuyen()).getThoiGianBatDau().getTime() - 30*60*1000); // THOI GIAN CHUYEN DI - 30p (Truoc 30p trang thai ve vẫn = 1)
+        //Sv_chuyendi cd = new Sv_chuyendi();
+        //cd.getMaToChuyen(vx.getMaChuyen())
+        Timestamp tGHetHieuLuc = new Timestamp(vx.getThoigianbatdau().getTime() - 30*60*1000); // THOI GIAN CHUYEN DI - 30p (Truoc 30p trang thai ve vẫn = 1)
         
         if((tgHT.getTime() >= tGHetHieuLuc.getTime()) && vx.getTrangthai() != 2)
             check = true;  // HẾT HIỆU LỰC
@@ -189,6 +197,21 @@ public class Sv_CheckOption {
         conn.close();
         if (xg.getG1() != 0 || xg.getG2() != 0 || xg.getG3() != 0 || xg.getG4() != 0 || xg.getG5() != 0 || xg.getG6() != 0 || xg.getG7() != 0 || xg.getG8() != 0 
                 || xg.getG9() != 0 || xg.getG10() != 0 || xg.getG11() != 0 || xg.getG12() != 0 || xg.getG13() != 0 || xg.getG14() != 0 || xg.getG15() != 0 || xg.getG16() != 0)
+            return false;
+        return true;
+    }
+    
+    public boolean isQuanTriVien(int maNV) throws SQLException {
+        Connection conn = jdbcUtils.getConn();
+        Statement stm = conn.createStatement();
+        ResultSet rs = stm.executeQuery("Select * from nhanvien_taikhoan where MaNV = " + maNV);
+        nhanvien_taikhoan nvtk = new nhanvien_taikhoan();
+        while (rs.next()) {
+            nhanvien_taikhoan temp = new nhanvien_taikhoan(rs.getInt("MaNV"), rs.getString("Taikhoan"), rs.getString("Matkhau"), rs.getInt("Chucvu"));
+            nvtk = temp;
+        }
+        conn.close();
+        if (nvtk.getChucvu() != 2)
             return false;
         return true;
     }

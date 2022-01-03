@@ -30,29 +30,29 @@
       <RowConstraints maxHeight="252.0" minHeight="10.0" prefHeight="64.0" vgrow="SOMETIMES" />
   </rowConstraints>
    <children>
-      <Label text="Nhập mã chuyến:" GridPane.rowIndex="1" GridPane.valignment="TOP">
+      <Label styleClass="DatveLabel" text="Nhập mã chuyến:" GridPane.rowIndex="1" GridPane.valignment="TOP">
          <GridPane.margin>
-            <Insets left="2.0" />
+            <Insets left="5.0" top="2.0" />
          </GridPane.margin>
       </Label>
-      <Label text="Nhập mã khách hàng:" GridPane.rowIndex="2" GridPane.valignment="TOP">
+      <Label styleClass="DatveLabel" text="Nhập mã khách hàng:" GridPane.rowIndex="2" GridPane.valignment="TOP">
          <GridPane.margin>
-            <Insets left="2.0" />
+            <Insets left="5.0" top="2.0" />
          </GridPane.margin>
       </Label>
-      <Label text="Mã nhân viên trực:" GridPane.rowIndex="3" GridPane.valignment="TOP">
+      <Label styleClass="DatveLabel" text="Mã nhân viên trực:" GridPane.rowIndex="3" GridPane.valignment="TOP">
          <GridPane.margin>
-            <Insets left="2.0" />
+            <Insets left="5.0" top="2.0" />
          </GridPane.margin>
       </Label>
-      <Label text="Nhập mã xe:" GridPane.rowIndex="4" GridPane.valignment="TOP">
+      <Label styleClass="DatveLabel" text="Nhập mã xe:" GridPane.rowIndex="4" GridPane.valignment="TOP">
          <GridPane.margin>
-            <Insets left="2.0" />
+            <Insets left="5.0" top="2.0" />
          </GridPane.margin>
       </Label>
-      <Label text="Thông tin chuyến đi:" GridPane.rowIndex="1" GridPane.valignment="TOP">
+      <Label styleClass="DatveLabel" text="Thông tin chuyến đi:" GridPane.rowIndex="1" GridPane.valignment="TOP">
          <GridPane.margin>
-            <Insets left="2.0" top="25.0" />
+            <Insets left="5.0" top="25.0" />
          </GridPane.margin>
       </Label>
       <TextField fx:id="txtTenCD" maxWidth="200.0" promptText="Tên chuyến đi -  Tìm kiếm" GridPane.halignment="LEFT" GridPane.rowIndex="1">
@@ -94,29 +94,29 @@
             <Insets left="2.0" top="10.0" />
          </GridPane.margin>
       </TextField>
-      <Label text="Tên KH:" GridPane.rowIndex="2" GridPane.valignment="TOP">
+      <Label styleClass="DatveLabel" text="Tên KH:" GridPane.rowIndex="2" GridPane.valignment="TOP">
          <GridPane.margin>
-            <Insets left="2.0" top="30.0" />
+            <Insets left="5.0" top="30.0" />
          </GridPane.margin>
       </Label>
-      <TextField fx:id="txtMaNV" maxWidth="81.0" prefHeight="25.0" prefWidth="81.0" promptText="Mã nhân viên" GridPane.halignment="RIGHT" GridPane.rowIndex="3" GridPane.valignment="TOP">
+      <TextField fx:id="txtMaNV" editable="false" maxWidth="81.0" prefHeight="25.0" prefWidth="81.0" promptText="Mã nhân viên" GridPane.halignment="RIGHT" GridPane.rowIndex="3" GridPane.valignment="TOP">
          <GridPane.margin>
             <Insets right="5.0" top="7.0" />
          </GridPane.margin>
       </TextField>
-      <Button mnemonicParsing="false" onAction="#loadMaToCD" text="LOAD CD" GridPane.halignment="RIGHT" GridPane.rowIndex="1">
+      <Button mnemonicParsing="false" onAction="#loadMaToCD" styleClass="MenuDatVe" text="LOAD CD" GridPane.halignment="RIGHT" GridPane.rowIndex="1">
          <GridPane.margin>
-            <Insets bottom="60.0" />
+            <Insets bottom="60.0" right="5.0" />
          </GridPane.margin>
       </Button>
-      <Button mnemonicParsing="false" onAction="#loadMaToKH" text="LOAD KH" GridPane.halignment="RIGHT" GridPane.rowIndex="2">
+      <Button mnemonicParsing="false" onAction="#loadMaToKH" styleClass="MenuDatVe" text="LOAD KH" GridPane.halignment="RIGHT" GridPane.rowIndex="2">
          <GridPane.margin>
-            <Insets bottom="45.0" />
+            <Insets bottom="45.0" right="5.0" />
          </GridPane.margin>
       </Button>
-      <Label text="Tên:" GridPane.rowIndex="3">
+      <Label styleClass="DatveLabel" text="Tên:" GridPane.rowIndex="3">
          <GridPane.margin>
-            <Insets left="2.0" />
+            <Insets left="5.0" />
          </GridPane.margin>
       </Label>
       <TextField fx:id="txtTenNV" editable="false" maxWidth="237.0" prefHeight="25.0" prefWidth="237.0" promptText="Ten" GridPane.halignment="RIGHT" GridPane.rowIndex="3">
@@ -129,14 +129,14 @@
             <Insets right="5.0" top="7.0" />
          </GridPane.margin>
       </TextField>
-      <Label text="Thông tin xe:" GridPane.rowIndex="4" GridPane.valignment="TOP">
+      <Label styleClass="DatveLabel" text="Thông tin xe:" GridPane.rowIndex="4" GridPane.valignment="TOP">
          <GridPane.margin>
-            <Insets left="2.0" top="25.0" />
+            <Insets left="5.0" top="25.0" />
          </GridPane.margin>
       </Label>
-      <Button mnemonicParsing="false" onAction="#loadMaToXE" text="LOAD XE" GridPane.halignment="RIGHT" GridPane.rowIndex="4" GridPane.valignment="TOP">
+      <Button mnemonicParsing="false" onAction="#loadMaToXE" styleClass="MenuDatVe" text="LOAD XE" GridPane.halignment="RIGHT" GridPane.rowIndex="4" GridPane.valignment="TOP">
          <GridPane.margin>
-            <Insets top="32.0" />
+            <Insets right="5.0" top="32.0" />
          </GridPane.margin>
       </Button>
       <TextField fx:id="txtTenXe" maxWidth="200.0" promptText="Tên xe - Tìm kiếm" GridPane.halignment="LEFT" GridPane.rowIndex="4" GridPane.valignment="TOP">
@@ -149,9 +149,9 @@
             <Insets top="7.0" />
          </GridPane.margin>
       </TextField>
-      <Label text="Đặt ghế:" GridPane.rowIndex="4">
+      <Label styleClass="DatveLabel" text="Đặt ghế:" GridPane.rowIndex="4">
          <GridPane.margin>
-            <Insets top="60.0" />
+            <Insets left="5.0" top="60.0" />
          </GridPane.margin>
       </Label>
       <ComboBox fx:id="cbXe_ghetrong" onAction="#CbBoxToLabel" prefWidth="150.0" promptText="Danh Sách Ghế" GridPane.halignment="RIGHT" GridPane.rowIndex="4">
@@ -159,33 +159,44 @@
             <Insets right="5.0" top="60.0" />
          </GridPane.margin>
       </ComboBox>
-      <Label text="Ngày in:" GridPane.rowIndex="5" GridPane.valignment="TOP" />
+      <Label styleClass="DatveLabel" text="Ngày in:" GridPane.rowIndex="5" GridPane.valignment="TOP">
+         <GridPane.margin>
+            <Insets left="5.0" top="2.0" />
+         </GridPane.margin></Label>
       <TextField fx:id="txtGioIn" editable="false" maxWidth="200.0" GridPane.halignment="RIGHT" GridPane.rowIndex="5" GridPane.valignment="TOP">
          <GridPane.margin>
             <Insets right="5.0" top="7.0" />
          </GridPane.margin>
       </TextField>
-      <Label text="Trạng thái cho phép:" GridPane.rowIndex="6" />
-      <TextField fx:id="txtTrangthaiUser" editable="false" maxWidth="120.0" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="6">
-         <GridPane.margin>
-            <Insets right="80.0" />
-         </GridPane.margin></TextField>
-      <Button mnemonicParsing="false" onAction="#refeshCD" text="Refresh CD" GridPane.halignment="RIGHT" GridPane.rowIndex="1" GridPane.valignment="BOTTOM" />
-      <Button mnemonicParsing="false" onAction="#refreshKH" text="Refresh KH" GridPane.halignment="RIGHT" GridPane.rowIndex="2" GridPane.valignment="BOTTOM" />
-      <Button mnemonicParsing="false" onAction="#refreshXE" text="Refresh Xe" GridPane.halignment="RIGHT" GridPane.rowIndex="4" GridPane.valignment="BOTTOM" />
-      <TableView fx:id="tbChuyendi" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+      <Label styleClass="DatveLabel" text="Trạng thái cho phép:" GridPane.rowIndex="6">
          <GridPane.margin>
             <Insets left="5.0" />
+         </GridPane.margin></Label>
+      <Button mnemonicParsing="false" onAction="#refeshCD" styleClass="MenuDatVe" text="Refresh CD" GridPane.halignment="RIGHT" GridPane.rowIndex="1" GridPane.valignment="BOTTOM">
+         <GridPane.margin>
+            <Insets right="5.0" />
+         </GridPane.margin></Button>
+      <Button mnemonicParsing="false" onAction="#refreshKH" styleClass="MenuDatVe" text="Refresh KH" GridPane.halignment="RIGHT" GridPane.rowIndex="2" GridPane.valignment="BOTTOM">
+         <GridPane.margin>
+            <Insets right="5.0" />
+         </GridPane.margin></Button>
+      <Button mnemonicParsing="false" onAction="#refreshXE" styleClass="MenuDatVe" text="Refresh Xe" GridPane.halignment="RIGHT" GridPane.rowIndex="4" GridPane.valignment="BOTTOM">
+         <GridPane.margin>
+            <Insets right="5.0" />
+         </GridPane.margin></Button>
+      <TableView fx:id="tbChuyendi" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+         <GridPane.margin>
+            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
          </GridPane.margin>
       </TableView>
       <TableView fx:id="tbKhachhang" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
          <GridPane.margin>
-            <Insets left="5.0" />
+            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
          </GridPane.margin>
       </TableView>
       <TableView fx:id="tbXe" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="4">
          <GridPane.margin>
-            <Insets left="5.0" />
+            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
          </GridPane.margin>
       </TableView>
       <TableView fx:id="tbVeXE" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.columnSpan="2" GridPane.rowIndex="1" GridPane.rowSpan="4">
@@ -193,10 +204,16 @@
             <Insets left="10.0" />
          </GridPane.margin>
       </TableView>
-      <Button maxWidth="100.0" mnemonicParsing="false" onAction="#datVeButton" text="ĐẶT VÉ" GridPane.halignment="RIGHT" GridPane.rowIndex="5" />
+      <Button maxWidth="100.0" mnemonicParsing="false" onAction="#datVeButton" styleClass="MenuDatVe" text="ĐẶT VÉ" GridPane.halignment="RIGHT" GridPane.rowIndex="5">
+         <GridPane.margin>
+            <Insets right="5.0" />
+         </GridPane.margin></Button>
       <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="title" text="MENU ĐẶT VÉ" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.halignment="CENTER" />
-      <Label text="Thông tin vé đang đặt:" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="5" GridPane.rowSpan="2" />
-      <GridPane GridPane.columnIndex="2" GridPane.columnSpan="2" GridPane.rowIndex="5" GridPane.rowSpan="2">
+      <Label styleClass="DatveLabel" text="Thông tin vé đang đặt:" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="5" GridPane.rowSpan="2">
+         <GridPane.margin>
+            <Insets right="5.0" />
+         </GridPane.margin></Label>
+      <GridPane styleClass="GPThontinvedangdat" GridPane.columnIndex="2" GridPane.columnSpan="2" GridPane.rowIndex="5" GridPane.rowSpan="2">
         <columnConstraints>
           <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
           <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -211,89 +228,105 @@
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <Label text="Mã vé:">
+            <Label styleClass="DatveLabel" text="Mã vé:">
                <GridPane.margin>
                   <Insets left="40.0" />
                </GridPane.margin>
             </Label>
-            <Label text="Thời gian bắt đầu:" GridPane.rowIndex="1">
+            <Label styleClass="DatveLabel" text="Thời gian bắt đầu:" GridPane.rowIndex="1">
                <GridPane.margin>
                   <Insets left="40.0" />
                </GridPane.margin>
             </Label>
-            <Label text="Số ghế" GridPane.rowIndex="2">
+            <Label styleClass="DatveLabel" text="Số ghế" GridPane.rowIndex="2">
                <GridPane.margin>
                   <Insets left="40.0" />
                </GridPane.margin>
             </Label>
-            <Label text="Mã chuyến" GridPane.rowIndex="3">
+            <Label styleClass="DatveLabel" text="Mã chuyến" GridPane.rowIndex="3">
                <GridPane.margin>
                   <Insets left="40.0" />
                </GridPane.margin>
             </Label>
-            <Label text="Mã khách hàng:" GridPane.rowIndex="4">
+            <Label styleClass="DatveLabel" text="Mã khách hàng:" GridPane.rowIndex="4">
                <GridPane.margin>
                   <Insets left="40.0" />
                </GridPane.margin>
             </Label>
-            <Label text="Mã nhân viên" GridPane.rowIndex="5">
+            <Label styleClass="DatveLabel" text="Mã nhân viên" GridPane.rowIndex="5">
                <GridPane.margin>
                   <Insets left="40.0" />
                </GridPane.margin>
             </Label>
-            <Label fx:id="lblMaVe" text="..." GridPane.columnIndex="1">
+            <Label fx:id="lblMaVe" styleClass="Thongtinvedangdat" text="..." GridPane.columnIndex="1">
                <GridPane.margin>
                   <Insets left="20.0" />
                </GridPane.margin>
             </Label>
-            <Label fx:id="lblTgbt" text="..." GridPane.columnIndex="1" GridPane.rowIndex="1">
+            <Label fx:id="lblTgbt" styleClass="Thongtinvedangdat" text="..." GridPane.columnIndex="1" GridPane.rowIndex="1">
                <GridPane.margin>
                   <Insets left="20.0" />
                </GridPane.margin>
             </Label>
-            <Label fx:id="lblSoghe" text="..." GridPane.columnIndex="1" GridPane.rowIndex="2">
+            <Label fx:id="lblSoghe" styleClass="Thongtinvedangdat" text="..." GridPane.columnIndex="1" GridPane.rowIndex="2">
                <GridPane.margin>
                   <Insets left="20.0" />
                </GridPane.margin>
             </Label>
-            <Label fx:id="lblMaChuyen" text="..." GridPane.columnIndex="1" GridPane.rowIndex="3">
+            <Label fx:id="lblMaChuyen" styleClass="Thongtinvedangdat" text="..." GridPane.columnIndex="1" GridPane.rowIndex="3">
                <GridPane.margin>
                   <Insets left="20.0" />
                </GridPane.margin>
             </Label>
-            <Label fx:id="lblMaKH" text="..." GridPane.columnIndex="1" GridPane.rowIndex="4">
+            <Label fx:id="lblMaKH" styleClass="Thongtinvedangdat" text="..." GridPane.columnIndex="1" GridPane.rowIndex="4">
                <GridPane.margin>
                   <Insets left="20.0" />
                </GridPane.margin>
             </Label>
-            <Label fx:id="lblMaNV" text="..." GridPane.columnIndex="1" GridPane.rowIndex="5">
+            <Label fx:id="lblMaNV" styleClass="Thongtinvedangdat" text="..." GridPane.columnIndex="1" GridPane.rowIndex="5">
                <GridPane.margin>
                   <Insets left="20.0" />
                </GridPane.margin>
             </Label>
-            <Label text="Mã xe:" GridPane.rowIndex="6">
+            <Label styleClass="DatveLabel" text="Mã xe:" GridPane.rowIndex="6">
                <GridPane.margin>
                   <Insets left="40.0" />
                </GridPane.margin>
             </Label>
-            <Label fx:id="lblMaXE" text="..." GridPane.columnIndex="1" GridPane.rowIndex="6">
+            <Label fx:id="lblMaXE" styleClass="Thongtinvedangdat" text="..." GridPane.columnIndex="1" GridPane.rowIndex="6">
                <padding>
                   <Insets left="20.0" />
                </padding>
             </Label>
          </children>
+         <GridPane.margin>
+            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+         </GridPane.margin>
       </GridPane>
       <ButtonBar prefHeight="40.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-      <Button maxWidth="100.0" mnemonicParsing="false" onAction="#initThongTinTextField" text="VÉ MỚI" GridPane.halignment="RIGHT" GridPane.rowIndex="5" GridPane.valignment="BOTTOM">
+      <Button maxWidth="100.0" mnemonicParsing="false" onAction="#initThongTinTextField" styleClass="MenuDatVe" text="VÉ MỚI" GridPane.halignment="RIGHT" GridPane.rowIndex="5" GridPane.valignment="BOTTOM">
+         <GridPane.margin>
+            <Insets bottom="10.0" right="5.0" />
+         </GridPane.margin>
+      </Button>
+      <Button maxWidth="100.0" mnemonicParsing="false" onAction="#muaVeButton" styleClass="MenuDatVe" text="MUA VÉ" GridPane.rowIndex="5" />
+      <Button maxWidth="100.0" mnemonicParsing="false" onAction="#hoanVeButton" styleClass="MenuDatVe" text="HOÀN VÉ" GridPane.rowIndex="5" GridPane.valignment="BOTTOM">
          <GridPane.margin>
             <Insets bottom="10.0" />
          </GridPane.margin>
       </Button>
-      <Button maxWidth="100.0" mnemonicParsing="false" onAction="#muaVeButton" text="MUA VÉ" GridPane.rowIndex="5" />
-      <Button maxWidth="100.0" mnemonicParsing="false" onAction="#hoanVeButton" text="Hoàn vé" GridPane.rowIndex="5" GridPane.valignment="BOTTOM">
+      <Text fill="#d71010" stroke="#ff2f2f" strokeType="OUTSIDE" strokeWidth="0.0" text="BẢNG ĐẶT THÔNG TIN" GridPane.halignment="CENTER" GridPane.valignment="BOTTOM">
          <GridPane.margin>
             <Insets bottom="10.0" />
          </GridPane.margin>
-      </Button>
+         <font>
+            <Font name="System Bold" size="22.0" />
+         </font>
+      </Text>
+      <Label fx:id="txtTrangthaiUser" styleClass="DatveLabel" text="Label" GridPane.columnSpan="2" GridPane.halignment="LEFT" GridPane.rowIndex="6">
+         <GridPane.margin>
+            <Insets left="220.0" />
+         </GridPane.margin>
+      </Label>
    </children>
 </GridPane>

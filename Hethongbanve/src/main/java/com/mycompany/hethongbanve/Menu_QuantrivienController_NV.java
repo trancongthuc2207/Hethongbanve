@@ -4,6 +4,7 @@
  */
 package com.mycompany.hethongbanve;
 
+import Service.Sv_CheckOption;
 import config.Utils;
 import java.sql.SQLException;
 import java.net.URL;
@@ -85,22 +86,26 @@ public class Menu_QuantrivienController_NV implements Initializable {
         this.tbNhanVien.setItems(FXCollections.observableList(nv.getNhanVien(kw)));
     }
     
-    public void camNVBtn(ActionEvent event) {
+    public void camNVBtn(ActionEvent event) throws SQLException {
+        Sv_CheckOption check = new Sv_CheckOption();
         nhanvien nv = this.tbNhanVien.getSelectionModel().getSelectedItem();
         if (nv != null) {
-            Alert xacNhan = Utils.getBox("Xác nhận cấm nhân viên này sử dụng?", Alert.AlertType.CONFIRMATION);
-            xacNhan.showAndWait().ifPresent((ButtonType res) -> {
-                if (res == ButtonType.OK) {
-                    Sv_nhanvien banNV = new Sv_nhanvien();
-                    try {
-                        banNV.camSuDung(nv);
-                        this.loadTableDataNV();
-                        Utils.getBox("Cấm thành công !!!", Alert.AlertType.INFORMATION).show();
-                    }catch (SQLException ex) {
-                        Utils.getBox("Cấm thất bại !!!", Alert.AlertType.ERROR).show();
+            if (!(check.isQuanTriVien(nv.getMaNV()))) {
+                Alert xacNhan = Utils.getBox("Xác nhận cấm nhân viên này sử dụng?", Alert.AlertType.CONFIRMATION);
+                xacNhan.showAndWait().ifPresent((ButtonType res) -> {
+                    if (res == ButtonType.OK) {
+                        Sv_nhanvien banNV = new Sv_nhanvien();
+                        try {
+                            banNV.camSuDung(nv);
+                            this.loadTableDataNV();
+                            Utils.getBox("Cấm thành công !!!", Alert.AlertType.INFORMATION).show();
+                        }catch (SQLException ex) {
+                            Utils.getBox("Cấm thất bại !!!", Alert.AlertType.ERROR).show();
+                        }
                     }
-                }
-            });
+                });
+            } else
+                Utils.getBox("Không thể cấm quản trị viên sử dụng!", Alert.AlertType.WARNING).show();
         } else
             Utils.getBox("Chưa chọn dòng từ bảng!", Alert.AlertType.WARNING).show();
     }

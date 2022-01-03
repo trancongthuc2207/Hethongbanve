@@ -24,6 +24,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 import pojo.vexe;
@@ -38,6 +39,7 @@ public class Menu_XuLyVeController implements Initializable {
     private static vexe veCurr = new vexe();
     public static boolean clickHoanVe = false;
     @FXML private TableView<vexe> tbVeXE;
+    @FXML private TextField txtMaVe;
     /**
      * Initializes the controller class.
      */
@@ -51,6 +53,13 @@ public class Menu_XuLyVeController implements Initializable {
             Logger.getLogger(Menu_DatveController.class.getName()).log(Level.SEVERE, null, ex);
         }
         
+        this.txtMaVe.textProperty().addListener((evt) -> {
+            try {
+                this.loadTableDataVeXEKeyword(this.txtMaVe.getText());
+            } catch (SQLException ex) {
+                Logger.getLogger(Menu_DatveController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        });
     }
 
     public void loadTableViewVeXE(){
@@ -96,6 +105,11 @@ public class Menu_XuLyVeController implements Initializable {
         Sv_vexe listVe = new Sv_vexe();
         this.tbVeXE.setItems(FXCollections.observableList(listVe.getVeXe()));
     }
+    public void loadTableDataVeXEKeyword(String kw) throws SQLException{
+        Sv_vexe listVe = new Sv_vexe();
+        this.tbVeXE.setItems(FXCollections.observableList(listVe.getVexe(kw)));
+    }
+    
     ////////////VE CLICK
     public static vexe getVeCurr(){
         return veCurr;
@@ -152,5 +166,10 @@ public class Menu_XuLyVeController implements Initializable {
         }
         else
             Utils.getBox("VÉ ĐÃ ĐƯỢC NHẬN HOẶC THU HỒI", Alert.AlertType.INFORMATION).show();
+    }
+    
+    public void loadVeChuaNhan(ActionEvent event) throws SQLException{
+        Sv_vexe listVe = new Sv_vexe();
+        this.tbVeXE.setItems(FXCollections.observableList(listVe.getVeXeChuaNhan()));
     }
 }

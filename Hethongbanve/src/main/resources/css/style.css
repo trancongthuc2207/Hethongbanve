@@ -10,10 +10,20 @@ and open the template in the editor.
 GridPane{
     -fx-background-color: lightblue;
     -fx-padding: 10;
+    -fx-border-radius : 15 15 15 15;
+    -fx-background-radius: 15 15 15 15;
+    
 }
 Label{
-    -fx-font-size: 25px;
+    -fx-font-size: 15px;
     -fx-text-fill: darkblue;
+    -fx-font-weight: bold;
+}
+TableView{
+    -fx-border-radius : 10 10 10 10;
+    -fx-background-radius: 10 10 10 10;
+    -fx-border-color:#ff3333;
+    -fx-border-width: 2;
 }
 Text.title{
     -fx-font-size: 50px;
@@ -28,18 +38,68 @@ Button.DangNhap{
     -fx-background-color: darkblue;
     -fx-text-fill: yellow;
     -fx-min-width: 200;
+    -fx-min-height: 30;
+    -fx-border-radius : 10 10 10 10;
+    -fx-background-radius: 10 10 10 10;
+}
+TextField{
+    -fx-border-radius : 5 5 5 5;
+    -fx-background-radius: 5 5 5 5;
 }
 
+Button.MenuMainCN{
+    -fx-text-fill: darkblue;
+    -fx-min-width: 200;
+    -fx-min-height: 42;
+    -fx-border-radius : 10 10 10 10;
+    -fx-background-radius: 10 10 10 10;
+    -fx-font-size: 15px;
+}
+/*MENU DAT VE*/
+Label.DatveLabel{
+    -fx-font-size: 20px;
+    -fx-text-fill: darkblue;
+    -fx-font-weight: bold;
+}
+Button.MenuDatVe{
+    -fx-text-fill: darkblue;
+    -fx-border-radius : 10 10 10 10;
+    -fx-background-radius: 10 10 10 10;
+    -fx-font-size: 12px;
+}
+Label.Thongtinvedangdat{
+    -fx-font-size: 20px;
+    -fx-text-fill: red;
+    -fx-font-weight: bold;
+}
+GridPane.GPThontinvedangdat{
+    -fx-background-color: greenyellow;
+    -fx-border-style:solid;
+    -fx-border-color:#ff3333;
+    -fx-border-width: 5; 
+}
+/*MENU MAIN*/
 Label.lblChucnang{
-    -fx-font-size: 21px;
+    -fx-font-size: 25px;
     -fx-text-fill: black;
     -fx-content-display: center;
-    -fx-max-width: 190;
+    -fx-pre-width: 190;
     -fx-padding: 15;
+    -fx-font-weight: bold;
 }
 
+Label.lblThongtinNVTruc{
+    -fx-font-size: 18px;
+    -fx-text-fill: yellow;
+}
+Label.lblTitleNVTruc{
+    -fx-text-fill: red;
+    -fx-underline: true;
+    -fx-font-size: 20px;
+}
+/**/
 TextField.keyKH{
-    -fx-max-width: 360;
+    -fx-max-width: 260;
     -fx-padding: 10;
     -fx-margin: 10,10,10,10;
 }
@@ -61,6 +121,8 @@ Label.LblLogin{
     -fx-text-fill: #ff3333;
     -fx-font-weight: 900;
 }
+
+
 Text.TextLogin{
     -fx-font-size: 100px;
     -fx-font-weight: bold;
@@ -70,6 +132,4 @@ Text.TextLogin{
     -fx-text-valignment: top;
     -fx-text-halignment: center;
 }
-
-
 

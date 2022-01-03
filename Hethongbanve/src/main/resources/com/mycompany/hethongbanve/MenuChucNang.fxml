@@ -30,34 +30,34 @@
             <Insets top="10.0" />
          </GridPane.margin>
       </Text>
-      <Label maxWidth="209.0" prefHeight="50.0" prefWidth="209.0" styleClass="lblChucnang" text="Tên khách hàng:" GridPane.rowIndex="1" />
-      <Label styleClass="lblChucnang" text="SĐT:" GridPane.rowIndex="2" />
+      <Label maxWidth="260.0" prefHeight="66.0" prefWidth="260.0" styleClass="lblChucnang" text="Tên khách hàng:" GridPane.columnSpan="2" GridPane.rowIndex="1" />
+      <Label styleClass="lblChucnang" text="SĐT:" GridPane.columnSpan="2" GridPane.rowIndex="2" />
       <Label styleClass="lblChucnang" text="CMND:" GridPane.columnIndex="2" GridPane.rowIndex="1" />
-      <Label styleClass="lblChucnang" text="Chức vụ:" GridPane.columnIndex="2" GridPane.rowIndex="2" />
-      <Label text="Tên nhân viên trực:" GridPane.columnSpan="2" GridPane.valignment="TOP" />
-      <TextField fx:id="txtNhanVienTruc" editable="false" GridPane.valignment="CENTER" />
+      <Label styleClass="lblChucnang" text="Mã KH Hiện tại:" GridPane.columnIndex="2" GridPane.columnSpan="2" GridPane.rowIndex="2" />
+      <Label styleClass="lblTitleNVTruc" text="Tên nhân viên trực:" GridPane.columnSpan="2" GridPane.valignment="TOP" />
       <TextField fx:id="txtTenKH" styleClass="keyKH" GridPane.columnIndex="1" GridPane.rowIndex="1">
          <GridPane.margin>
-            <Insets bottom="10.0" left="20.0" right="10.0" top="10.0" />
+            <Insets bottom="10.0" left="50.0" right="10.0" top="10.0" />
          </GridPane.margin>
       </TextField>
       <TextField fx:id="txtSDT" styleClass="keyKH" GridPane.columnIndex="1" GridPane.rowIndex="2">
          <GridPane.margin>
-            <Insets bottom="10.0" left="20.0" right="10.0" top="10.0" />
+            <Insets bottom="10.0" left="50.0" right="10.0" top="10.0" />
          </GridPane.margin>
       </TextField>
       <TextField fx:id="txtCMND" styleClass="keyKH" GridPane.columnIndex="3" GridPane.rowIndex="1">
          <GridPane.margin>
-            <Insets bottom="10.0" left="20.0" right="10.0" top="10.0" />
+            <Insets bottom="10.0" left="100.0" right="10.0" top="10.0" />
          </GridPane.margin>
       </TextField>
-      <TextField fx:id="txtChucVu" styleClass="keyKH" GridPane.columnIndex="3" GridPane.rowIndex="2">
+      <TableView fx:id="tbVeXE" prefHeight="200.0" prefWidth="200.0" GridPane.columnSpan="2" GridPane.rowIndex="4">
          <GridPane.margin>
-            <Insets bottom="10.0" left="20.0" right="10.0" top="10.0" />
-         </GridPane.margin>
-      </TextField>
-      <TableView prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-      <TableView fx:id="tbKhachhang" maxHeight="184.0" maxWidth="555.0" GridPane.columnIndex="3" GridPane.rowIndex="4" GridPane.valignment="TOP" />
+            <Insets bottom="30.0" left="15.0" right="15.0" top="45.0" />
+         </GridPane.margin></TableView>
+      <TableView fx:id="tbKhachhang" GridPane.columnIndex="2" GridPane.columnSpan="2" GridPane.rowIndex="4" GridPane.valignment="TOP">
+         <GridPane.margin>
+            <Insets bottom="30.0" left="15.0" right="15.0" top="45.0" />
+         </GridPane.margin></TableView>
       <GridPane GridPane.columnIndex="2" GridPane.columnSpan="2" GridPane.rowIndex="3">
         <columnConstraints>
           <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -68,7 +68,7 @@
           <RowConstraints minHeight="30.0" prefHeight="30.0" valignment="CENTER" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <Button maxWidth="125.0" minHeight="30.0" mnemonicParsing="false" onAction="#ChucNangQuanTriButton" text="Chức năng quản trị" GridPane.halignment="CENTER" GridPane.rowIndex="1">
+            <Button maxWidth="125.0" minHeight="42.0" mnemonicParsing="false" onAction="#ChucNangQuanTriButton" styleClass="MenuMainCN" text="Chức năng quản trị" GridPane.halignment="CENTER" GridPane.rowIndex="1">
                <GridPane.margin>
                   <Insets bottom="10.0" left="20.0" right="10.0" top="10.0" />
                </GridPane.margin>
@@ -76,7 +76,7 @@
                   <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                </padding>
             </Button>
-            <Button maxWidth="125.0" minHeight="30.0" mnemonicParsing="false" onAction="#ChucNangDatVe" text="Đặt vé" GridPane.columnIndex="1" GridPane.halignment="CENTER">
+            <Button maxWidth="125.0" minHeight="42.0" mnemonicParsing="false" onAction="#ChucNangDatVe" styleClass="MenuMainCN" text="Đặt vé" GridPane.columnIndex="1" GridPane.halignment="CENTER">
                <GridPane.margin>
                   <Insets bottom="10.0" left="20.0" right="10.0" top="10.0" />
                </GridPane.margin>
@@ -84,7 +84,7 @@
                   <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                </padding>
             </Button>
-            <Button maxWidth="125.0" minHeight="30.0" mnemonicParsing="false" onAction="#ChucNangXuLyVe" text="Xử lý vé" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1">
+            <Button maxWidth="125.0" minHeight="42.0" mnemonicParsing="false" onAction="#ChucNangXuLyVe" styleClass="MenuMainCN" text="Xử lý vé" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1">
                <GridPane.margin>
                   <Insets bottom="10.0" left="20.0" right="10.0" top="10.0" />
                </GridPane.margin>
@@ -92,7 +92,7 @@
                   <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                </padding>
             </Button>
-            <Button maxWidth="125.0" minHeight="30.0" mnemonicParsing="false" onAction="#addKhachhang" text="Thêm khách hàng" GridPane.halignment="CENTER">
+            <Button maxWidth="125.0" minHeight="42.0" mnemonicParsing="false" onAction="#addKhachhang" styleClass="MenuMainCN" text="Thêm khách hàng" GridPane.halignment="CENTER">
                <GridPane.margin>
                   <Insets bottom="10.0" left="20.0" right="10.0" top="10.0" />
                </GridPane.margin>
@@ -102,45 +102,24 @@
             </Button>
          </children>
       </GridPane>
-      <TextField fx:id="txtChucVuNhanVienTruc" editable="false" GridPane.valignment="BOTTOM" />
-      <Label text="Vé xe:" GridPane.columnIndex="1" GridPane.rowIndex="3" GridPane.valignment="BOTTOM">
-         <padding>
-            <Insets bottom="10.0" />
-         </padding>
+      <Label prefHeight="22.0" prefWidth="102.0" styleClass="lblChucnang" text="Vé xe:" GridPane.rowIndex="4" GridPane.valignment="TOP" />
+      <Label fx:id="txtChucVuNhanVienTruc" styleClass="lblThongtinNVTruc" text="Label" GridPane.valignment="BOTTOM" />
+      <Label fx:id="txtNhanVienTruc" styleClass="lblThongtinNVTruc" text="Label" GridPane.halignment="LEFT" GridPane.valignment="CENTER" />
+      <Label styleClass="lblChucnang" text="Khách hàng:" GridPane.columnIndex="2" GridPane.columnSpan="2" GridPane.rowIndex="4" GridPane.valignment="TOP" />
+      <Label fx:id="txtMaKH" styleClass="lblChucnang" text="Label" GridPane.columnIndex="3" GridPane.rowIndex="2">
+         <GridPane.margin>
+            <Insets left="100.0" />
+         </GridPane.margin>
       </Label>
-      <GridPane GridPane.columnIndex="2" GridPane.rowIndex="4">
-        <columnConstraints>
-          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-        </columnConstraints>
-        <rowConstraints>
-          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-        </rowConstraints>
-         <children>
-            <Button contentDisplay="CENTER" minWidth="120.0" mnemonicParsing="false" text="Tìm chuyên đi:" GridPane.valignment="TOP">
-               <GridPane.margin>
-                  <Insets bottom="10.0" right="10.0" top="10.0" />
-               </GridPane.margin>
-            </Button>
-            <Button minWidth="120.0" mnemonicParsing="false" text="Tìm khách hàng" GridPane.rowIndex="1" GridPane.valignment="TOP">
-               <GridPane.margin>
-                  <Insets bottom="10.0" right="10.0" top="10.0" />
-               </GridPane.margin>
-            </Button>
-            <Button minWidth="120.0" mnemonicParsing="false" text="Tìm chỗ ngồi" GridPane.rowIndex="2" GridPane.valignment="TOP">
-               <GridPane.margin>
-                  <Insets bottom="10.0" right="10.0" top="10.0" />
-               </GridPane.margin>
-            </Button>
-            <Button minWidth="120.0" mnemonicParsing="false" text="Tìm nhân viên" GridPane.rowIndex="3" GridPane.valignment="TOP">
-               <GridPane.margin>
-                  <Insets bottom="10.0" right="10.0" top="10.0" />
-               </GridPane.margin>
-            </Button>
-         </children>
-      </GridPane>
-      <TableView maxHeight="200.0" maxWidth="555.0" GridPane.columnIndex="3" GridPane.rowIndex="4" GridPane.valignment="BOTTOM" />
+      <Label fx:id="txtTrangthainhanvien" text="Label" GridPane.columnSpan="2" GridPane.rowIndex="4" GridPane.valignment="BOTTOM">
+         <GridPane.margin>
+            <Insets bottom="5.0" left="180.0" />
+         </GridPane.margin>
+      </Label>
+      <Label text="Tình trạng nhân viên:" GridPane.rowIndex="4" GridPane.valignment="BOTTOM">
+         <GridPane.margin>
+            <Insets bottom="5.0" left="15.0" />
+         </GridPane.margin>
+      </Label>
    </children>
 </GridPane>

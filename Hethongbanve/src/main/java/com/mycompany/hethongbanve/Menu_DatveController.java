@@ -71,7 +71,7 @@ public class Menu_DatveController implements Initializable {
     ////BANG THONG TIN NHAN VIEN TRUC
     @FXML private TextField txtMaNV;
     @FXML private TextField txtTenNV;
-    @FXML private TextField txtTrangthaiUser;
+    @FXML private Label txtTrangthaiUser;
     ////BANG THONG TIN XE
     @FXML private TextField txtMaXE;
     @FXML private TextField txtTenXe;
@@ -80,8 +80,7 @@ public class Menu_DatveController implements Initializable {
     @FXML private TextField txtGioIn;
     
     ////// THONG TIN CHI TIET VE HIEN TAI
-    @FXML private Label lblMaVe;
-    @FXML private Label lblTgbt;
+    @FXML private Label lblMaVe;    @FXML private Label lblTgbt;
     @FXML private Label lblSoghe;
     @FXML private Label lblMaChuyen;
     @FXML private Label lblMaKH;
@@ -215,23 +214,23 @@ public class Menu_DatveController implements Initializable {
     public void loadTableViewCD(){
         TableColumn colMaCD = new TableColumn("MaChuyen");
         colMaCD.setCellValueFactory(new PropertyValueFactory("MaChuyen"));
-        colMaCD.setPrefWidth(100);
+        colMaCD.setPrefWidth(50);
         
         TableColumn colTenCD = new TableColumn("TenChuyen");
         colTenCD.setCellValueFactory(new PropertyValueFactory("TenChuyen"));
-        colTenCD.setPrefWidth(220);
+        colTenCD.setPrefWidth(120);
         
         TableColumn colGia = new TableColumn("Gia");
         colGia.setCellValueFactory(new PropertyValueFactory("Gia"));
-        colGia.setPrefWidth(160);
+        colGia.setPrefWidth(60);
         
         TableColumn colThoiGianBatDau = new TableColumn("ThoiGianBatDau");
         colThoiGianBatDau.setCellValueFactory(new PropertyValueFactory("ThoiGianBatDau"));
-        colThoiGianBatDau.setPrefWidth(160);
+        colThoiGianBatDau.setPrefWidth(120);
         
         TableColumn colThoiGianKetThuc = new TableColumn("ThoiGianKetThuc");
         colThoiGianKetThuc.setCellValueFactory(new PropertyValueFactory("ThoiGianKetThuc"));
-        colThoiGianKetThuc.setPrefWidth(160);
+        colThoiGianKetThuc.setPrefWidth(120);
         
         this.tbChuyendi.getColumns().addAll(colMaCD,colTenCD,colGia,colThoiGianBatDau,colThoiGianKetThuc);
     }
@@ -247,19 +246,19 @@ public class Menu_DatveController implements Initializable {
     public void loadTableViewKH(){
         TableColumn colMaKH = new TableColumn("MaKH");
         colMaKH.setCellValueFactory(new PropertyValueFactory("MaKH"));
-        colMaKH.setPrefWidth(100);
+        colMaKH.setPrefWidth(70);
         
         TableColumn colTenKH = new TableColumn("TenKH");
         colTenKH.setCellValueFactory(new PropertyValueFactory("TenKH"));
-        colTenKH.setPrefWidth(160);
+        colTenKH.setPrefWidth(100);
         
         TableColumn colCMND = new TableColumn("CMND");
         colCMND.setCellValueFactory(new PropertyValueFactory("CMND"));
-        colCMND.setPrefWidth(100);
+        colCMND.setPrefWidth(80);
         
         TableColumn colSDT = new TableColumn("SDT");
         colSDT.setCellValueFactory(new PropertyValueFactory("SDT"));
-        colSDT.setPrefWidth(100);
+        colSDT.setPrefWidth(70);
         
         this.tbKhachhang.getColumns().addAll(colMaKH,colTenKH,colCMND,colSDT);
     }
@@ -275,23 +274,23 @@ public class Menu_DatveController implements Initializable {
     public void loadTableViewXE(){
         TableColumn colMaXE = new TableColumn("MaXE");
         colMaXE.setCellValueFactory(new PropertyValueFactory("MaXE"));
-        colMaXE.setPrefWidth(100);
+        colMaXE.setPrefWidth(70);
         
         TableColumn colTenXe = new TableColumn("TenXe");
         colTenXe.setCellValueFactory(new PropertyValueFactory("TenXe"));
-        colTenXe.setPrefWidth(220);
+        colTenXe.setPrefWidth(120);
         
         TableColumn colBienso = new TableColumn("Bienso");
         colBienso.setCellValueFactory(new PropertyValueFactory("Bienso"));
-        colBienso.setPrefWidth(160);
+        colBienso.setPrefWidth(70);
         
         TableColumn colTrangthai = new TableColumn("Trangthai");
         colTrangthai.setCellValueFactory(new PropertyValueFactory("Trangthai"));
-        colTrangthai.setPrefWidth(160);
+        colTrangthai.setPrefWidth(70);
         
         TableColumn colMaChuyen = new TableColumn("MaChuyen");
         colMaChuyen.setCellValueFactory(new PropertyValueFactory("MaChuyen"));
-        colMaChuyen.setPrefWidth(160);
+        colMaChuyen.setPrefWidth(80);
         
         this.tbXe.getColumns().addAll(colMaXE,colTenXe,colBienso,colTrangthai,colMaChuyen);
     }
@@ -308,39 +307,39 @@ public class Menu_DatveController implements Initializable {
     public void loadTableViewVeXE(){
         TableColumn colMaVE = new TableColumn("MaVE");
         colMaVE.setCellValueFactory(new PropertyValueFactory("MaVE"));
-        colMaVE.setPrefWidth(100);
+        colMaVE.setPrefWidth(60);
         
         TableColumn colThoigianbatdau = new TableColumn("Thoigianbatdau");
         colThoigianbatdau.setCellValueFactory(new PropertyValueFactory("Thoigianbatdau"));
-        colThoigianbatdau.setPrefWidth(250);
+        colThoigianbatdau.setPrefWidth(120);
         
         TableColumn colSoghe = new TableColumn("Soghe");
         colSoghe.setCellValueFactory(new PropertyValueFactory("Soghe"));
-        colSoghe.setPrefWidth(160);
+        colSoghe.setPrefWidth(50);
         
         TableColumn colMaChuyen = new TableColumn("MaChuyen");
         colMaChuyen.setCellValueFactory(new PropertyValueFactory("MaChuyen"));
-        colMaChuyen.setPrefWidth(160);
+        colMaChuyen.setPrefWidth(60);
         
         TableColumn colMaKH = new TableColumn("MaKH");
         colMaKH.setCellValueFactory(new PropertyValueFactory("MaKH"));
-        colMaKH.setPrefWidth(160);
+        colMaKH.setPrefWidth(60);
         
         TableColumn colMaNV = new TableColumn("MaNV");
         colMaNV.setCellValueFactory(new PropertyValueFactory("MaNV"));
-        colMaNV.setPrefWidth(160);
+        colMaNV.setPrefWidth(60);
         
         TableColumn colMaXE = new TableColumn("MaXE");
         colMaXE.setCellValueFactory(new PropertyValueFactory("MaXE"));
-        colMaXE.setPrefWidth(160);
+        colMaXE.setPrefWidth(60);
         
         TableColumn colNgayin = new TableColumn("Ngayin");
         colNgayin.setCellValueFactory(new PropertyValueFactory("Ngayin"));
-        colNgayin.setPrefWidth(160);
+        colNgayin.setPrefWidth(120);
         
         TableColumn colTrangthai = new TableColumn("Trangthai");
         colTrangthai.setCellValueFactory(new PropertyValueFactory("Trangthai"));
-        colTrangthai.setPrefWidth(160);
+        colTrangthai.setPrefWidth(60);
         
         this.tbVeXE.getColumns().addAll(colMaVE,colThoigianbatdau,colSoghe,colMaChuyen,colMaKH,colMaNV,colMaXE,colNgayin,colTrangthai);
     }

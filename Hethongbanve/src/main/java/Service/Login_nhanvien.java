@@ -31,6 +31,7 @@ public class Login_nhanvien {
             nhanvien nv = new nhanvien(rs.getInt("MaNV"), rs.getString("TenNV"),rs.getString("CMND"),rs.getString("SDT"));
             result.add(nv);
         }
+        conn.close();
         return result;
     }
     
@@ -43,6 +44,7 @@ public class Login_nhanvien {
             nhanvien_taikhoan nv_tk = new nhanvien_taikhoan(rs.getInt("MaNV"), rs.getString("Taikhoan"),rs.getString("Matkhau"),rs.getInt("Chucvu"));
             result.add(nv_tk);
         }
+        conn.close();
         return result;
     }
     
@@ -59,6 +61,7 @@ public class Login_nhanvien {
         if(result.size() == 1){
             tenNV = result.get(0).getTenNV();
         }
+        conn.close();
         return tenNV;
     }
     
@@ -75,6 +78,7 @@ public class Login_nhanvien {
         if(result.size() == 1){
             nv = result.get(0);
         }
+        conn.close();
         return nv;
     }
     
@@ -92,6 +96,7 @@ public class Login_nhanvien {
         if(result.size() == 1){
             maNV = result.get(0).getMaNV();
         }
+        conn.close();
         return maNV;
     }
     
@@ -108,6 +113,7 @@ public class Login_nhanvien {
         if(result.size() == 1){
             maCV = result.get(0).getChucvu();
         }
+        conn.close();
         return maCV;
     }
     
@@ -130,8 +136,22 @@ public class Login_nhanvien {
                 break;
             }
         }
+        conn.close();
         return b;
     }
     
+    public nhanvien_taikhoan getTaiKhoanNVFromTK(String kw) throws SQLException{
+        nhanvien_taikhoan tk = new nhanvien_taikhoan();
+        
+        Connection conn = jdbcUtils.getConn();
+        Statement stm = conn.createStatement();
+        ResultSet rs = stm.executeQuery("Select * from nhanvien_taikhoan where Taikhoan = "+ "\"" + kw + "\"");
+        
+        while(rs.next()){
+            tk = new nhanvien_taikhoan(rs.getInt("MaNV"), rs.getString("Taikhoan"), rs.getString("Matkhau"), rs.getInt("Chucvu"));
+        }
+        conn.close();
+        return tk;
+    }
     
 }

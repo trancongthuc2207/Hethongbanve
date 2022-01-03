@@ -42,7 +42,7 @@ public class Sv_nhanvien {
             sql = "Select * from nhanvien";
         if (check.isNumeric(kw))
             sql = "Select * from nhanvien where MaNV = " + Integer.valueOf(kw);
-        if (kw != null && !kw.isEmpty())
+        if (!(check.isNumeric(kw)))
             sql = "Select * from nhanvien where TenNV like '%" + kw +"%'";
         
         Statement stm = conn.createStatement();
