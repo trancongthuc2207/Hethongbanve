@@ -119,7 +119,6 @@ public class Sv_vexe {
     
     ///
     public void addVeXe(vexe vx) throws SQLException{ // DAT VE
-        //Sv_chuyendi svCD = new Sv_chuyendi();
         Sv_CheckOption ckOP = new Sv_CheckOption();
         Sv_Update_CD_XeGhe upGhe = new Sv_Update_CD_XeGhe();
         if(ckOP.checkTimeDatVe(vx) == true){
@@ -151,10 +150,8 @@ public class Sv_vexe {
     }
     
     public void addMuaVeXe(vexe vx) throws SQLException{ // MUA VE
-        Sv_chuyendi svCD = new Sv_chuyendi();
         Sv_CheckOption ckOP = new Sv_CheckOption();
         Sv_Update_CD_XeGhe upGhe = new Sv_Update_CD_XeGhe();
- //       && ckOP.isOutOfTimeToMove(svCD.getMaToChuyen(vx.getMaChuyen())) != true
         if(ckOP.checkTimeMuaVe(vx) == true){
             if(ckOP.checkGheTrung(vx) != true){ // true là trùng
                 try(Connection conn = jdbcUtils.getConn()){
@@ -221,6 +218,19 @@ public class Sv_vexe {
             upDateVe.UpdateTrangThaiVeToNhan(vx);
      }
      
+     //HOAN VE MOI
+     public void hoanVeMoi(vexe old, vexe New) throws SQLException{
+         Sv_CheckOption ckOP = new Sv_CheckOption();
+         Sv_Update_TrangThaiVe upDateVe = new Sv_Update_TrangThaiVe();
+         Sv_Update_CD_XeGhe upDateGhe = new Sv_Update_CD_XeGhe();
+         if(ckOP.isVeCanTransfer(old)){
+             if(ckOP.checkGheTrung(New) != true){
+                 upDateVe.UpdateTrangThaiVeToNull(old);
+                 upDateGhe.UpdateGheForXeKhiHuyVe(old);
+                 this.addVeXe(New);
+             } 
+         }
+     }
      
      ////TRẢ VỀ TRẠNG THÁI VÉ KHI TÌM BẰNG GHẾ NGỒI
      public vexe getVeXe(vexe vx) throws SQLException{

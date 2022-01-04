@@ -37,7 +37,6 @@ public class Sv_CheckOption {
     }
     
     public boolean checkTimeDatVe(vexe vx) throws SQLException{  // trc 1h
-        //Sv_chuyendi cd = new Sv_chuyendi();
         boolean check = false;
         if((vx.getThoigianbatdau().getTime() - vx.getNgayin().getTime()) >= (60*60*1000))
             check = true;  // ĐẶT ĐƯỢC
@@ -63,8 +62,6 @@ public class Sv_CheckOption {
     }
     
     public boolean checkTimeMuaVe(vexe vx) throws SQLException{ //trc 5p
-        //Sv_chuyendi cd = new Sv_chuyendi();
-        //cd.getMaToChuyen(vx.getMaChuyen()).getThoiGianBatDau().getTime()
         boolean check = false;
         if((vx.getThoigianbatdau().getTime() - vx.getNgayin().getTime()) > (5*60*1000))
             check = true;
@@ -159,10 +156,8 @@ public class Sv_CheckOption {
         String date = sdf.format(dateCur); // Lay thoi gian hien tai
         Timestamp tgHT = Timestamp.valueOf(date);
         boolean check = false;
-    //    Sv_chuyendi cd = new Sv_chuyendi();
-    //    cd.getMaToChuyen(vx.getMaChuyen()).getThoiGianBatDau().getTime()
-        if((vx.getThoigianbatdau().getTime() - tgHT.getTime()) >= (60*60*1000))
-            check = true;  // ĐẶT ĐƯỢC
+        if((vx.getThoigianbatdau().getTime() - tgHT.getTime()) >= (60*60*1000) && vx.getTrangthai() == 1)
+            check = true;  // HOAN DUOC
         return check;
     }
 ////////////////////////////////////////KIEM TRA CHO QUAN TRI VIEN////////////////////////////////

@@ -111,6 +111,11 @@ public class Menu_DatveController implements Initializable {
         this.txtMaXE.setText(null);
         ////////Init Thong tin ve label
         this.initThongTinLabel();
+        try {
+            this.refeshCD();
+        } catch (SQLException ex) {
+            Logger.getLogger(Menu_DatveController.class.getName()).log(Level.SEVERE, null, ex);
+        }
         ///Gio in hien tai
         Date dateCur = new Date();
         SimpleDateFormat sdf = new SimpleDateFormat(DATE_FORMAT_NOW);
@@ -354,29 +359,37 @@ public class Menu_DatveController implements Initializable {
         this.ClickloadCD = true;
         Sv_chuyendi loadcd = new Sv_chuyendi();
         chuyendi cd = new chuyendi();
-        if(txtMaCD.getText() != null && txtMaCD.getText() != "" && !txtMaCD.getText().isEmpty()){
-            if(Integer.parseInt(txtMaCD.getText()) > 0 && Integer.parseInt(txtMaCD.getText()) <= loadcd.getChuyendi().size()){
+        if(this.txtMaCD.getText() != null && txtMaCD.getText() != "" && !txtMaCD.getText().isEmpty()){
+            if(Integer.parseInt(txtMaCD.getText()) > 0 && Integer.parseInt(txtMaCD.getText()) <= loadcd.getMaCDCurrent()){
                 cd = loadcd.getMaToChuyen(Integer.parseInt(txtMaCD.getText()));
                 if(cd != null){
                     txtTenCD.setText(cd.getTenChuyen());
                     txtGia.setText(String.valueOf(cd.getGia()));
                     txtThoiGianBatDau.setText(cd.getThoiGianBatDau().toString());
                     
+                    this.refreshXE();
                     Sv_xe listXe = new Sv_xe();
                     this.tbXe.setItems(FXCollections.observableList(listXe.getXeFromMaCD(Integer.parseInt(txtMaCD.getText()))));
                     this.lblMaChuyen.setText(txtMaCD.getText());
                     this.lblTgbt.setText(txtThoiGianBatDau.getText());
                 }
+                else{
+                    this.refeshCD();
+                    this.refreshXE();
+                    Utils.getBox("SỐ MÃ CHUYẾN KHÔNG HỢP LỆ", Alert.AlertType.WARNING).show();
+                    this.ClickloadCD = false;
+                }        
             }
             else{
                 this.refeshCD();
+                this.refreshXE();
                 Utils.getBox("SỐ MÃ CHUYẾN KHÔNG HỢP LỆ", Alert.AlertType.WARNING).show();
                 this.ClickloadCD = false;
             }
         }
         else{
-            this.ClickloadCD = true;
             Utils.getBox("MỜI BẠN NHẬP MÃ CHUYẾN", Alert.AlertType.WARNING).show();
+            this.ClickloadCD = false;
         }
     }
     //LOAD BUTTON KHACH HANG
@@ -385,11 +398,15 @@ public class Menu_DatveController implements Initializable {
         Sv_khachhang loadKH = new Sv_khachhang();
         khachhang kh = new khachhang();
         if(txtMaKH.getText() != null && txtMaKH.getText() != "" && !txtMaKH.getText().isEmpty()){
-            if(Integer.parseInt(txtMaKH.getText()) > 0 && Integer.parseInt(txtMaKH.getText()) <= loadKH.getKhachHang().size()){
+            if(Integer.parseInt(txtMaKH.getText()) > 0 && Integer.parseInt(txtMaKH.getText()) <= loadKH.getMaKHCurrent()){
                 kh = loadKH.getMaToKH(Integer.parseInt(txtMaKH.getText()));
                 if(kh != null){
                     txtTenKH.setText(kh.getTenKH());
                     this.lblMaKH.setText(txtMaKH.getText());
+                }
+                else{
+                    Utils.getBox("SỐ MÃ KHÁCH HÀNG KHÔNG HỢP LỆ", Alert.AlertType.WARNING).show();
+                    this.ClickloadKH = false;
                 }
             }
             else{
@@ -399,7 +416,7 @@ public class Menu_DatveController implements Initializable {
         }
         else{
             Utils.getBox("MỜI BẠN NHẬP MÃ KHÁCH HÀNG", Alert.AlertType.WARNING).show();
-            this.ClickloadKH = true;
+            this.ClickloadKH = false;
         }
     }
     //LOAD BUTTON XE
@@ -408,7 +425,7 @@ public class Menu_DatveController implements Initializable {
         Sv_xe loadXe = new Sv_xe();
         xe xe = new xe();
         if(txtMaXE.getText() != null && txtMaXE.getText() != "" && !txtMaXE.getText().isEmpty()){
-            if(Integer.parseInt(txtMaXE.getText()) > 0 && Integer.parseInt(txtMaXE.getText()) <= loadXe.getXe().size()){
+            if(Integer.parseInt(txtMaXE.getText()) > 0 && Integer.parseInt(txtMaXE.getText()) <= loadXe.getMaXeCurrent()){
                 if(txtMaCD.getText() != null){
                     try {
                         xe = loadXe.getMaToXE(Integer.parseInt(txtMaXE.getText()), Integer.parseInt(txtMaCD.getText()));
@@ -440,10 +457,13 @@ public class Menu_DatveController implements Initializable {
                 else{
                     this.refreshXE();
                     Utils.getBox("YÊU CẦU NHẬP MÃ CHUYẾN TRƯỚC", Alert.AlertType.WARNING).show();
+                    this.ClickloadXE = false;
                 }
             }
-            else
+            else{
                 Utils.getBox("SỐ MÃ XE KHÔNG HỢP LỆ", Alert.AlertType.WARNING).show();
+                this.ClickloadXE = false;
+            }
         }
         else{
             Utils.getBox("MỜI BẠN NHẬP MÃ XE", Alert.AlertType.WARNING).show();
@@ -461,12 +481,14 @@ public class Menu_DatveController implements Initializable {
         this.lblTgbt.setText(null);
         this.loadTableDataCD();
         this.loadTableDataXE();
+        this.ClickloadKH = false;
     }
     public void refreshKH() throws SQLException{
         this.txtMaKH.setText(null);
         this.txtTenKH.setText(null);
         this.lblMaKH.setText(null);
         this.loadTableDataKH();
+        this.ClickloadKH = false;
     }
     public void refreshXE() throws SQLException{
         this.txtMaXE.setText(null);
@@ -475,7 +497,8 @@ public class Menu_DatveController implements Initializable {
         this.cbXe_ghetrong.setItems(null);
         this.lblMaXE.setText(null);
         this.lblSoghe.setText(null);
-
+        this.ClickloadGHE = false;
+        this.ClickloadXE = false;
     }
     
     /////XU LY VE CURRENT FOR UPDATE TO DATABASE
@@ -609,6 +632,9 @@ public class Menu_DatveController implements Initializable {
 
     ////XU LY VE --->
     public void loadVeHienTaiHoanVe() throws SQLException{
+        this.txtMaKH.setEditable(false);
+        this.txtTenKH.setEditable(false);
+        this.ClickloadKH = true;
         vexe vx = new vexe();
         vx = Menu_XuLyVeController.getVeCurr();
         //MAVE
@@ -638,65 +664,64 @@ public class Menu_DatveController implements Initializable {
     }
     public void hoanVeButton(ActionEvent event) throws SQLException{
         if(this.ISTRANGTHAIHOANVE() == true){
-            this.txtMaNV.setEditable(false);
             Sv_vexe sv_ve = new Sv_vexe();
             Sv_xe loadXe = new Sv_xe();
             Sv_CheckOption ckOp = new Sv_CheckOption();
             Date dateCur = new Date();
             SimpleDateFormat sdf = new SimpleDateFormat(DATE_FORMAT_NOW);
             xe xe = new xe();
-            vexe veOldToNull = sv_ve.getVeXe(Menu_XuLyVeController.getVeCurr().getMaVE());
+            //vexe veOld = sv_ve.getVeXe(Menu_XuLyVeController.getVeCurr().getMaVE());
             this.veCur = sv_ve.getVeXe(Menu_XuLyVeController.getVeCurr().getMaVE());
             if(ckOp.isVeCanTransfer(veCur)){
-                if(Integer.valueOf(this.txtMaKH.getText()) == veCur.getMaKH()){
-                    this.SLMV = sv_ve.getMaVeCurrent();
-                    this.veCur.setMaVE(SLMV+1);
-                    if(Integer.valueOf(this.txtMaCD.getText()) == this.maCDtam){
-                        xe = loadXe.getMaToXE(veCur.getMaXE(), veCur.getMaChuyen());
-                        this.cbXe_ghetrong.setItems(FXCollections.observableList(loadXe.getGheTrong(veCur.getMaXE())));
-                        this.veCur.setSoghe(this.cbXe_ghetrong.getValue().substring(0, 3));
-                        String Ngayinmoi = sdf.format(dateCur);
-                        this.veCur.setNgayin(Timestamp.valueOf(Ngayinmoi));
-                        this.veCur.setTrangthai(1);
-                        if(ckOp.checkGheTrung(veCur) != true){
-                            sv_ve.addVeXe(veCur);
-                            sv_ve.thuHoiVe(veOldToNull);  // chuyển đổi vé cũ thành vé thu hồi
-                            Utils.getBox("HOÀN VÉ THÀNH CÔNG", Alert.AlertType.INFORMATION).show();
-                            this.loadTableDataVeXE();
-                            initThongTinTextField();
-                            this.txtMaNV.setEditable(true);
-                            initInputFullOp();
-                        }
-                        else
-                            Utils.getBox("TRÙNG GHẾ", Alert.AlertType.INFORMATION).show();
-                    }
-                    else{       // NẾU CHUYẾN ĐI THAY ĐỔI
-                        if(ClickloadCD  && ClickloadXE && ClickloadGHE){
-                            ///DEFAULT
-                            String Ngayinmoi = sdf.format(dateCur);
-                            this.veCur.setMaChuyen(Integer.parseInt(txtMaCD.getText()));
-                            this.veCur.setMaXE(Integer.parseInt(txtMaXE.getText()));
+                    if(Integer.valueOf(this.txtMaKH.getText()) == veCur.getMaKH()){
+                        this.SLMV = sv_ve.getMaVeCurrent();
+                        this.veCur.setMaVE(SLMV+1);
+                        if(Integer.valueOf(this.txtMaCD.getText()) == this.maCDtam){
+                            xe = loadXe.getMaToXE(veCur.getMaXE(), veCur.getMaChuyen());
+                            this.cbXe_ghetrong.setItems(FXCollections.observableList(loadXe.getGheTrong(veCur.getMaXE())));
                             this.veCur.setSoghe(this.cbXe_ghetrong.getValue().substring(0, 3));
+                            String Ngayinmoi = sdf.format(dateCur);
                             this.veCur.setNgayin(Timestamp.valueOf(Ngayinmoi));
                             this.veCur.setTrangthai(1);
-                           if(ckOp.checkGheTrung(veCur) != true){
-                                sv_ve.addVeXe(veCur);
-                                sv_ve.thuHoiVe(veOldToNull);  // chuyển đổi vé cũ thành vé thu hồi
+                            if(ckOp.checkGheTrung(veCur) != true){
+                                sv_ve.hoanVeMoi(Menu_XuLyVeController.getVeCurr(), veCur);
                                 Utils.getBox("HOÀN VÉ THÀNH CÔNG", Alert.AlertType.INFORMATION).show();
                                 this.loadTableDataVeXE();
                                 initThongTinTextField();
-                                this.txtMaNV.setEditable(true);
+                                this.txtMaKH.setEditable(true);
+                                this.txtTenKH.setEditable(true);
                                 initInputFullOp();
                             }
                             else
                                 Utils.getBox("TRÙNG GHẾ", Alert.AlertType.INFORMATION).show();
                         }
-                        else
-                            Utils.getBox("CHƯA ĐẦY ĐỦ THÔNG TIN", Alert.AlertType.INFORMATION).show();
+                        else{       // NẾU CHUYẾN ĐI THAY ĐỔI
+                            if(ClickloadCD  && ClickloadXE && ClickloadGHE){
+                                ///DEFAULT
+                                String Ngayinmoi = sdf.format(dateCur);
+                                this.veCur.setMaChuyen(Integer.parseInt(txtMaCD.getText()));
+                                this.veCur.setMaXE(Integer.parseInt(txtMaXE.getText()));
+                                this.veCur.setSoghe(this.cbXe_ghetrong.getValue().substring(0, 3));
+                                this.veCur.setNgayin(Timestamp.valueOf(Ngayinmoi));
+                                this.veCur.setTrangthai(1);
+                               if(ckOp.checkGheTrung(veCur) != true){
+                                    sv_ve.hoanVeMoi(Menu_XuLyVeController.getVeCurr(), veCur);
+                                    Utils.getBox("HOÀN VÉ THÀNH CÔNG", Alert.AlertType.INFORMATION).show();
+                                    this.loadTableDataVeXE();
+                                    initThongTinTextField();
+                                    this.txtMaKH.setEditable(true);
+                                    this.txtTenKH.setEditable(true);
+                                    initInputFullOp();
+                                }
+                                else
+                                    Utils.getBox("TRÙNG GHẾ", Alert.AlertType.INFORMATION).show();
+                            }
+                            else
+                                Utils.getBox("CHƯA ĐẦY ĐỦ THÔNG TIN", Alert.AlertType.INFORMATION).show();
+                        }
                     }
-                }
-                else
-                    Utils.getBox("MÃ KHÁCH HÀNG HOÀN VÉ KHÔNG ĐƯỢC THAY ĐỔI", Alert.AlertType.WARNING).show();
+                    else
+                        Utils.getBox("MÃ KHÁCH HÀNG HOÀN VÉ KHÔNG ĐƯỢC THAY ĐỔI", Alert.AlertType.WARNING).show();
             }
         }
         else
