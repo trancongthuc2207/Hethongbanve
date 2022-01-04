@@ -79,8 +79,6 @@ public class Sv_CheckOption {
         String date = sdf.format(dateCur);
         
         Timestamp tgHT = Timestamp.valueOf(date); //THOI GIAN HIEN TAI 
-        //Sv_chuyendi cd = new Sv_chuyendi();
-        //cd.getMaToChuyen(vx.getMaChuyen())
         Timestamp tGHetHieuLuc = new Timestamp(vx.getThoigianbatdau().getTime() - 30*60*1000); // THOI GIAN CHUYEN DI - 30p (Truoc 30p trang thai ve vẫn = 1)
         
         if((tgHT.getTime() >= tGHetHieuLuc.getTime()) && vx.getTrangthai() != 2)
@@ -130,7 +128,6 @@ public class Sv_CheckOption {
             }
         }
         conn.close();
-        
         return check;
     }
     
