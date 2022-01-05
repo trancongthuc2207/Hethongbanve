@@ -13,7 +13,11 @@ import Service.Sv_chuyendi;
 import Service.Sv_khachhang;
 import Service.Sv_vexe;
 import Service.Sv_xe;
+import config.PrintBill;
 import config.Utils;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStream;
 import java.net.URL;
 import java.util.Date;
 import java.sql.SQLException;
@@ -553,7 +557,7 @@ public class Menu_DatveController implements Initializable {
             Utils.getBox("ĐANG TRONG TRẠNG THÁI HOÀN VÉ, KHÔNG THỂ ĐẶT VÉ NÀY", Alert.AlertType.WARNING).show();
     }
     
-    public void muaVeButton(ActionEvent event) throws ParseException, SQLException{
+    public void muaVeButton(ActionEvent event) throws ParseException, SQLException, IOException{
         if(this.ISTRANGTHAIHOANVE() != true){
             vexe vx = this.veCurrent();
             Sv_vexe service = new Sv_vexe();
@@ -566,6 +570,8 @@ public class Menu_DatveController implements Initializable {
                             if(CkOP.checkGheTrung(vx) != true){
                                     service.addMuaVeXe(vx);
                                     Utils.getBox("THÊM VÉ THÀNH CÔNG", Alert.AlertType.INFORMATION).show();
+                                    PrintBill inve = new PrintBill();
+                                    inve.PrintBill(vx);
                                     initInputFullOp();
                                     this.loadTableDataVeXE();
                                     this.initThongTinTextField();

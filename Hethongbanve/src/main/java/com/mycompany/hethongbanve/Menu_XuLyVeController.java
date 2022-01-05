@@ -8,6 +8,7 @@ package com.mycompany.hethongbanve;
 import Service.Sv_CheckOption;
 import Service.Sv_vexe;
 import Service.Sv_xe;
+import config.PrintBill;
 import config.Utils;
 import java.io.IOException;
 import java.net.URL;
@@ -136,7 +137,7 @@ public class Menu_XuLyVeController implements Initializable {
             Utils.getBox("VÉ ĐÃ NHẬN, THU HỒI THẤT BẠI!", Alert.AlertType.INFORMATION).show();
     }
     
-    public void nhanVeButton(ActionEvent event) throws SQLException{
+    public void nhanVeButton(ActionEvent event) throws SQLException, IOException{
         Sv_vexe svVe = new Sv_vexe();
         Sv_CheckOption ckOP = new Sv_CheckOption();
         vexe ve = new vexe();
@@ -144,6 +145,7 @@ public class Menu_XuLyVeController implements Initializable {
         if(ckOP.isVeThuHoi(ve) == false){
             svVe.nhanVe(ve);
             Utils.getBox("VÉ ĐÃ NHẬN THÀNH CÔNG!", Alert.AlertType.INFORMATION).show();
+            PrintBill.PrintBill(svVe.getVeXe(ve.getMaVE()));
             this.loadTableDataVeXE();
         }
         else
