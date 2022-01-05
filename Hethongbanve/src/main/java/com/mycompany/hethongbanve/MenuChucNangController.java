@@ -54,8 +54,9 @@ public class MenuChucNangController implements Initializable {
     @FXML private Label txtTrangthainhanvien;
     @Override
    public void initialize(URL url, ResourceBundle rb) {
-        // TODO
-        //////////THONG TIN NHAN VIEN TRUC
+       
+       // TODO
+       //////THONG TIN NHAN VIEN TRUC
         try {
             this.loadThongTinNhanVienTruc();
         } catch (SQLException ex) {
@@ -122,10 +123,10 @@ public class MenuChucNangController implements Initializable {
             nKH.addKhachhang(kh);
             Utils.getBox("THÊM KHÁCH HÀNG THÀNH CÔNG", Alert.AlertType.INFORMATION).show();
             this.refreshTextFieldKH();
-            System.out.println(txtTenKH.getText()+ "\n");
         }
-        else
+        else{
             Utils.getBox("BẠN CHƯA NHẬP ĐẦY ĐỦ THÔNG TIN KHÁCH HÀNG", Alert.AlertType.WARNING).show();
+        }
     }
     ////////VE
     public void loadTableViewVeXE(){

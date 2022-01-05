@@ -746,5 +746,7 @@ public class Menu_DatveController implements Initializable {
         this.maKHtam = 0;
         this.maXEtam = 0;
         this.gheNgoitam = null;
+        this.txtMaKH.setEditable(true);
+        this.txtTenKH.setEditable(true);
     }
 }

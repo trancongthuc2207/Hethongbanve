@@ -128,13 +128,17 @@ public class Menu_XuLyVeController implements Initializable {
         Sv_CheckOption ckOP = new Sv_CheckOption();
         vexe ve = new vexe();
         ve = this.tbVeXE.getSelectionModel().getSelectedItem();
-        if(ckOP.isCanForDeleteVe(ve)){
-            svVe.thuHoiVe(ve);
-            Utils.getBox("THU HỒI THÀNH CÔNG!", Alert.AlertType.INFORMATION).show();
-            this.loadTableDataVeXE();
+        if(ve != null){
+            if(ckOP.isCanForDeleteVe(ve)){
+                svVe.thuHoiVe(ve);
+                Utils.getBox("THU HỒI THÀNH CÔNG!", Alert.AlertType.INFORMATION).show();
+                this.loadTableDataVeXE();
+            }
+            else
+                Utils.getBox("VÉ ĐÃ NHẬN, THU HỒI THẤT BẠI!", Alert.AlertType.INFORMATION).show();
         }
         else
-            Utils.getBox("VÉ ĐÃ NHẬN, THU HỒI THẤT BẠI!", Alert.AlertType.INFORMATION).show();
+                Utils.getBox("MỜI BẠN CHỌN VÉ ĐỂ THU HỒI", Alert.AlertType.INFORMATION).show();
     }
     
     public void nhanVeButton(ActionEvent event) throws SQLException, IOException{
@@ -142,14 +146,18 @@ public class Menu_XuLyVeController implements Initializable {
         Sv_CheckOption ckOP = new Sv_CheckOption();
         vexe ve = new vexe();
         ve = this.tbVeXE.getSelectionModel().getSelectedItem();
-        if(ckOP.isVeThuHoi(ve) == false){
-            svVe.nhanVe(ve);
-            Utils.getBox("VÉ ĐÃ NHẬN THÀNH CÔNG!", Alert.AlertType.INFORMATION).show();
-            PrintBill.PrintBill(svVe.getVeXe(ve.getMaVE()));
-            this.loadTableDataVeXE();
+        if(ve != null){
+            if(ckOP.isVeThuHoi(ve) == false){
+                svVe.nhanVe(ve);
+                Utils.getBox("VÉ ĐÃ NHẬN THÀNH CÔNG!", Alert.AlertType.INFORMATION).show();
+                PrintBill.PrintBill(svVe.getVeXe(ve.getMaVE()));
+                this.loadTableDataVeXE();
+            }
+            else
+                Utils.getBox("VÉ ĐÃ ĐƯỢC NHẬN HOẶC THU HỒI", Alert.AlertType.INFORMATION).show();
         }
         else
-            Utils.getBox("VÉ ĐÃ ĐƯỢC NHẬN HOẶC THU HỒI", Alert.AlertType.INFORMATION).show();
+            Utils.getBox("MỜI BẠN CHỌN VÉ ĐỂ NHẬN", Alert.AlertType.INFORMATION).show();
     }
     
     public void hoanVeButton(ActionEvent event) throws SQLException, IOException{
@@ -157,17 +165,21 @@ public class Menu_XuLyVeController implements Initializable {
         vexe vx = new vexe();
         vx = this.tbVeXE.getSelectionModel().getSelectedItem();
         this.veCurr = vx;
-        if(ckOP.isVeCanTransfer(vx) == true && ckOP.isVeChuaNhan(vx)){
-            this.clickHoanVe = true;
-            FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("Menu_Datve.fxml"));
-            Scene scene = new Scene(fxmlLoader.load());
-            Stage stage = new Stage();
-            stage.setScene(scene);
-            stage.setTitle("MENU ĐẶT VÉ");
-            stage.show(); 
+        if(vx != null){
+            if(ckOP.isVeCanTransfer(vx) == true && ckOP.isVeChuaNhan(vx)){
+                this.clickHoanVe = true;
+                FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("Menu_Datve.fxml"));
+                Scene scene = new Scene(fxmlLoader.load());
+                Stage stage = new Stage();
+                stage.setScene(scene);
+                stage.setTitle("MENU ĐẶT VÉ");
+                stage.show(); 
+            }
+            else
+                Utils.getBox("VÉ ĐÃ ĐƯỢC NHẬN HOẶC THU HỒI", Alert.AlertType.INFORMATION).show();
         }
         else
-            Utils.getBox("VÉ ĐÃ ĐƯỢC NHẬN HOẶC THU HỒI", Alert.AlertType.INFORMATION).show();
+                Utils.getBox("MỜI BẠN CHỌN VÉ ĐỂ XỬ LÝ HOÀN VÉ", Alert.AlertType.INFORMATION).show();
     }
     
     public void loadVeChuaNhan(ActionEvent event) throws SQLException{
