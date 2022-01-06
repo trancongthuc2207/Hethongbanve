@@ -33,7 +33,7 @@ public class PrintBill {
         Login_nhanvien sv_nv = new Login_nhanvien();
         File file = new File(FILE_URL);
         OutputStream outputStream = new FileOutputStream(file,true);
-        OutputStreamWriter outputStreamWriter = new OutputStreamWriter(outputStream);
+        OutputStreamWriter outputStreamWriter = new OutputStreamWriter(outputStream,"utf8");
         
         String tenChuyenDi = sv_cd.getMaToChuyen(vx.getMaChuyen()).getTenChuyen();
         String[] CD = tenChuyenDi.split("-");

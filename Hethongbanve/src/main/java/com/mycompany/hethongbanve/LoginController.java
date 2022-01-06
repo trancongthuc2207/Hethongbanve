@@ -1,6 +1,7 @@
 package com.mycompany.hethongbanve;
 
 import Service.Login_nhanvien;
+import config.HashMK;
 import config.Utils;
 import java.io.IOException;
 import java.sql.SQLException;
@@ -12,6 +13,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
+import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
@@ -20,16 +22,17 @@ public class LoginController {
     public static String tenNVCurrent = "";     //// TEN TAI KHOAN CURRENT
     public static boolean isLogin = false;
     @FXML private TextField txtTaikhoan;
-    @FXML private TextField txtMatkhau;
+    @FXML private PasswordField txtMatkhau;
  
     public void btn_dangnhap(ActionEvent event) throws SQLException, IOException{
+        HashMK hMK = new HashMK();
         String tk = txtTaikhoan.getText();
-        String mk = txtMatkhau.getText();
-        String tk_mk = tk + mk;
+        String mk = hMK.hashMK(txtMatkhau.getText());
+        System.out.println(mk);
         tenNVCurrent = txtTaikhoan.getText();
         Login_nhanvien lg = new Login_nhanvien();
         boolean check = false;
-        check = lg.CheckLogin(tk_mk);
+        check = lg.CheckLogin(tk,mk);
         if(!(txtTaikhoan).getText().isEmpty() || !(txtMatkhau).getText().isEmpty()){
             if(check){
                 isLogin = true;

@@ -3,6 +3,7 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
@@ -47,18 +48,15 @@
             <Insets right="642.0" />
          </GridPane.margin>
       </TextField>
-      <TextField fx:id="txtMatkhau" maxWidth="250.0" GridPane.columnSpan="3" GridPane.halignment="RIGHT" GridPane.rowIndex="2">
-         <font>
-            <Font size="20.0" />
-         </font>
-         <GridPane.margin>
-            <Insets right="642.0" />
-         </GridPane.margin>
-      </TextField>
       <Button mnemonicParsing="false" onAction="#btn_dangnhap" styleClass="DangNhap" text="Đăng nhập" GridPane.columnSpan="3" GridPane.halignment="RIGHT" GridPane.rowIndex="3" GridPane.valignment="TOP">
          <GridPane.margin>
             <Insets right="642.0" />
          </GridPane.margin></Button>
       <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="TextLogin" text="LOGIN" textAlignment="CENTER" GridPane.columnSpan="3" GridPane.halignment="CENTER" GridPane.valignment="BOTTOM" />
+      <PasswordField fx:id="txtMatkhau" maxHeight="44.0" maxWidth="250.0" GridPane.columnSpan="3" GridPane.halignment="RIGHT" GridPane.rowIndex="2">
+         <GridPane.margin>
+            <Insets right="642.0" />
+         </GridPane.margin>
+      </PasswordField>
    </children>
 </GridPane>

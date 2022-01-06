@@ -5,6 +5,7 @@
  */
 package Service;
 
+import config.HashMK;
 import config.jdbcUtils;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -118,24 +119,17 @@ public class Login_nhanvien {
     }
     
     
-    public boolean CheckLogin(String s) throws SQLException{
+    public boolean CheckLogin(String tk,String mkHash) throws SQLException{
         boolean b = false;
         Connection conn = jdbcUtils.getConn();
         Statement stm = conn.createStatement();
-        ResultSet rs = stm.executeQuery("Select * from nhanvien_taikhoan");
-        List<String> result = new ArrayList<>();
+        ResultSet rs = stm.executeQuery("Select * from nhanvien_taikhoan where Taikhoan = \'"+ tk + "\'");
+        String mkData_hash = "";
         while(rs.next()){
-            String tk_mk = rs.getString("Taikhoan") + rs.getString("Matkhau");
-            result.add(tk_mk);
+            mkData_hash = rs.getString("Matkhau");
         }
-        for(String p : result)
-        {
-            if(p.equals(s))
-            {
-                b = true;
-                break;
-            }
-        }
+        if(mkData_hash.equals(mkHash))
+            b = true;
         conn.close();
         return b;
     }

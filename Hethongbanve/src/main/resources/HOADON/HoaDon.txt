@@ -1,80 +1,17 @@
+
 -------------------------------------
-     TH? L N XE/BOARDING PASS    
-       TPHCM - C?n Giu?c    
+     TH·∫∫ L√äN XE/BOARDING PASS    
+       TPHCM - C·∫ßn Giu·ªôc    
      XE/BUS: AK75-58552   
-  N?I ?I/FROM: TPHCM 
-  N?I ??N/TO:  C?n Giu?c    M√ V…/CODE: 18
-  KH?I H¿NH/DEPARTURE TIME: 2022-01-05 19:59:00.0
-  GH?/SEAT: g9     GI¡: 150000.0
-  H? T N/NAME: Tr?n CÙng Th?c
-  ?I?N THO?I/TEL: 213213213
-          M?I L N XE: ROLLROY 35
-  H‡nh kh·ch cÛ m?t t?i v?n phÚng     tr??c gi? kh?i h‡nh
+  N∆†I ƒêI/FROM: TPHCM 
+  N∆†I ƒê·∫æN/TO:  C·∫ßn Giu·ªôc    M√É V√â/CODE: 6
+  KH·ªûI H√ÄNH/DEPARTURE TIME: 2022-01-06 23:50:00.0
+  GH·∫æ/SEAT: g2     GI√Å: 150000.0
+  H·ªå T√äN/NAME: Tr?n C√¥ng Th?c
+  ƒêI·ªÜN THO·∫†I/TEL: 213213213
+          M·ªúI L√äN XE: ROLLROY 35
+  H√†nh kh√°ch c√≥ m·∫∑t t·∫°i vƒÉn ph√≤ng     tr∆∞·ªõc gi·ªù kh·ªüi h√†nh
   To be present at this office        before daparture time
-  NH¬N VI N/EMPLOYEE: Tran Thi H
-  NG¿Y IN/PRINTED DATE: 2022-01-05 14:12:05.0
--------------------------------------
--------------------------------------
-     TH? L N XE/BOARDING PASS    
-       TPHCM - C?n Giu?c    
-     XE/BUS: AK75-58552   
-  N?I ?I/FROM: TPHCM 
-  N?I ??N/TO:  C?n Giu?c    M√ V…/CODE: 19
-  KH?I H¿NH/DEPARTURE TIME: 2022-01-05 19:59:00.0
-  GH?/SEAT: g5     GI¡: 150000.0
-  H? T N/NAME: Tr?n Th? Tuy?t
-  ?I?N THO?I/TEL: 01235412
-          M?I L N XE: ROLLROY 35
-  H‡nh kh·ch cÛ m?t t?i v?n phÚng     tr??c gi? kh?i h‡nh
-  To be present at this office        before daparture time
-  NH¬N VI N/EMPLOYEE: Tran Thi H
-  NG¿Y IN/PRINTED DATE: 2022-01-05 14:20:23.0
--------------------------------------
--------------------------------------
-     TH? L N XE/BOARDING PASS    
-       C?n Gi? - TP H? ChÌ Minh    
-     XE/BUS: AS56*78562   
-  N?I ?I/FROM: C?n Gi? 
-  N?I ??N/TO:  TP H? ChÌ Minh    M√ V…/CODE: 20
-  KH?I H¿NH/DEPARTURE TIME: 2022-01-05 19:59:00.0
-  GH?/SEAT: g15    GI¡: 150000.0
-  H? T N/NAME: Th·i Th?
-  ?I?N THO?I/TEL: 123
-          M?I L N XE: FARUARY
-  H‡nh kh·ch cÛ m?t t?i v?n phÚng     tr??c gi? kh?i h‡nh
-  To be present at this office        before daparture time
-  NH¬N VI N/EMPLOYEE: Tran Thi H
-  NG¿Y IN/PRINTED DATE: 2022-01-05 14:20:36.0
--------------------------------------
--------------------------------------
-     TH? L N XE/BOARDING PASS    
-       TPHCM - C?n Giu?c    
-     XE/BUS: AK75-58552   
-  N?I ?I/FROM: TPHCM 
-  N?I ??N/TO:  C?n Giu?c    M√ V…/CODE: 22
-  KH?I H¿NH/DEPARTURE TIME: 2022-01-05 19:59:00.0
-  GH?/SEAT: g12    GI¡: 150000.0
-  H? T N/NAME: Tr?n CÙng Th?c
-  ?I?N THO?I/TEL: 213213213
-          M?I L N XE: ROLLROY 35
-  H‡nh kh·ch cÛ m?t t?i v?n phÚng     tr??c gi? kh?i h‡nh
-  To be present at this office        before daparture time
-  NH¬N VI N/EMPLOYEE: Tran Thi H
-  NG¿Y IN/PRINTED DATE: 2022-01-05 14:27:57.0
--------------------------------------
--------------------------------------
-     TH? L N XE/BOARDING PASS    
-       C?n Gi? - TP H? ChÌ Minh    
-     XE/BUS: AS56*78562   
-  N?I ?I/FROM: C?n Gi? 
-  N?I ??N/TO:  TP H? ChÌ Minh    M√ V…/CODE: 23
-  KH?I H¿NH/DEPARTURE TIME: 2022-01-05 19:59:00.0
-  GH?/SEAT: g12    GI¡: 150000.0
-  H? T N/NAME: Tr?n CÙng Th?c
-  ?I?N THO?I/TEL: 213213213
-          M?I L N XE: FARUARY
-  H‡nh kh·ch cÛ m?t t?i v?n phÚng     tr??c gi? kh?i h‡nh
-  To be present at this office        before daparture time
-  NH¬N VI N/EMPLOYEE: Tran Thi H
-  NG¿Y IN/PRINTED DATE: 2022-01-05 14:30:56.0
+  NH√ÇN VI√äN/EMPLOYEE: Tran Thi H
+  NG√ÄY IN/PRINTED DATE: 2022-01-06 23:27:01.0
 -------------------------------------
