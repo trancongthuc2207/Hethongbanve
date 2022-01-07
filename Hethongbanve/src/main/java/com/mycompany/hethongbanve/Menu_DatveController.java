@@ -473,6 +473,7 @@ public class Menu_DatveController implements Initializable {
             Utils.getBox("MỜI BẠN NHẬP MÃ XE", Alert.AlertType.WARNING).show();
             this.ClickloadXE = false;
         }
+        this.tbXe.setItems(FXCollections.observableList(loadXe.getXe()));
     }
     
     ///////REFRESH
