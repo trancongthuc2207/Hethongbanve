@@ -1,6 +1,6 @@
 -- MySQL dump 10.13  Distrib 8.0.27, for Win64 (x86_64)
 --
--- Host: 127.0.0.1    Database: hethongbanve
+-- Host: localhost    Database: hethongbanve
 -- ------------------------------------------------------
 -- Server version	8.0.27
 
@@ -38,7 +38,7 @@ CREATE TABLE `nhanvien` (
 
 LOCK TABLES `nhanvien` WRITE;
 /*!40000 ALTER TABLE `nhanvien` DISABLE KEYS */;
-INSERT INTO `nhanvien` VALUES (1,'Tran Van B','123456','123'),(2,'Nguyen Thi A','12346','456'),(3,'Le Van C','12345','123'),(4,'Tran Thi H','123546','546'),(5,'Nguyen Van Toan','12346','4852'),(6,'Ly Thi Lan','12346','4852'),(7,'Nguyen Thi Nhung','12346','4852');
+INSERT INTO `nhanvien` VALUES (1,'Tran Van B','352349478','84380294961'),(2,'Nguyen Thi A','352472558','84364170858'),(3,'Le Van C','352243473','84383392332'),(4,'Tran Thi H','352922902','84380044669'),(5,'Nguyen Van Toan','352189718','84393008193'),(6,'Ly Thi Lan','352920679','84336051433'),(7,'Nguyen Thi Nhung','352938308','84366616060');
 /*!40000 ALTER TABLE `nhanvien` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -51,4 +51,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-01-03  0:22:47
+-- Dump completed on 2022-01-07 21:52:29

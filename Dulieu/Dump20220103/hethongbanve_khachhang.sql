@@ -1,6 +1,6 @@
 -- MySQL dump 10.13  Distrib 8.0.27, for Win64 (x86_64)
 --
--- Host: 127.0.0.1    Database: hethongbanve
+-- Host: localhost    Database: hethongbanve
 -- ------------------------------------------------------
 -- Server version	8.0.27
 
@@ -38,7 +38,7 @@ CREATE TABLE `khachhang` (
 
 LOCK TABLES `khachhang` WRITE;
 /*!40000 ALTER TABLE `khachhang` DISABLE KEYS */;
-INSERT INTO `khachhang` VALUES (1,'Tr?n Công Th?c','121231','213213213'),(2,'Võ V?n H?ng','123456','231345613'),(3,'Trần Thị Tuyết','02541125','01235412');
+INSERT INTO `khachhang` VALUES (1,'Đặng Tuấn Anh','352370659','0355485886'),(2,'Hoàng Đức Anh','352647057','0336194953'),(3,'Lưu Trang Anh','352193130','0363740661'),(4,'Phạm Hoàng Anh','352428284','0341899677'),(5,'Phạm Thị Hiền Anh','352287394','0325679502'),(6,'Đỗ Hoàng Gia Bảo','352454431','0377833397'),(7,'Trần Thị Minh Châu','352764617','0379218569'),(8,'Tăng Phương Chi','352975522','0385872719'),(9,'Phạm Tiến Dũng','352604706','0366683294'),(10,'Nguyễn Thái Dương','352864458','0349429891'),(11,'Vũ Hương Giang','352621235','0358573917'),(12,'Nguyễn Thị Ngân Hà','352737071','0350901723'),(13,'Phạm Xuân Hòa','352788363','0307612955'),(14,'Nguyễn Vũ Gia Hưng','352878111','0352206944'),(15,'Trần Tuấn Hưng','352514982','0340853241'),(16,'Phạm Gia Minh','352386136','0338648400'),(17,'Đỗ Hoàng Mỹ','352382471','0368411161'),(18,'Đỗ Quang Ngọc','352810534','0378788903'),(19,'Đàm Yến Nhi','352336253','0376580738'),(20,'Đoàn Hoàng Sơn','352261329','0393190681'),(21,'Nguyễn Công Thành','352862257','0325783724'),(22,'Bùi Phương Thảo','352791448','0370940175'),(23,'Nguyễn Hương Thảo','352133265','0305046011'),(24,'Tô Diệu Thảo','352411782','0312317788'),(25,'Vũ Phương Thảo','352133220','0373849880'),(26,'Đặng Huyền Thi','352438581','0377276998'),(27,'Đặng Thành Trung','352786262','0371976130'),(28,'Trịnh Thiên Trường','352663320','0317425917'),(29,'Lê Khánh Vy','352281299','0367295179'),(30,'Trần Khánh Vy','352538334','0391242377');
 /*!40000 ALTER TABLE `khachhang` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -51,4 +51,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-01-03  0:22:48
+-- Dump completed on 2022-01-07 21:52:29

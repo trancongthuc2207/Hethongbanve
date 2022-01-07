@@ -1,6 +1,6 @@
 -- MySQL dump 10.13  Distrib 8.0.27, for Win64 (x86_64)
 --
--- Host: 127.0.0.1    Database: hethongbanve
+-- Host: localhost    Database: hethongbanve
 -- ------------------------------------------------------
 -- Server version	8.0.27
 
@@ -38,7 +38,7 @@ CREATE TABLE `nhanvien_taikhoan` (
 
 LOCK TABLES `nhanvien_taikhoan` WRITE;
 /*!40000 ALTER TABLE `nhanvien_taikhoan` DISABLE KEYS */;
-INSERT INTO `nhanvien_taikhoan` VALUES (1,'tranb','b123',1),(2,'nguyena','a123',1),(3,'lec','c123',1),(4,'tranh','h123',2),(5,'nguyentoan','toan123',2),(6,'lylan','lan123',2),(7,'nguyennhung','nhung123',1);
+INSERT INTO `nhanvien_taikhoan` VALUES (1,'tranb','!!&*#b!&*#2!&*#3!&*#',1),(2,'nguyena','a!&*#!!&*#2!&*#3!&*#',1),(3,'lec','!!&*#2!&*#c!&*#3!&*#',1),(4,'tranh','!!&*#2!&*#3!&*#h!&*#',2),(5,'nguyentoan','a!&*#!!&*#2!&*#3!&*#t!&*#n!&*#o!&*#',1),(6,'lylan','a!&*#!!&*#2!&*#3!&*#l!&*#n!&*#',1),(7,'nguyennhung','!!&*#&!&*#3!&*#u!&*#g!&*#h!&*#n&@#$',1);
 /*!40000 ALTER TABLE `nhanvien_taikhoan` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -51,4 +51,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-01-03  0:22:48
+-- Dump completed on 2022-01-07 21:52:29
