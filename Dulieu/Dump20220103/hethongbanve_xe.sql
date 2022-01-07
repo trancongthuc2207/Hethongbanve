@@ -1,6 +1,6 @@
 -- MySQL dump 10.13  Distrib 8.0.27, for Win64 (x86_64)
 --
--- Host: 127.0.0.1    Database: hethongbanve
+-- Host: localhost    Database: hethongbanve
 -- ------------------------------------------------------
 -- Server version	8.0.27
 
@@ -41,7 +41,7 @@ CREATE TABLE `xe` (
 
 LOCK TABLES `xe` WRITE;
 /*!40000 ALTER TABLE `xe` DISABLE KEYS */;
-INSERT INTO `xe` VALUES (1,'BUS','BC12-12345',1,1),(2,'MERCEDES','FT45-5623',1,2),(3,'VINFAST','CV23-56985',1,2),(4,'TOYOTAL','QW78-1254',1,5),(5,'HUYNHDAI','YU56-45621',1,4),(6,'FARUARY','AS56*78562',1,6),(7,'ROLLROY 35','AK75-58552',0,7);
+INSERT INTO `xe` VALUES (1,'Ford Transit','51H-571.49',0,1),(2,'Ford Transit','51H-607.52',0,15),(3,'Ford Transit','51H-863.23',0,15),(4,'Toyota Hiace','51H-546.21',0,10),(5,'Toyota Hiace','51H-278.84',0,7),(6,'Toyota Hiace','51H-767.75',0,4),(7,'Toyota Hiace','51H-457.74',0,2),(8,'Nissan NV350 Urvan','51H-883.17',0,2),(9,'Nissan NV350 Urvan','51H-529.15',0,14),(10,'Nissan NV350 Urvan','51H-402.58',0,11),(11,'Mercedes-Benz Sprinter','51H-174.46',0,3),(12,'Mercedes-Benz Sprinter','51H-928.72',0,12),(13,'Mercedes-Benz Sprinter','51H-176.75',0,6),(14,'Mercedes-Benz Sprinter','51H-543.27',0,8),(15,'Mercedes-Benz Sprinter','51H-219.58',0,9),(16,'Hyundai Solati','51H-914.56',0,5),(17,'Hyundai Solati','51H-877.98',0,13),(18,'Hyundai Solati','51H-118.91',0,13),(19,'Hyundai Solati','51H-933.37',0,15),(20,'Ford Transit (2022)','51H-527.19',0,14),(21,'Ford Transit (2022)','51H-446.21',0,NULL),(22,'Nissan NV350 Urvan (2021)','51H-761.22',0,NULL),(23,'Nissan NV350 Urvan (2021)','51H-126.54',0,NULL),(24,'Toyota Hiace','51H-125.29',0,NULL);
 /*!40000 ALTER TABLE `xe` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -54,4 +54,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-01-03  0:22:48
+-- Dump completed on 2022-01-07 21:52:29

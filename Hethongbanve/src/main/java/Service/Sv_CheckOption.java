@@ -106,8 +106,9 @@ public class Sv_CheckOption {
         String date = sdf.format(dateCur);
         
         Timestamp tgHT = Timestamp.valueOf(date); //THOI GIAN HIEN TAI
-        if(tgHT.getTime() >= cd.getMaToChuyen(xe.getMaChuyen()).getThoiGianBatDau().getTime())  // TRUE LÀ HẾT HẠN
-            check = true;
+        if (xe.getMaChuyen() != 0)
+            if(tgHT.getTime() >= cd.getMaToChuyen(xe.getMaChuyen()).getThoiGianBatDau().getTime())  // TRUE LÀ HẾT HẠN
+                check = true;
         
         return check;
     }

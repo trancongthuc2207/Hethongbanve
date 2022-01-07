@@ -15,3 +15,19 @@
   NHÂN VIÊN/EMPLOYEE: Tran Thi H
   NGÀY IN/PRINTED DATE: 2022-01-06 23:27:01.0
 -------------------------------------
+-------------------------------------
+     THẺ LÊN XE/BOARDING PASS    
+       Hồ Chí Minh - Tây Ninh    
+     XE/BUS: 51H-457.74   
+  NƠI ĐI/FROM: Hồ Chí Minh 
+  NƠI ĐẾN/TO:  Tây Ninh    MÃ VÉ/CODE: 1
+  KHỞI HÀNH/DEPARTURE TIME: 2022-01-07 08:30:00.0
+  GHẾ/SEAT: g1     GIÁ: 80000.0
+  HỌ TÊN/NAME: Đặng Tuấn Anh
+  ĐIỆN THOẠI/TEL: 0355485886
+          MỜI LÊN XE: Toyota Hiace
+  Hành khách có mặt tại văn phòng     trước giờ khởi hành
+  To be present at this office        before daparture time
+  NHÂN VIÊN/EMPLOYEE: Tran Thi H
+  NGÀY IN/PRINTED DATE: 2022-01-07 08:01:18.0
+-------------------------------------
