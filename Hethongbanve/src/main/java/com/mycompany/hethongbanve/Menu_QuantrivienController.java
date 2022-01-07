@@ -459,28 +459,32 @@ public class Menu_QuantrivienController implements Initializable {
 
     //SUA XE
     public void suaXeBtn(ActionEvent event) throws SQLException {
+        Sv_CheckOption check = new Sv_CheckOption();
         xe xe = this.tbXe.getSelectionModel().getSelectedItem();
         if (xe != null) {
             if (Integer.valueOf(this.txtMaXe.getText()) == xe.getMaXE()) {
                 if (this.isXeNotNull()) {
                     if (this.isXeInputExactly()) {
-                        Alert xacNhan = Utils.getBox("Xác nhận sửa thông tin của xe?", Alert.AlertType.CONFIRMATION);
-                        xacNhan.showAndWait().ifPresent((ButtonType res) -> {
-                            if (res == ButtonType.OK) {
-                                xe.setTenXe(this.txtTenXe.getText());
-                                xe.setBienso(this.txtBienSo.getText());
-                                xe.setTrangthai(Integer.valueOf(this.txtTrangThai.getText()));
-                                xe.setMaChuyen(Integer.valueOf(this.txtMaChuyenKN.getText()));
-                                Sv_xe sxe = new Sv_xe();
-                                try {
-                                    sxe.suaXe(xe);
-                                    this.loadTableDataXe();
-                                    Utils.getBox("Sửa thành công !!!", Alert.AlertType.INFORMATION).show();
-                                }catch (SQLException ex) {
-                                    Utils.getBox("Sửa thất bại !!!", Alert.AlertType.ERROR).show();
+                        if (check.isXeGheTrong(xe.getMaXE())) {
+                            Alert xacNhan = Utils.getBox("Xác nhận sửa thông tin của xe?", Alert.AlertType.CONFIRMATION);
+                            xacNhan.showAndWait().ifPresent((ButtonType res) -> {
+                                if (res == ButtonType.OK) {
+                                    xe.setTenXe(this.txtTenXe.getText());
+                                    xe.setBienso(this.txtBienSo.getText());
+                                    xe.setTrangthai(Integer.valueOf(this.txtTrangThai.getText()));
+                                    xe.setMaChuyen(Integer.valueOf(this.txtMaChuyenKN.getText()));
+                                    Sv_xe sxe = new Sv_xe();
+                                    try {
+                                        sxe.suaXe(xe);
+                                        this.loadTableDataXe();
+                                        Utils.getBox("Sửa thành công !!!", Alert.AlertType.INFORMATION).show();
+                                    }catch (SQLException ex) {
+                                        Utils.getBox("Sửa thất bại !!!", Alert.AlertType.ERROR).show();
+                                    }
                                 }
-                            }
-                        });
+                            });
+                        } else
+                            Utils.getBox("Xe vẫn còn vé đặt!", Alert.AlertType.WARNING).show();
                     } else
                         Utils.getBox("Thông tin không hợp lệ!", Alert.AlertType.WARNING).show();
                 } else
